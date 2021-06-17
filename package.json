@@ -1,0 +1,11 @@
+{
+  "name": "blog-website",
+  "version": "1.0.0",
+  "description": "Blog for my own doing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Exper",
+  "license": "ISC"
+}
