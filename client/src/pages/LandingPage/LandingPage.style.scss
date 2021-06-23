@@ -1,0 +1,34 @@
+@import "../../styles/variables";
+
+.landing {
+    width: 100%;
+    height: 100vh;
+
+    background-color: $main-color;
+}
+
+.head {
+    width: 100%;
+    height: 500px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    color: white;
+    text-align: center;
+
+    h1 {
+        font-size: 60px;
+        max-width: 1200px;
+    }
+
+    p {
+        color: $text-secondary;
+        font-size: 19px;
+        margin-top: 30px;
+
+        max-width: 900px;
+    }
+}

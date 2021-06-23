@@ -1,11 +1,23 @@
 import './styles/index.scss';
 
-import Header from "./components/header/header";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import LandingPage from "./pages/LandingPage/LandingPage";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 export default function App() {
   return (
-    <div id="app">
-      <Header/>
-    </div>
+    <Router>
+      <div id="app">
+        <Switch>
+          <Route exact path="/">
+            <LandingPage/>
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard/>
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }

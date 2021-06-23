@@ -1,0 +1,65 @@
+@import "../../styles/variables";
+
+.sidebar {
+    width: 275px;
+    height: calc(100vh - 70px);
+    border-radius: 5px;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    border-right: 2px solid $border-color;
+
+    .active {
+        background-color: $active-color;
+        
+        p {
+            color: white !important;
+        }
+
+        img {
+            filter: invert(1) !important;
+        }
+    }
+
+    .item {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+
+        padding: 12px 15px;
+        box-sizing: border-box;
+
+        width: 100%;
+        border-radius: 3px;
+
+        &:first-child {
+            margin-top: 0px;
+        }
+
+        img {
+            width: 12px;
+            filter: invert(0.75);
+            padding-right: 15px;
+        }
+
+        p {
+            color: $text-secondary;
+
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        &:hover {
+            background-color: $active-color;
+
+            img {
+                filter: invert(1);
+            }
+
+            p {
+                color: white;
+            }
+        }
+    }
+}
