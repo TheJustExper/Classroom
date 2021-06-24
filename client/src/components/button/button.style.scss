@@ -1,0 +1,22 @@
+@import "../../styles/variables";
+
+button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: $text-hover;
+    font-size: 15px;
+    font-weight: 700;
+
+    transition: .1s;
+
+    &:hover {
+        transform: scale(1.025);
+        background-color: darken($text-hover, 10%);
+    }
+
+    &:active {
+        background-color: darken($text-hover, 20%);
+    }
+}
