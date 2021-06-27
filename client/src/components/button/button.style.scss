@@ -1,11 +1,29 @@
 @import "../../styles/variables";
 
+.small {
+    padding: 7px 10px;
+    font-size: 13px;
+}
+
+.fit {
+    width: 100%;
+}
+
+.clear {
+    border: 2px solid $border-color;
+    background: none;
+
+    &:hover {
+        background: none;
+    }
+}
+
 button {
     padding: 10px 20px;
     border-radius: 5px;
     color: white;
     border: none;
-    background-color: $text-hover;
+    background: $gradient-color;
     font-size: 15px;
     font-weight: 700;
 

@@ -19,7 +19,13 @@ export default (props) => {
 
     return (
         <div className="sidebar">
-            { renderItems() }
+            <div className="section">
+                <p className="title">General</p>
+                { renderItems() }
+            </div>
+            <div className="section">
+                <p className="title">Teams</p>
+            </div>
         </div>
     )
 }

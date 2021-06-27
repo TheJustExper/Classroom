@@ -11,8 +11,9 @@ export default () => {
                 <h1>Website</h1>
                 <div className="links">
                     <Link to="/">Home</Link>
+                    <Link to="/components">Components</Link>
                     <Link to="/dashboard">Privacy Policy</Link>
-                    <Link to="/dashboard">Information</Link>
+                    <Link to="/information">Information</Link>
                 </div>
                 <button>Get Started</button>
             </div>

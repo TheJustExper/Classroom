@@ -5,18 +5,18 @@ import "./header.style.scss";
 export default () => {
     return (
         <div className="header">
-            <img src="https://icons-for-free.com/iconfiles/png/512/linked+in+linkedin+logo+social+square+icon-1320086773461479453.png"/>
+            <h1>Website</h1>
             <div className="content">
                 <div className="item active">
                     <p>Dashboard</p>
                     <div className="line"></div>
                 </div>
                 <div className="item">
-                    <p>Schedule</p>
+                    <p>Help</p>
                     <div className="line"></div>
                 </div>
                 <div className="item">
-                    <p>Projects</p>
+                    <p>Components</p>
                     <div className="line"></div>
                 </div>
                 <div className="item">

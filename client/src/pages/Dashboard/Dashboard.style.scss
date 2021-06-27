@@ -13,7 +13,10 @@
         width: calc(100vw - 275px);
         height: calc(100vh - 70px);
 
-        background-color: $background-color;
+        padding: 40px;
+        box-sizing: border-box;
+
+        background-color: $main-color;
 
         .dashboard-bar {
             width: 320px;

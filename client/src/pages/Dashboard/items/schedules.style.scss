@@ -1,0 +1,252 @@
+@import "../../../styles/variables";
+
+$colors: red, orange, blue;
+$repeat: 20;
+
+.dashboard-content-section {
+    padding: 0px 30px 30px 30px;
+    box-sizing: border-box;
+    background-color: $header-color;
+    border-radius: 10px;
+
+    overflow: auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    .outer {
+        display: flex;
+        flex-direction: row;
+
+        width: 100%;
+
+        margin-top: 30px;
+    }
+
+    .schedule {
+        height: 100%;
+
+        display: flex;
+
+        border-left: 2px solid $border-color;
+        border-top: 2px solid $border-color;
+
+        flex-direction: column;
+
+        border-radius: 10px;;
+
+        .bar {
+            height: 70px;
+            width: 100%;
+            border-bottom: 2px solid $border-color;
+
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+
+            .schedule-bar {
+                height: 100%;
+
+                border: 2px solid $text-hover;
+                border-radius: 5px;
+
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                color: white;
+
+                padding: 7px;
+                box-sizing: border-box;
+
+                font-size: 14px;
+
+                b {
+                    font-weight: 500;
+                    color: $text-hover;
+                }
+
+                p {
+                    font-weight: 300;
+                    font-size: 13px;
+                }
+            }
+        }
+
+        .dates {
+            width: 100%;
+
+            background-color: $border-color;
+
+            display: flex;
+
+            border-bottom: 2px solid $border-color;
+
+            padding: 10px;
+
+            .date {
+                text-align: center;
+
+                color: $text-secondary;
+
+                margin-right: 40px;
+
+                box-sizing: border-box;
+
+                &:last-child {
+                    margin-right: 0px;
+                }
+
+                b {
+                    color: $text-hover;
+                }
+            }
+        }
+    }
+
+    .section-schedule {
+        display: flex;
+        flex-direction: column;
+
+        padding-right: 30px;
+
+        .title {
+            height: 62px;
+            width: 100%;
+            background-color: $border-color;
+            border-radius: 5px;
+        }
+
+        .section-schedule-item {
+            height: 70px;
+
+            display: flex;
+            align-items: center;
+            
+            box-sizing: border-box;
+
+            white-space: nowrap;
+
+            border-radius: 3px;
+            
+            p {
+                font-size: 14px;
+            }
+
+            .schedule-bar {
+                width: 200px;
+                height: 45px;
+
+                box-sizing: border-box;
+                border-radius: 2px;
+                background-color: $main-color;
+
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+
+                .bar {
+                    width: 10px;
+                    height: 100%;
+                    
+                    background-color: $text-hover;
+                }
+
+                p {
+                    margin-left: 15px;
+                    font-size: 14px;
+                }
+            }
+
+            @for $i from 1 through 9 {
+                &:nth-child(#{$i}) {
+                   .line {
+                        height: calc(400px - (#{$i}px * 80));
+                   }
+                }
+            }
+
+            .line {
+                width: 2px;
+                background-color: $border-color;
+
+                margin-bottom: 20px;
+            }
+
+            p {
+                color: $text-secondary;
+            }
+        }
+    }
+    
+    .content {
+        width: auto;
+
+        display: flex;
+        flex-direction: row;
+
+        .active {
+            p {
+                color: white !important;
+            }
+
+            .line {
+                display: block !important;
+            }
+        }
+
+        .item {
+            height: 70px;
+            margin-right: 30px;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            p {
+                color: $text-secondary;
+                font-size: 14px;
+                font-weight: 600;
+    
+                transition: .1s;
+    
+                &:hover {
+                    color: #ffffff;
+                }
+    
+                &:last-child {
+                    margin-right: 10px;
+                }
+            }
+
+            &:last-child {
+                margin-right: 10px;
+            }
+
+            .line {
+                width: 100%;
+                height: 2px;
+                background-color: #ffffff;
+                position: absolute;
+
+                border-radius: 5px;
+
+                display: none;
+                transition: .1s;
+
+                bottom: 0;
+            }
+
+            &:hover {
+                p {
+                    color: white;
+                }
+
+                .line {
+                    display: block;
+                }
+            }
+        }
+    }
+}

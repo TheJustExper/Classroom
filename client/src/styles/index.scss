@@ -17,6 +17,7 @@ body {
 
 ::-webkit-scrollbar {
     width: 10px;
+    background: transparent;  /* Optional: just make scrollbar invisible */
   }
   
   /* Track */

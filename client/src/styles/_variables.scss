@@ -1,11 +1,19 @@
-$main-color: #18181c;
+$main-color: #1b1b1b;
+$header-color: #242424;
+
 $secondary-color: #F8F9FA;
 $foreground-color: #21252b;
+
 $background-color: #28282e;
-$item-color: #1e1e23;
+
+$item-color: #242424;
 
 $text-secondary: #908e92;
+
 $text-hover: #FF6F30;
 
-$active-color: #393a3f;
-$border-color: #34353a;
+$gradient-color: linear-gradient(180deg, rgba(255,111,48,1) 0%, rgba(164,69,28,1) 100%);
+
+$active-color: #2f2f2f;
+
+$border-color: #2d2d2d;

@@ -12,16 +12,13 @@
     justify-content: center;
     align-items: center;
 
-    background-color: $main-color;
+    background-color: $header-color;
     border-bottom: 2px solid $border-color;
 
-    img {
-        width: 30px;
-
+    h1 {
         position: absolute;
         left: 20px;
-
-        filter: invert(1);
+        font-size: 20px;
     }
 
     .content {
