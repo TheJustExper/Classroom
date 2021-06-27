@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@import "../../../../styles/variables";
 
 .empty {
     display: flex;
@@ -58,10 +58,6 @@
             color: $text-secondary;
             line-height: 30px;
         }
-    }
-
-    .empty {
-
     }
 
     .projects {

@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import Header from "../../components/header/header";
 import Sidebar from "../../components/sidebar/sidebar";
 
-import Schedules from "./items/Schedules";
-import Projects from "./items/Projects";
+import Schedules from "./items/Schedules/Schedules";
+import Projects from "./items/Projects/Projects";
 
 import Items from "./items/items";
 
