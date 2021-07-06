@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Items from "../../pages/Dashboard/items/items";
 
@@ -9,10 +10,10 @@ export default (props) => {
     const renderItems = () => {
         return Items.map((item, index) => {
             return (
-                <div className={ props.activeSection == index ? "item active" : "item" } onClick={() => props.setSection(index)}>
+                <Link to={"/dashboard/" + item.name.toLowerCase()} className={ props.activeSection == index ? "item active" : "item" }>
                     <img src={ item.img }/>
                     <p>{ item.name }</p>
-                </div>
+                </Link>
             )
         });
     }

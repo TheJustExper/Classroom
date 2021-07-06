@@ -8,10 +8,12 @@ import "./projects.style.scss";
 export default (props) => {
     
     const addToProjects = (data, tech) => {
-        props.setProjects([...props.projects, Object.assign(data, {
+        let project = [...props.projects, Object.assign(data, {
             date: new Date().toLocaleDateString(),
             technologies: tech,
-        })]);    
+        })]
+
+        
     }
 
     return (
@@ -33,9 +35,14 @@ export default (props) => {
 
                 <div className="projects">
                     { props.projects != null ? props.projects.map((data) => <Project data={data}/> ) : ""}
+
+                    <div className="project newProject" onClick={ () => props.setPopup(<CreateProject addToProjects={addToProjects} setPopup={props.setPopup}/>) }>
+                        <p>Create a project</p>
+                    </div>
                 </div>
             </div>
-        }
+            
+            }
         </>
     )
 }

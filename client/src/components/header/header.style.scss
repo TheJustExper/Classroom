@@ -9,16 +9,18 @@
     display: flex;
     flex-direction: row;
 
-    justify-content: center;
     align-items: center;
 
     background-color: $header-color;
     border-bottom: 2px solid $border-color;
 
     h1 {
-        position: absolute;
-        left: 20px;
         font-size: 20px;
+    }
+
+    img {
+        width: 35px;
+        border-radius: 50%;
     }
 
     .content {

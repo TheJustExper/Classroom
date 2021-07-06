@@ -1,34 +1,47 @@
-import React, { useState } from "react";
-
-import './styles/index.scss';
+import React, { useState, useContext } from "react";
+import UserProvider, { UserContext } from "./providers/UserProvider";
 
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
-import Project from "./pages/Project/Project";
 
 import Fade from "./components/fade/Fade";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+
+import './styles/index.scss';
 
 export default function App() {
   const [ popup, setPopup ] = useState(null);
 
+  function PrivateRoute ({ component: Component, authed, ...rest }) {
+    const user = useContext(UserContext);
+    
+    return (
+      <Route
+        {...rest}
+        render={(props) => user
+          ? <Component setPopup={setPopup} {...props} />
+          : <Redirect to={{ pathname: '/login' }} />}
+      />
+    )
+  }
+
   return (
     <Router>
-      <div id="app">
-      { popup != null ? <>{popup} {<Fade/>}</> : "" } 
-        <Switch>
-          <Route exact path="/">
-            <LandingPage/>
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard setPopup={setPopup}/>
-          </Route>
-          <Route path="/project/:id">
-            <Project/>
-          </Route>
-        </Switch>
-      </div>
+      <UserProvider>
+        <div id="app">
+        { popup != null ? <>{popup} {<Fade setPopup={setPopup}/>}</> : "" } 
+
+          <Switch>
+            <Route exact path="/">
+              <LandingPage/>
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard setPopup={setPopup}/>
+            </Route>
+          </Switch>
+        </div>
+      </UserProvider>
     </Router>
   );
 }

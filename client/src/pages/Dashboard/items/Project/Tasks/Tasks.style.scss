@@ -1,0 +1,22 @@
+@import "../../../../../styles/variables";
+
+.project-tasks {
+    .project-tasks-buttons {
+        display: flex;
+        flex-direction: row;
+
+        margin-top: 20px;
+
+        .plus {
+            color: white;
+        }
+
+        .add-task {
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid $border-color !important;
+            background: $header-color !important;
+            color: $text-secondary !important;
+        }
+    }
+}
