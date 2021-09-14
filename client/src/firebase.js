@@ -21,14 +21,17 @@ export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 export const signInWithGoogle = () => {
-    auth.signInWithPopup(provider).then(({ user }) => {
-        // firestore.collection("users").doc(user.uid + "/projects/full-stack-application").set({
-        //     title: "Full Stack Application",
-        //     link: "full-stack-application",
-        //     description: "123",
-        //     date: "06/07/2021",
-        //     technologies: ["react"],
-        // });
+    auth.signInWithPopup(provider).then(function(result) {
+        const isNewUser = result.additionalUserInfo.isNewUser;
+
+        if (isNewUser) {
+            const fire = firestore.collection("users").doc(auth.currentUser.uid);
+        
+            fire.set({
+                uid: auth.currentUser.uid,
+                level: 0,
+                xp: 0,
+            });
+        }
     });
-    
 };

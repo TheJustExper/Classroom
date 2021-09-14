@@ -1,4 +1,6 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useState, useContext } from "react";
+import { UserContext } from "../providers/UserProvider";
+import { firestore } from "../firebase";
 
 import Popup from "./Popup";
 
@@ -7,6 +9,8 @@ import Input from "../components/input/input";
 import "./CreateProject.style.scss";
 
 export default (props) => {
+
+    const user = useContext(UserContext);
 
     const [ inputValues, setInputValues ] = useReducer(
         (state, newState) => ({ ...state, ...newState }),
@@ -21,8 +25,30 @@ export default (props) => {
       };
 
     const addProject = () => {
-        props.addToProjects(inputValues, tech);
-        props.setPopup(null)
+        const { title, description } = inputValues;
+
+        const link = title.toLowerCase().split(" ").join("-");
+        const fire = firestore.collection("users").doc(user.uid + "/projects/" + link);
+        
+        fire.set({
+            title,
+            link,
+            description,
+            date: new Date().toLocaleDateString(),
+            technologies: tech,
+        });
+
+        createSection(1, "To do", fire);
+        createSection(2, "In progress", fire);
+        createSection(3, "Completed", fire);
+
+        props.setPopup(null);
+        props.refresh(user.uid);
+    }
+
+    const createSection = (order, title, fire) => {
+        const sections = fire.collection("sections").doc(title);
+        sections.set({ title, order });
     }
 
     const handleKeyDown = (event) => {
@@ -42,9 +68,12 @@ export default (props) => {
     }
 
     return (
-        <Popup>
+        <Popup class="fixed">
             <div className="content">
-                <h1>Create a Project</h1>
+                <div className="text">
+                    <p>Expers website</p>
+                    <h1>Create a project</h1>
+                </div>
                 <div className="input-outer">
                     <label for="title">Title</label>
                     <input name="title" placeholder="Write a title" onChange={handleOnChange}/>
@@ -62,8 +91,8 @@ export default (props) => {
                 </div>
             </div>
             <div className="bottom">
-                <button className="small clear" onClick={() => props.setPopup(null)}>Cancel</button>
-                <button className="small" onClick={() => addProject()}>Create Project</button>
+                <button className="small clear fit" onClick={() => props.setPopup(null)}>Cancel</button>
+                <button className="small fit" onClick={() => addProject()}>Create Project</button>
             </div>
         </Popup>
     )

@@ -6,11 +6,12 @@
 }
 
 .fit {
-    width: 100%;
+    width: inherit;
 }
 
 .clear {
     border: 2px solid $border-color;
+    color: $text-secondary;
     background: none;
 
     &:hover {
@@ -20,21 +21,37 @@
 
 button {
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 3px;
     color: white;
     border: none;
-    background: $gradient-color;
+    background: $primary-brand-color;
     font-size: 15px;
     font-weight: 700;
 
     transition: .1s;
 
+    position: relative;
+    background-image: linear-gradient(-45deg,rgba(23,23,33,.1) 25%,transparent 0,transparent 50%,rgba(23,23,33,.1) 0,rgba(23,23,33,.1) 75%,transparent 0,transparent) !important;
+    background-size: 20px 20px !important;
+
     &:hover {
-        transform: scale(1.025);
-        background-color: darken($text-hover, 10%);
+        background-color: darken($primary-brand-color, 5%)
     }
 
     &:active {
-        background-color: darken($text-hover, 20%);
+        background-color: darken($primary-brand-color, 10%);
+    }
+}
+
+.primary {
+    background: $primary-brand-color !important;
+    box-shadow: $primary-brand-color 0px 0px 10px 0px, $primary-brand-color 0px 0px 12px 4px inset;
+
+    position: relative;
+    background-image: linear-gradient(-45deg,rgba(23,23,33,.1) 25%,transparent 0,transparent 50%,rgba(23,23,33,.1) 0,rgba(23,23,33,.1) 75%,transparent 0,transparent) !important;
+    background-size: 20px 20px !important;
+
+    &:hover {
+        background-color: darken($primary-brand-color, 20%) !important; 
     }
 }

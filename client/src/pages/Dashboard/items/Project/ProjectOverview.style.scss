@@ -16,6 +16,18 @@
         padding-bottom: 50px;
         border-bottom: 2px solid $border-color;
 
+        .fake {
+            width: 100%;
+            height: 60px;
+            background-color: #2d2d2d;
+
+            margin-bottom: 20px;
+
+            &:last-child {
+                margin: 0px;
+            }
+        }
+
         .project-title {
             color: #908e92;
             font-size: 14px;
@@ -70,29 +82,7 @@
                     color: $color-success;
                 }
 
-                .progress-bar {
-                    width: 100%;
-                    height: 6px;
-
-                    border-radius: 5px;
-                    background-color: $border-color;
-
-                    .green {
-                        background-color: $color-success !important;
-                    }
-
-                    .amber {
-                        background-color: $color-amber !important;
-                    }
-
-                    .bar {
-                        width: 50%;
-                        height: 6px;
-
-                        border-radius: 5px;
-                        background: $color-success;
-                    }
-                }
+            
 
                 p {
                     color: #908e92;

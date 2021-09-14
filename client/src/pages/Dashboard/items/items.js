@@ -8,11 +8,15 @@ export default [
         img: "https://image.flaticon.com/icons/png/128/833/833593.png",
     },
     {
+        name: "Classrooms",
+        img: "https://cdn-icons-png.flaticon.com/512/1422/1422913.png",
+    },
+    {
         name: "Projects",
         img: "https://image.flaticon.com/icons/png/512/1659/1659067.png",
     },
     {
-        name: "Chat",
-        img: "https://image.flaticon.com/icons/png/512/61/61516.png",
-    }
+        name: "Boards",
+        img: "https://cdn-icons-png.flaticon.com/512/3269/3269696.png",
+    },
 ]

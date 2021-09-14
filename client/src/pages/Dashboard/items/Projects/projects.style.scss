@@ -45,7 +45,7 @@
     z-index: 3;
 }
 
-.dashboard-side {
+.side {
     .text {
         color: white;
 
@@ -61,10 +61,10 @@
     }
 
     .projects {
-        margin-top: 30px;
+        margin-top: 20px;
 
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         grid-gap: 20px;
 
         .newProject {

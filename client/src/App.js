@@ -3,11 +3,13 @@ import UserProvider, { UserContext } from "./providers/UserProvider";
 
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import Account from "./pages/Account/Account";
 
 import Fade from "./components/fade/Fade";
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
+import "animate.css";
 import './styles/index.scss';
 
 export default function App() {
@@ -38,6 +40,9 @@ export default function App() {
             </Route>
             <Route path="/dashboard">
               <Dashboard setPopup={setPopup}/>
+            </Route>
+            <Route path="/account">
+              <Account/>
             </Route>
           </Switch>
         </div>

@@ -13,8 +13,8 @@ export default () => {
                 <h1>Keep track of everything you do ensuring you don't miss any deadlines</h1>
                 <p>Are you the one to forget deadlines, not keep track of work or simply not know where to start? Here at __________ we keep track of all of this just for u.</p>
                 <div className="landing-buttons">
-                    <Button>Send me updates</Button>
-                    <Button>Live Demo</Button>
+                    <button className="primary">Send me updates</button>
+                    <button>Live Demo</button>
                 </div>
             </div>
             <div className="landing-section">

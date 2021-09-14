@@ -11,7 +11,7 @@
 
     .itemContent {
         width: calc(100vw - 275px);
-        height: calc(100vh - 70px);
+        height: calc(100vh - #{$header-size});
 
         padding: 50px;
         box-sizing: border-box;

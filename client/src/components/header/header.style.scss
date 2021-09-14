@@ -2,12 +2,16 @@
 
 .header {
     width: 100%;
-    height: 50px;
-    padding: 34px 30px;
+    height: 90px;
+
+    padding: 0px 30px;
+
     box-sizing: border-box;
 
     display: flex;
     flex-direction: row;
+
+    justify-content: space-between;
 
     align-items: center;
 
@@ -15,12 +19,105 @@
     border-bottom: 2px solid $border-color;
 
     h1 {
+        color: white;
         font-size: 20px;
     }
 
-    img {
-        width: 35px;
-        border-radius: 50%;
+    .content-left {
+        display: flex;
+        align-items: center;
+
+        .logo {
+            width: 30px;
+        }
+
+        h1 {
+            margin-left: 10px;
+            font-size: 18px;
+        }
+    }
+
+    .content-right {
+        display: flex;
+
+        justify-content: center;
+        align-items: center;
+
+        .notification {
+            width: 40px;
+
+            margin-right: 15px;
+            padding: 7px;
+            border-radius: 15px;
+            
+            background-color: $border-color;
+            text-align: center;
+
+            i {
+                color: $text-secondary;
+            }
+        }
+
+        .notification-outer {
+            position: relative;
+        }
+
+        .notification-menu {
+            position: absolute;
+
+            top: 45px;
+            right: -80px;
+
+            padding: 5px;
+            box-sizing: border-box;
+            z-index: 1000;
+
+            background-color: $header-color;
+            border: 2px solid $border-color;
+            border-radius: 10px;
+
+            width: 230px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+
+            li {
+                display: flex;
+                align-items: center;
+
+                box-sizing: border-box;
+
+                padding: 12px 10px;
+                border-bottom: 1px solid $border-color;
+
+                color: $text-secondary;
+                font-weight: 500;
+
+                i {
+                    margin-right: 7px;
+                    color: $text-secondary;
+                }
+
+                &:hover {
+                    background-color: $border-color;
+                    color: $primary-brand-color;
+
+                    i {
+                        color: $primary-brand-color;
+                    }
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        .unread {
+            i {
+                color: lighten($color-red, 10%) !important;
+            }
+        }
     }
 
     .content {
@@ -87,11 +184,6 @@
                 }
             }
         }
-    }
-
-    h1 {
-        color: white;
-        font-size: 22px;
     }
 }
 

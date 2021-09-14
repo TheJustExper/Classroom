@@ -1,12 +1,17 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useState, useContext } from "react";
+import { UserContext } from "../../providers/UserProvider";
+import firebase from 'firebase/app';
+import { firestore } from "../../firebase";
 
-import Popup from "./Popup";
+import Popup from "../Popup";
 
-import Input from "../components/input/input";
+import Input from "../../components/input/input";
 
 import "./CreateTask.style.scss";
 
 export default (props) => {
+
+    const user = useContext(UserContext);
 
     const [ inputValues, setInputValues ] = useReducer(
         (state, newState) => ({ ...state, ...newState }),
@@ -29,6 +34,26 @@ export default (props) => {
         }
     }
 
+    const addTask = () => {
+        const { title, description } = inputValues;
+
+        if (title.length == 0 && description.length == 0) return;
+
+        const fire = firestore.collection("users").doc(user.uid + "/projects/" + props.link)
+
+        const sections = fire.collection("sections").doc(props.section);
+        const tasks = sections.collection("tasks");
+
+        tasks.add({
+            title, 
+            description,
+            date: new Date().toLocaleDateString(),
+        });
+        
+        props.refresh(user.uid);
+        props.setPopup(null);
+    }
+
     return (
         <Popup>
             <div className="content">
@@ -44,7 +69,7 @@ export default (props) => {
             </div>
             <div className="bottom">
                 <button className="small clear" onClick={() => props.setPopup(null)}>Cancel</button>
-                <button className="small">Create Task</button>
+                <button className="small" onClick={() => addTask()}>Create Task</button>
             </div>
         </Popup>
     )
