@@ -1,0 +1,167 @@
+@import "../../../../styles/variables";
+
+.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    height: calc(100vh - 200px);
+
+    color: white;
+    font-weight: 500;
+
+    img {
+        width: 50px;
+        margin-bottom: 20px;
+    }
+
+    b {
+        font-weight: 500;
+    }
+
+    p {
+        color: $text-secondary;
+        font-size: 14px;
+        line-height: 25px;
+    }
+
+    button {
+        margin-top: 12px;
+    }
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: calc(100vw - 375px);
+    height: calc(100vh - 200px);
+
+    position: absolute;
+
+    z-index: 3;
+}
+
+.side {
+    .text {
+        color: white;
+
+        h1 {
+            font-size: 25px;
+        }
+
+        p {
+            font-size: 14px;
+            color: $text-secondary;
+            line-height: 30px;
+        }
+    }
+
+    .projects {
+        margin-top: 20px;
+
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        grid-gap: 20px;
+
+        .newProject {
+            display: flex;
+            justify-content: center !important;
+            align-items: center !important;
+
+            border: 2px dotted $border-color !important;
+            background: none !important;
+
+            transition: 0.1s;
+            
+            min-height: 162px;
+
+            &:hover {
+                border: 2px dotted white !important;
+                
+                p {
+                    color: white;
+                }
+            }
+        }
+
+        .project {
+            padding: 15px;
+            box-sizing: border-box;
+            background-color: $header-color;
+
+            border: 2px solid $border-color;
+
+            margin-right: 20px;
+            margin-bottom: 20px;
+
+            border-radius: 5px;
+
+            color: white;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .bottom {
+                margin-top: 30px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                .date {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    p {
+                        font-size: 12px;
+                    }
+
+                    b {
+                        font-size: 12px;
+                    }
+                }
+
+                .technologies-outer {
+                    display: flex;
+                    flex-direction: column;
+
+                    .technologies-inner {
+                        display: flex;
+                        flex-direction: row;
+                        margin-top: 10px;
+
+                        img {
+                            width: 17px;
+                            margin-right: 10px;
+                            
+                            &:last-child {
+                                margin: 0px;
+                            }
+                        }
+
+                        b {
+                            color: white;
+                            font-size: 12px;
+                        }
+                    }
+
+                    p {
+                        font-size: 12px;
+                        color: $text-secondary;
+                    }
+                }   
+            }
+
+            p {
+                color: $text-secondary;
+                font-size: 14px;
+                margin-top: 2px;
+            }
+        }
+    }
+}

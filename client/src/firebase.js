@@ -22,15 +22,23 @@ export const firestore = firebase.firestore();
 
 export const signInWithGoogle = () => {
     auth.signInWithPopup(provider).then(function(result) {
+        window.location.href = "/dashboard";
+
         const isNewUser = result.additionalUserInfo.isNewUser;
+
+        console.log("new user: " + isNewUser);
 
         if (isNewUser) {
             const fire = firestore.collection("users").doc(auth.currentUser.uid);
         
             fire.set({
                 uid: auth.currentUser.uid,
+                displayName: auth.currentUser.displayName,
+                photoURL: auth.currentUser.photoURL,
                 level: 0,
                 xp: 0,
+                roles: ["ADMIN"],
+                classrooms: [],
             });
         }
     });

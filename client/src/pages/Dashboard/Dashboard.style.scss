@@ -10,7 +10,7 @@
     }
 
     .itemContent {
-        width: calc(100vw - 275px);
+        width: -webkit-fill-available;
         height: calc(100vh - #{$header-size});
 
         padding: 50px;

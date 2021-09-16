@@ -12,9 +12,9 @@ export default ({ user }) => {
     return (
         <div className="user-dropdown" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
             <div className="user-info">
-                <span className="user-experience"><i class="fas fa-star"></i> 1200 XP</span>
+                <span className="user-experience"><i class="fas fa-star"></i>{user.xp}</span>
                 <img src={user.photoURL} referrerpolicy="no-referrer"/>
-                <span className="user-username">{user.displayName} <i class="fas fa-sort-down"></i></span>
+                <span className="user-username">{user.displayName}<i class="fas fa-sort-down"></i></span>
             </div>
 
             { hovered ?

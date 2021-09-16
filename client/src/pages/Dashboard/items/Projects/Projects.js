@@ -21,7 +21,7 @@ export default (props) => {
             <div className="side">
                 <div className="text">
                     <h1>Projects</h1>
-                    <p>Seach directory of { props.projects.length } projects</p>
+                    <p className="title">Seach directory of { props.projects.length } projects</p>
                 </div>
 
                 <div className="projects">

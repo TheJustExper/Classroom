@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
-import { UserContext } from "../../providers/UserProvider";
+import { UserContext, hasRole } from "../../providers/UserProvider";
 import { firestore, auth } from "../../firebase";
 
 import Header from "../../components/header/header";
 import Sidebar from "../../components/sidebar/sidebar";
 
-import Schedules from "./items/Schedules/Schedules";
-import Projects from "./items/Projects/Projects";
-import Boards from "./items/Boards/Boards";
+import Users from "./items/Users/Users";
+
 import Classrooms from "./items/Classroom/Classrooms";
+import Classroom from "./items/Classroom/Classroom";
+
+import Projects from "./items/Projects/Projects";
 import ProjectOverview from "./items/Project/ProjectOverview";
+
 import Tasks from "./items/Project/Tasks/Tasks";
 import Files from "./items/Project/Files/Files";
 
@@ -19,6 +22,7 @@ import Items from "./items/items";
 import "./Dashboard.style.scss";
 
 export default (props) => { 
+    const user_context = useContext(UserContext);
     const history = useHistory();
 
     useEffect(() => {
@@ -58,16 +62,22 @@ export default (props) => {
 
                 <div className="itemContent">
                     <Switch>
-                        <Route exact path="/dashboard/projects">
-                            <Projects projects={projects} refresh={refreshProjects} setPopup={props.setPopup}/>
-                        </Route>
-
-                        <Route exact path="/dashboard/boards">
-                            <Boards setPopup={props.setPopup}/>
-                        </Route>
+                        { user_context && hasRole(user_context, ["ADMIN"]) && (
+                            <Route exact path="/dashboard/users">
+                                <Users setPopup={props.setPopup}/>
+                            </Route>
+                        )}
 
                         <Route exact path="/dashboard/classrooms">
                             <Classrooms setPopup={props.setPopup}/>
+                        </Route>
+
+                        <Route exact path="/dashboard/classrooms/:id">
+                            <Classroom setPopup={props.setPopup}/>
+                        </Route>
+
+                        <Route exact path="/dashboard/projects">
+                            <Projects projects={projects} refresh={refreshProjects} setPopup={props.setPopup}/>
                         </Route>
 
                         <Route exact path="/dashboard/project/:id">

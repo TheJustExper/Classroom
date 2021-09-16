@@ -11,7 +11,7 @@ export default (props) => {
         <div className="side">
             <div className="text">
                 <h1>Classrooms</h1>
-                <p>Seach directory of { 0 } classrooms</p>
+                <p className="title">Seach directory of { 0 } classrooms</p>
 
                 <div className="buttons">
                     <button className="classroom-add" onClick={() => props.setPopup(<Popup setPopup={props.setPopup}/>)}>+ Add new classroom</button>
@@ -23,7 +23,7 @@ export default (props) => {
                 <div className="classroom">
                     <div className="head">
                         <div className="text">
-                            <p>Lorem Ipsum</p>
+                            <p>Classroom</p>
                             <h3>Database Design and Development</h3>
                         </div>
                         <span className="edit-icon"><i class="fas fa-ellipsis-v"></i></span>

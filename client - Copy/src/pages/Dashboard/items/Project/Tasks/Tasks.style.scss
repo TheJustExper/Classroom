@@ -1,0 +1,515 @@
+@import "../../../../../styles/variables";
+  
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+
+  .not-moving {
+    position: relative;
+    background-color: $primary-brand-color important;
+    color: #fff !important;
+    background-image: linear-gradient(-45deg,rgba(23,23,33,.1) 25%,transparent 0,transparent 50%,rgba(23,23,33,.1) 0,rgba(23,23,33,.1) 75%,transparent 0,transparent) !important;
+    background-size: 20px 20px !important;
+  }
+
+  .moving {
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  .moving:after {
+    content: "";
+    animation-name: MOVE-BG;
+    animation-duration: 8s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    background: repeating-linear-gradient(315deg, rgb(234, 46, 50), rgb(234, 46, 50) 10px, rgb(211, 43, 48) 10px, rgb(211, 43, 48) 20px);
+    width: 650px;
+    height: 300px;
+    position: absolute;
+    z-index: 1;
+    animation-fill-mode: both;
+  }
+  
+  .checkbox {
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-gap: 0.5em;
+    font-size: 1rem;
+    color: $color-success;
+  
+    &--disabled {
+      color: $text-secondary;
+    }
+  }
+  
+  .checkbox__control {
+    display: inline-grid;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    border: 0.1em solid white;
+  
+    svg {
+      transition: transform 0.1s ease-in 25ms;
+      transform: scale(0);
+      transform-origin: bottom left;
+    }
+  }
+  
+  .checkbox__input {
+    display: grid;
+    grid-template-areas: "checkbox";
+  
+    > * {
+      grid-area: checkbox;
+    }
+  
+    input {
+      opacity: 0;
+      width: 1em;
+      height: 1em;
+  
+      &:focus + .checkbox__control {
+        border: 0.1em solid currentColor !important;
+      }
+  
+      &:checked + .checkbox__control svg {
+        transform: scale(1);
+      }
+  
+      &:disabled + .checkbox__control {
+        color: $text-secondary;
+      }
+    }
+  }
+
+.outer {
+    display: flex;
+    justify-content: space-between;
+
+    .side {
+        width: 35%;
+        border: 2px solid $border-color;
+        border-radius: 5px;
+    }
+}
+
+.blue {
+    background-color: darken($color-blue, 33%) !important;
+    color: $color-blue !important;
+}
+
+.amber {
+    background-color: darken($color-amber, 33%) !important;
+    color: $color-amber !important;
+}
+
+.green {
+    background-color: darken($color-success, 33%) !important;
+    color: $color-success !important;
+}
+
+@mixin random-bgr(){
+    border-bottom: 2px solid rgb(random(255), random(255), random(255));
+}
+
+.button {
+    padding: 7px 10px;
+
+    font-weight: 600;
+
+    box-sizing: border-box;
+    border: 1px solid $border-color !important;
+    background: $header-color;
+    color: $text-secondary;
+}
+
+.project-tasks {
+    width: 100%;
+    user-select: none;
+
+    .project-tasks-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 35px;
+
+        .bar {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .project-tasks-team {
+            display: flex;
+            flex-direction: row;
+
+            margin-right: 20px;
+
+            .user {
+                width: 35px;
+                height: 35px;
+
+                border-radius: 50%;
+
+                margin-left: -10px;
+
+                border: 2px solid $main-color;
+
+                background-color: $header-color;
+
+                &:only-child {
+                    margin-left: 0px;
+                }
+            }
+        }
+    }
+
+    .project-tasks-buttons {
+        display: flex;
+        flex-direction: row;
+
+        button {
+            margin-right: 15px;
+        }
+
+        .add {
+            color: white;
+            border: none !important;
+        }
+    }
+
+    .project-task-board {
+        display: flex;
+        flex-direction: row;
+
+        .project-task-column {
+            width: 300px;
+
+            margin-right: 30px;
+
+            user-select: none;
+
+            .project-tasks-list {
+                max-height: 480px;
+
+                overflow: auto;
+
+                ::-webkit-scrollbar {
+                    margin-left: 5px !important;
+                }
+            }
+
+            // &:nth-child(1) {
+            //     .project-task-header {
+            //         border-bottom: 2px solid $color-red;
+            //     }
+            // }
+
+            // &:nth-child(2) {
+            //     .project-task-header {
+            //         border-bottom: 2px solid $color-amber;
+            //     }
+            // }
+
+            // &:nth-child(3) {
+            //     .project-task-header {
+            //         border-bottom: 2px solid $color-success;
+            //     }
+            // }
+
+            .project-task-header {
+                padding-bottom: 15px;
+                margin-bottom: 25px;
+
+                transition: .1s;
+
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                border-bottom: 2px solid $border-color;
+
+                .edit-outer {
+                    .edit-icon {
+                        color: $text-secondary;
+                        transition: .15s;
+    
+                        &:hover {
+                            color: $primary-brand-color;
+                        }
+    
+                        &:active {
+                            color: $text-secondary;
+                        }
+                    }
+
+                    .edit-menu {
+                        position: absolute;
+                        padding: 5px;
+                        box-sizing: border-box;
+                        z-index: 1000;
+
+                        user-select: none;
+
+                        background-color: $header-color;
+                        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+                        border: 2px solid $border-color;
+                        border-radius: 3px;
+
+                        width: 230px;
+                        font-size: 14px;
+                        font-weight: 400;
+
+                        li {
+                            display: flex;
+                            align-items: center;
+                    
+                            box-sizing: border-box;
+                    
+                            padding: 12px 10px;
+                            border-bottom: 1px solid $border-color;
+                    
+                            color: $text-secondary;
+                            font-weight: 500;
+                    
+                            i {
+                                margin-right: 7px;
+                                color: $text-secondary;
+                            }
+                    
+                            &:hover {
+                                background-color: $border-color;
+                                color: white;
+                            }
+                    
+                            &:last-child {
+                                border-bottom: none;
+                            }
+                        }
+                    }
+                }
+
+                p {
+                    font-size: 15px;
+                    font-weight: 600;
+
+                    color: $text-secondary;
+                }
+            }
+
+            .project-task-add {
+                padding: 10px;
+
+                margin-top: 20px;
+
+                border-radius: 5px;
+                border: 2px dotted $border-color;
+
+                color: $text-secondary;
+                font-weight: 600;
+                
+                font-size: 13px;
+
+                cursor: pointer;
+
+                &:only-child {
+                    margin-top: 0px;
+                }
+            }
+
+            .selected {
+                border: 2px solid $primary-brand-color !important;
+                background: none !important;
+            }
+
+            .project-task-inner {
+                width: 100%;
+
+                cursor: pointer;
+
+                background-color: $header-color;
+                padding: 15px;
+
+                border-radius: 5px;
+                border: 2px solid $border-color;
+
+                box-sizing: border-box;
+
+                user-select: none;
+
+                margin-bottom: 20px;
+
+                .far {
+                    margin-right: 5px;
+                    color: $text-secondary;
+                }
+
+                &:last-child {
+                    margin-bottom: 0px;
+                }
+
+                &:hover {
+                    background-color: $main-color;
+                }
+
+                .title {
+                    font-weight: 500;
+                    font-size: 14px;
+
+                    color: white;
+                }
+
+                .description {
+                    font-size: 13px;
+
+                    color: $text-secondary;
+
+                    margin-top: 15px;
+                }
+
+                .date {
+                    font-size: 11px;
+                    font-weight: 600;
+
+                    margin-top: 15px;
+
+                    border-radius: 2px;
+
+                    padding: 5px 7px;
+                    display: inline-block;
+
+                    i {
+                        margin-right: 2px;
+                    }
+                }
+            }
+        }
+    }
+
+    .project-task {
+        width: 100%;
+
+        border-radius: 5px;
+
+        background-color: $header-color;
+        border: 2px solid $border-color;
+        padding: 20px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        margin-bottom: 20px;
+        cursor: pointer;
+
+        .project-task-inner {
+            width: 100%;
+            margin-left: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dv {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+
+            margin-bottom: 5px;
+
+            .date {
+                font-size: 12px;
+                color: $color-amber;
+            }
+
+            .tags {
+                display: flex;
+                flex-direction: row;
+
+                .reminder {
+                    border: 2px solid $border-color;
+                    box-sizing: border-box;
+                    background: $header-color !important;
+                    color: $text-secondary;
+                }
+            }
+
+            .tag {
+                text-transform:capitalize;
+                padding: 5px 10px;
+                border-radius: 5px !important;
+                color: white;
+                font-size: 13px;
+                font-weight: 600;
+                border: 2px solid transparent;
+
+                color: $header-color;
+
+                margin-right: 10px;
+
+                &:last-child {
+                    margin: 0px;
+                }
+            }
+
+            .important {
+                background-color: $color-amber;
+            }
+
+            .finished {
+                background-color: $color-success;
+            }
+
+            .urgent {
+                background-color: $color-red;
+            }
+
+            .color-important {
+                color: $color-amber;
+            }
+
+            .color-finished {
+                color: $color-success;
+            }
+
+            .color-urgent {
+                color: $color-red;
+            }
+            
+            &:last-child {
+                margin: 0px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+        }
+
+        b {
+            color: white;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        p {
+            color: $text-secondary;
+        }
+
+        .true {
+            color: $color-success;
+        }
+
+        .false {
+            color: $color-red;
+        }
+    }
+}

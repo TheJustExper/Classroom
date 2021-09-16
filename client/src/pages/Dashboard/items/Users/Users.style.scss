@@ -1,0 +1,55 @@
+@import "../../../../styles/variables";
+
+#customers {
+    width: 100%;
+
+    border-collapse: separate;
+    border-spacing: 0 20px;
+
+    td, th {
+        padding: 18px 20px;
+
+    }
+
+    tr {
+        border-radius: 5px;
+        background-color: $header-color;
+        
+    }
+
+    th {
+        background-color: $header-color;
+
+        text-align: left;
+        color: white;
+
+        width: fit-content;
+    }
+
+    td {
+        font-weight: 300;
+    }
+
+    .user {
+        display: flex;
+        align-items: center;
+
+        font-weight: 500;
+
+        img {
+            width: 50px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+    }
+
+    .role {
+        padding: 5px 8px;
+        border-radius: 3px;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        background-color: $primary-brand-color;
+    }
+}

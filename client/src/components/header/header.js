@@ -6,7 +6,11 @@ import { signInWithGoogle, auth } from "../../firebase";
 import "./header.style.scss";
 
 function Notifications() {
-    const [ notifications, setNotifications ] = useState([]);
+    const [ notifications, setNotifications ] = useState([{
+        title: "Physics Homework",
+        description: "Due in on the 5th"
+    }]);
+
     const [ openMenu, setOpenMenu ] = useState(false);
 
     const openNotificationMenu = () => {
@@ -14,22 +18,18 @@ function Notifications() {
     }
 
     useEffect(() => {
-        setTimeout(() => {
-            setNotifications([{
-                id: 1
-            }])
-        }, 1000);
+        
     }, []);
 
     return (
         <div className="notification-outer">
-            <div onClick={() => openNotificationMenu()} className={ "notification " + (notifications.length > 0 ? "unread animate__animated animate__headShake" : "" )}>
+            <div onClick={() => openNotificationMenu()} className={ "notification " + (notifications.length > 0 ? "animate__animated animate__headShake" : "" )}>
                 <i class="fas fa-bell"></i>
             </div>
 
             { openMenu ? 
                 <ul className="notification-menu">
-                    <li class="site-nav-user-item">Notifcation...</li>
+                    { notifications.length > 0 ? notifications.map(({ title, description }) => <li class="site-nav-user-item"><b>{ title }</b> - { description }</li>) : "" }
                 </ul>
             : "" }
         </div>
@@ -42,7 +42,6 @@ export default () => {
     return (
         <div className="header">
             <div className="content-left">
-                <img className="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/250px-Angular_full_color_logo.svg.png"/>
                 <h1>exper.style.scss</h1>
             </div>
             

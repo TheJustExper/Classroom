@@ -21,16 +21,14 @@
 
         box-sizing: border-box;
 
-        background-color: $primary-brand-color;
+        background-color: $header-color;
+        border: 2px solid $border-color;
 
         border-radius: 5px;
 
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-
-        background-image: url(https://cdn-icons-png.flaticon.com/512/5458/5458781.png);
-        background-position: -83% -14%;
 
         &:nth-child(2) {
             background-color: #36ac74;
@@ -41,22 +39,24 @@
             flex-direction: row;
             justify-content: space-between;
 
-            .edit-icon {
-                color: white;
-            }
-        }
-
-        .text {
             p {
-                font-size: 15px;
+                font-size: 14px;
+                line-height: none;
                 color: rgb(225, 225, 225);
             }
     
             h3 {
-                font-size: 16px;
+                font-size: 15px;
+                margin-top: 5px;
+
                 color: white;
             }
+
+            .edit-icon {
+                color: $text-secondary;
+            }
         }
+
 
         .user {
             display: flex;
@@ -65,12 +65,13 @@
             align-items: center;
 
             p {
-                color: rgb(225, 225, 225);
+                color: $text-secondary;
                 margin-left: 10px;
+                font-size: 14px;
             }
 
             img {
-                width: 30px;
+                width: 25px;
                 border-radius: 50%;
             }
         }

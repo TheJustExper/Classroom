@@ -58,6 +58,12 @@
             margin-top: 0px;
         }
 
+        i {
+            width: 30px;
+            color: $text-secondary;
+            padding-right: 15px;
+        }
+
         img {
             width: 30px;
             filter: invert(0.75);

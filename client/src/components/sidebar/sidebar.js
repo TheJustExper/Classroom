@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { hasRole, UserContext } from "../../providers/UserProvider";
 import { Link } from "react-router-dom";
 
 import Items from "../../pages/Dashboard/items/items";
@@ -6,6 +7,7 @@ import Items from "../../pages/Dashboard/items/items";
 import "./sidebar.style.scss";
 
 export default (props) => {
+    const user = useContext(UserContext);
 
     const renderItems = () => {
         return Items.map((item, index) => {
@@ -22,6 +24,14 @@ export default (props) => {
         <div className="sidebar">
             <div className="section">
                 <p className="title">General</p>
+
+                { user && hasRole(user, ["ADMIN"]) && 
+                    <Link to="/dashboard/users" className="item">
+                        <i class="fas fa-users"></i>
+                        <p>Users</p>
+                    </Link>
+                }
+
                 { renderItems() }
             </div>
             <div className="section">

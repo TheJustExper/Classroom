@@ -1,7 +1,13 @@
 import React, { Component, createContext } from "react";
-import { auth } from "../firebase";
+import { firestore, auth } from "../firebase";
 
 export const UserContext = createContext({ user: null });
+
+export const hasRole = (user, roles) => {
+  if (roles.length == 0) return false;
+
+  return roles.every(role => user.roles.includes(role));
+}
 
 class UserProvider extends Component {
   state = {
@@ -10,7 +16,15 @@ class UserProvider extends Component {
 
   componentDidMount = () => {
     auth.onAuthStateChanged(userAuth => {
-      this.setState({ user: userAuth });
+      if (userAuth == null) return this.setState({ user: null });
+      
+      const projectStore = firestore.collection("users").doc(userAuth.uid);
+
+      projectStore.get().then((doc) => {
+          const user = doc.data();
+          
+          this.setState({ user });
+      });
     });
   };
   
