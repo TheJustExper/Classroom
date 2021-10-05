@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import CreateProject from "../../../../popups/CreateProject";
+import CreateProject from "./Popups/CreateProject";
 import Project from "./Project";
 
 import "./projects.style.scss";
@@ -18,17 +18,19 @@ export default (props) => {
                 <button className="small" onClick={() => props.setPopup(<CreateProject refresh={props.refresh} setPopup={props.setPopup}/>) }>Create a Project</button>
             </div> :
 
-            <div className="side">
-                <div className="text">
-                    <h1>Projects</h1>
-                    <p className="title">Seach directory of { props.projects.length } projects</p>
-                </div>
+            <div className="itemContent">
+                <div className="side">
+                    <div className="text">
+                        <h1>Projects</h1>
+                        <p className="title">Seach directory of { props.projects.length } projects</p>
+                    </div>
 
-                <div className="projects">
-                    { props.projects != null ? props.projects.map((data) => <Project data={data}/> ) : ""}
+                    <div className="projects">
+                        { props.projects != null ? props.projects.map((data) => <Project data={data}/> ) : ""}
 
-                    <div className="project newProject" onClick={ () => props.setPopup(<CreateProject refresh={props.refresh} setPopup={props.setPopup}/>) }>
-                        <p>Create a project</p>
+                        <div className="project newProject" onClick={ () => props.setPopup(<CreateProject refresh={props.refresh} setPopup={props.setPopup}/>) }>
+                            <p>Create a project</p>
+                        </div>
                     </div>
                 </div>
             </div>

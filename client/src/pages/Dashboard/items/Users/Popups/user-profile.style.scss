@@ -1,0 +1,70 @@
+@import "../../../../../styles/variables";
+
+.user-content {
+    padding: 0px;
+}
+
+.user-under {
+    padding: 45px 20px 20px 20px;
+
+    .roles-outer {
+        display: flex;
+        flex-direction: column;
+        padding-top: 20px;
+
+        .roles-inner {
+            display: flex;
+            flex-direction: row;
+        }
+
+        b {
+            color: $text-secondary;
+            font-size: 13px;
+            padding-bottom: 15px;
+        }
+
+        span {
+            width: fit-content;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            padding: 8px;
+            border-radius: 3px;
+            background-color: $border-color;
+            margin-right: 5px;
+        }
+    }
+
+    .text {
+        padding: 15px 0px;
+        border-bottom: 2px solid $border-color;
+
+        h1 {
+            padding-bottom: 0px;
+        }
+    }
+}
+
+.user-section {
+    position: relative;
+
+    img {
+        height: 80px;
+
+        border-radius: 50%;
+        border: 8px solid #1D1E1F;
+        box-sizing: content-box;
+
+        position: absolute;
+
+        top: 20px;
+        left: 20px;
+    }
+
+    .background {
+        width: 100%;
+        height: 70px;
+        background-color: $border-color;
+        border-radius: 5px 5px 0px 0px;
+    }
+}

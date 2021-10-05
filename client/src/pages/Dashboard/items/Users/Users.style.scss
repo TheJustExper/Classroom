@@ -1,55 +1,174 @@
 @import "../../../../styles/variables";
 
+.flex-bar {
+    justify-content: space-between;
+
+    .buttons {}
+}
+
+.input-with-icon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding: 0px 0px 0px 10px;
+    border-radius: 3px;
+
+    background-color: $header-color;
+
+    border: 2px solid $border-color;
+
+    input {
+        padding: 8px 0px 8px 10px;
+        border-radius: 3px;
+        color: white;
+        border: none;
+        background-color: transparent;
+        font-size: 15px;
+        font-weight: 500;
+        margin-right: 15px;
+
+        &:focus {
+            border: none;
+            outline: none;
+        }
+    }
+
+    i {
+        color: $text-secondary;
+        font-size: 14px;
+    }
+}
+
+.table-outer {
+    max-height: 76vh;
+
+    overflow: auto;
+}
+
 #customers {
     width: 100%;
 
-    border-collapse: separate;
-    border-spacing: 0 20px;
+    margin-top: 30px;
+
+    border-collapse: collapse;
+    overflow: auto;
 
     td, th {
-        padding: 18px 20px;
-
+        padding: 15px;
     }
 
     tr {
         border-radius: 5px;
-        background-color: $header-color;
-        
+    }
+
+    thead {
+
+        tr {
+            &:first-child {
+                background-color: $header-color;
+    
+                th {
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: $text-secondary;
+                }
+            }
+        }
+    }
+
+    tbody {
+        width: 100%;
+        overflow-y: scroll;
     }
 
     th {
-        background-color: $header-color;
-
         text-align: left;
         color: white;
 
         width: fit-content;
+
+        i {
+            font-size: 12px;
+            margin-right: 3px;
+        }
     }
 
     td {
+        font-size: 13px;
         font-weight: 300;
+        transition: .2s;
+
+        border-radius: 5px;
+
+        &:hover {
+            background-color: $border-color;
+        }
+    }
+
+    .edit-user {
+        text-align: center;
+        color: $text-secondary;
+
+        width: 20px;
+
+        &:hover {
+            background: none !important;
+        }
+
+        i:hover {
+            color: white;
+        }
+    }
+
+    .user-plan {
+        padding: 2px 5px;
+        border-radius: 3px;
+
+        color: #ECB728;
+        border: 1px solid #917124;
+        background-color: #352F1C;
     }
 
     .user {
+        width: fit-content;
         display: flex;
         align-items: center;
+        box-sizing: border-box;
+        padding: 2px 10px 2px 0px;
+        border-radius: 3px;
+        background-color: $border-color;
 
         font-weight: 500;
 
         img {
-            width: 50px;
-            border-radius: 50%;
-            margin-right: 20px;
+            width: 20px;
+            border-radius: 3px;
+            margin-right: 7px;
+        }
+
+        p {
+            font-weight: 300;
         }
     }
 
     .role {
+        font-weight: 600;
+    }
+
+    .online {
+        font-size: 14px;
+
+        color: $color-success;
+    }
+
+    .offline {
         padding: 5px 8px;
         border-radius: 3px;
 
         font-size: 14px;
         font-weight: 600;
 
-        background-color: $primary-brand-color;
+        color: $color-red;
     }
 }

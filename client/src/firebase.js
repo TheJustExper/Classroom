@@ -12,34 +12,39 @@ var firebaseConfig = {
     projectId: "project-management-3cb8f",
     storageBucket: "project-management-3cb8f.appspot.com",
     messagingSenderId: "496276255747",
-    appId: "1:496276255747:web:529ed0f6dda8c093224a36"
+    appId: "1:496276255747:web:529ed0f6dda8c093224a36",
+    databaseURL: "https://project-management-3cb8f-default-rtdb.europe-west1.firebasedatabase.app"
 };
 
 firebase.initializeApp(firebaseConfig);
 
+export const firebaser = firebase;
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
 export const signInWithGoogle = () => {
     auth.signInWithPopup(provider).then(function(result) {
-        window.location.href = "/dashboard";
-
         const isNewUser = result.additionalUserInfo.isNewUser;
-
-        console.log("new user: " + isNewUser);
 
         if (isNewUser) {
             const fire = firestore.collection("users").doc(auth.currentUser.uid);
         
             fire.set({
                 uid: auth.currentUser.uid,
+                email: auth.currentUser.email,
                 displayName: auth.currentUser.displayName,
                 photoURL: auth.currentUser.photoURL,
+
+                joined: Date.now(),
+
                 level: 0,
                 xp: 0,
+
                 roles: ["ADMIN"],
                 classrooms: [],
             });
         }
+
     });
+    
 };

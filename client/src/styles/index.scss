@@ -3,6 +3,32 @@
 @import "./fonts/style.css";
 @import "./variables";
 
+.bg-home {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  overflow: hidden;
+  margin-top: .25rem;
+  margin-right: .25rem;
+  margin-left: .25rem;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: start;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  background-image: url(./shapes.svg);
+  background-position: 50% 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +36,7 @@
 }
 
 body {
-    background-color: $background-color;
+    background-color: $main-color;
 }
 
 #app {

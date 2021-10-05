@@ -19,10 +19,12 @@ import Files from "./items/Project/Files/Files";
 
 import Items from "./items/items";
 
+import Notification from "../../popups/Notification/Notification";
+
 import "./Dashboard.style.scss";
 
 export default (props) => { 
-    const user_context = useContext(UserContext);
+    const { user, loading } = useContext(UserContext);
     const history = useHistory();
 
     useEffect(() => {
@@ -52,49 +54,51 @@ export default (props) => {
 
     const setSection = (id) => setActiveId(id);
 
-    return (
-        <div className="dashboard">
-            <Header/>
-
-            <div className="dashboard-content">
-
-                <Sidebar activeSection={activeId} setSection={setSection}/>
-
-                <div className="itemContent">
-                    <Switch>
-                        { user_context && hasRole(user_context, ["ADMIN"]) && (
-                            <Route exact path="/dashboard/users">
-                                <Users setPopup={props.setPopup}/>
+    if (!loading) {
+        return (
+            <div className="dashboard">
+                <div className="dashboard-content">
+    
+                    <Sidebar activeSection={activeId} setSection={setSection}/>
+    
+                    
+                        <Switch>
+                            { user && hasRole(user, ["ADMIN"]) && (
+                                <Route exact path="/dashboard/users">
+                                    <Users setPopup={props.setPopup}/>
+                                </Route>
+                            )}
+    
+                            <Route exact path="/dashboard/classrooms">
+                                <Classrooms setPopup={props.setPopup}/>
                             </Route>
-                        )}
-
-                        <Route exact path="/dashboard/classrooms">
-                            <Classrooms setPopup={props.setPopup}/>
-                        </Route>
-
-                        <Route exact path="/dashboard/classrooms/:id">
-                            <Classroom setPopup={props.setPopup}/>
-                        </Route>
-
-                        <Route exact path="/dashboard/projects">
-                            <Projects projects={projects} refresh={refreshProjects} setPopup={props.setPopup}/>
-                        </Route>
-
-                        <Route exact path="/dashboard/project/:id">
-                            <ProjectOverview setPopup={props.setPopup}/>
-                        </Route>
-
-                        <Route exact path="/dashboard/project/:id/tasks">
-                            <Tasks setPopup={props.setPopup}/>
-                        </Route>
-
-                        <Route exact path="/dashboard/project/:id/files">
-                            <Files setPopup={props.setPopup}/>
-                        </Route>
-                    </Switch>
+    
+                            <Route exact path="/dashboard/classrooms/:id">
+                                <Classroom setPopup={props.setPopup}/>
+                            </Route>
+    
+                            <Route exact path="/dashboard/projects">
+                                <Projects projects={projects} refresh={refreshProjects} setPopup={props.setPopup}/>
+                            </Route>
+    
+                            <Route exact path="/dashboard/project/:id">
+                                <ProjectOverview setPopup={props.setPopup}/>
+                            </Route>
+    
+                            <Route exact path="/dashboard/project/:id/tasks">
+                                <Tasks setPopup={props.setPopup}/>
+                            </Route>
+    
+                            <Route exact path="/dashboard/project/:id/files">
+                                <Files setPopup={props.setPopup}/>
+                            </Route>
+                        </Switch>
+                    
+    
                 </div>
-
             </div>
-        </div>
-    )
+        )
+    } else {
+        return "";
+    }
 }

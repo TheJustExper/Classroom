@@ -8,64 +8,19 @@ import "./LandingPage.style.scss";
 export default () => {
     return (
         <div className="landing">
+            <div className="bg-home"></div>
             <LandingHeader/>
             <div className="landing-head">
                 <h1>Keep track of everything you do ensuring you don't miss any deadlines</h1>
-                <p>Are you the one to forget deadlines, not keep track of work or simply not know where to start? Here at __________ we keep track of all of this just for u.</p>
+                <p className="subtitle">Are you the one to forget deadlines, not keep track of work or simply not know where to start? Here at __________ we keep track of all of this just for u.</p>
                 <div className="landing-buttons">
-                    <button className="primary">Send me updates</button>
-                    <button>Live Demo</button>
+                    <button>Send me updates</button>
+                    <button className="clear">Live Demo</button>
                 </div>
             </div>
             <div className="landing-section">
-                <h1>Pricing</h1>
-                <div className="landing-features">
-                    <div className="landing-feature">
-                        <div className="landing-feature-topbar">
-                            <div className="icon"></div>
-                            <div className="text">
-                                <b>Basic</b>
-                                <p>$5 / month</p>
-                            </div>
-                        </div>
-                        <div className="landing-feature-features">
-                            <p><img src="https://image.flaticon.com/icons/png/512/3388/3388530.png"/>Get started with projects</p>
-                            <p><img src="https://image.flaticon.com/icons/png/512/3388/3388530.png"/>Flexible team meetings</p>
-                            <p><img src="https://image.flaticon.com/icons/png/512/3388/3388530.png"/>20 GB Cloud storage</p>
-                        </div>
-                        <button>Choose Plan</button>
-                    </div>
-                    <div className="landing-feature">
-                        <div className="landing-feature-topbar">
-                            <div className="icon"></div>
-                            <div className="text">
-                                <b>Premium</b>
-                                <p>$10 / month</p>
-                            </div>
-                        </div>
-                        <div className="landing-feature-features">
-                            <p><img src="https://image.flaticon.com/icons/png/512/3388/3388530.png"/>Get started with projects</p>
-                            <p><img src="https://image.flaticon.com/icons/png/512/3388/3388530.png"/>Flexible team meetings</p>
-                            <p><img src="https://image.flaticon.com/icons/png/512/3388/3388530.png"/>20 GB Cloud storage</p>
-                        </div>
-                        <button>Choose Plan</button>
-                    </div>
-                    <div className="landing-feature">
-                        <div className="landing-feature-topbar">
-                            <div className="icon"></div>
-                            <div className="text">
-                                <b>Business</b>
-                                <p>$ / month</p>
-                            </div>
-                        </div>
-                        <div className="landing-feature-features">
-                            <p><img src="https://image.flaticon.com/icons/png/512/3388/3388530.png"/>Get started with projects</p>
-                            <p><img src="https://image.flaticon.com/icons/png/512/3388/3388530.png"/>Flexible team meetings</p>
-                            <p><img src="https://image.flaticon.com/icons/png/512/3388/3388530.png"/>20 GB Cloud storage</p>
-                        </div>
-                        <button>Contact Us</button>
-                    </div>
-                </div>
+                
+                
             </div>
         </div>
     )

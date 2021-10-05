@@ -46,8 +46,7 @@ export default () => {
             </div>
             
             <div className="content-right">
-                <Notifications/>
-                { user ? <UserDropdown user={user}/> : ""  }
+                
             </div>
         </div>
     )

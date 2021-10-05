@@ -1,7 +1,7 @@
 import React, { Component, createContext } from "react";
 import { firestore, auth } from "../firebase";
 
-export const UserContext = createContext({ user: null });
+export const UserContext = createContext({ user: null, loading: true, });
 
 export const hasRole = (user, roles) => {
   if (roles.length == 0) return false;
@@ -11,7 +11,8 @@ export const hasRole = (user, roles) => {
 
 class UserProvider extends Component {
   state = {
-    user: null
+    user: null,
+    loading: true,
   };
 
   componentDidMount = () => {
@@ -23,14 +24,14 @@ class UserProvider extends Component {
       projectStore.get().then((doc) => {
           const user = doc.data();
           
-          this.setState({ user });
+          this.setState({ user, loading: false });
       });
     });
   };
   
   render() {
     return (
-      <UserContext.Provider value={this.state.user}>
+      <UserContext.Provider value={{ user: this.state.user, loading: this.state.loading }}>
         {this.props.children}
       </UserContext.Provider>
     );

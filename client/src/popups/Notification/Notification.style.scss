@@ -1,0 +1,12 @@
+@import "../../styles/variables";
+
+.notification-outer {
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}

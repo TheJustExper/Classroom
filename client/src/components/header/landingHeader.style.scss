@@ -13,12 +13,6 @@
     justify-content: center;
     align-items: center;
 
-    img {
-        width: 30px;
-        filter: invert(1);
-        margin-right: 20px;
-    }
-
     .content {
         width: 100%;
         max-width: 1200px;
@@ -29,6 +23,19 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
+        .content-left {
+            display: flex;
+            align-items: center;
+    
+            img {
+                width: 80px;
+            }
+    
+            h1 {
+                font-size: 18px;
+            }
+        }
 
         .active {
             a {

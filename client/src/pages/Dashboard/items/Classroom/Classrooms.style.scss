@@ -1,6 +1,7 @@
 @import "../../../../styles/variables";
 
-.buttons {
+.flex-bar {
+    display: flex;
     margin-top: 20px;
 
     button {
@@ -15,7 +16,7 @@
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     grid-gap: 20px;
 
-    .classroom {
+    .classroom-inner {
         padding: 20px;
         min-height: 150px;
 
@@ -29,10 +30,6 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-
-        &:nth-child(2) {
-            background-color: #36ac74;
-        }
 
         .head {
             display: flex;

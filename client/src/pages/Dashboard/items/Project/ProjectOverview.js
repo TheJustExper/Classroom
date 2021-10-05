@@ -42,6 +42,7 @@ export default (props) => {
      }
     
     return (
+        <div className="itemContent">
         <>
             <div className="project-overview">
                     <div className="project-head">
@@ -89,5 +90,6 @@ export default (props) => {
                     </div>
             </div>
         </>
+        </div>
     )
 }

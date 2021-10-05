@@ -5,50 +5,12 @@ import { firestore, auth } from "../../../../../firebase";
 
 import Popup from "../../../../../popups/Popup";
 
-import "./classroom-add.style.scss";
+import "./classroom-content.style.scss";
 
 export default (props) => {
     const { user } = useContext(UserContext);
 
     const create = () => {
-        const fire = firestore.collection("classrooms");
-        
-        fire.add({
-
-            title: "Test Classroom",
-            users: [{
-                id: user.uid,
-                role: "teacher"
-            }],
-            usersIds: [user.uid],
-            date: Date.now(),
-
-        }).then(async function({ id }) {
-
-            const topics = fire.doc(id).collection("topics");
-            const guide = fire.doc(id).collection("guides");
-
-            await topics.add({ 
-                title: "Testing Topic",
-                description: "Understanding a testing thing",
-            });
-
-            await guide.add({
-                id: 1,
-                title: "Add new content",
-                description: "Use the intuitive editing interface to fill your classroom with content",
-                completed: false,
-            })
-
-            await guide.add({
-                id: 2,
-                title: "Invite users",
-                description: "Invite new users to the classroom",
-                completed: false,
-            })
-
-        });
-
         props.setPopup(null);
         props.refresh();
     }

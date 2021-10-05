@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
 import UserProvider, { UserContext } from "./providers/UserProvider";
 
+import { firebaser, firestore, auth } from "./firebase";
+
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import Account from "./pages/Account/Account";
@@ -29,24 +31,24 @@ export default function App() {
   }
 
   return (
-    <Router>
-      <UserProvider>
-        <div id="app">
-        { popup != null ? <>{popup} {<Fade setPopup={setPopup}/>}</> : "" } 
+    <UserProvider>
+      <Router>
+          <div id="app">
+          { popup != null ? <>{popup} {<Fade setPopup={setPopup}/>}</> : "" } 
 
-          <Switch>
-            <Route exact path="/">
-              <LandingPage/>
-            </Route>
-            <Route path="/dashboard">
-              <Dashboard setPopup={setPopup}/>
-            </Route>
-            <Route path="/account">
-              <Account/>
-            </Route>
-          </Switch>
-        </div>
-      </UserProvider>
-    </Router>
+            <Switch>
+              <Route exact path="/">
+                <LandingPage/>
+              </Route>
+              <Route path="/dashboard">
+                <Dashboard setPopup={setPopup}/>
+              </Route>
+              <Route path="/account">
+                <Account/>
+              </Route>
+            </Switch>
+          </div>
+      </Router>
+    </UserProvider>
   );
 }

@@ -11,7 +11,7 @@ import "./CreateTask.style.scss";
 
 export default (props) => {
 
-    const user = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const [ inputValues, setInputValues ] = useReducer(
         (state, newState) => ({ ...state, ...newState }),

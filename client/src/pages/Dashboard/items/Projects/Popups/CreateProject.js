@@ -1,16 +1,16 @@
 import React, { useReducer, useState, useContext } from "react";
-import { UserContext } from "../providers/UserProvider";
-import { firestore } from "../firebase";
+import { UserContext } from "../../../../../providers/UserProvider";
+import { firestore } from "../../../../../firebase";
 
-import Popup from "./Popup";
+import Popup from "../../../../../popups/Popup";
 
-import Input from "../components/input/input";
+import Input from "../../../../../components/input/input";
 
 import "./CreateProject.style.scss";
 
 export default (props) => {
 
-    const user = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
     const [ inputValues, setInputValues ] = useReducer(
         (state, newState) => ({ ...state, ...newState }),

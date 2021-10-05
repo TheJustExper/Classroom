@@ -7,7 +7,7 @@
 
     flex-direction: column;
 
-    height: calc(100vh - 200px);
+    height: 100%;
 
     color: white;
     font-weight: 500;
@@ -46,22 +46,6 @@
 }
 
 .side {
-    .text {
-        color: white;
-
-        h1 {
-            font-size: 25px;
-        }
-
-        p {
-            font-size: 14px;
-            color: $text-secondary;
-        }
-
-        .title {
-            margin-top: 10px;
-        }
-    }
 
     .projects {
         margin-top: 20px;

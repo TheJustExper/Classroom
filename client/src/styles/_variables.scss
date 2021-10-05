@@ -1,5 +1,5 @@
-$main-color: #1b1b1b;
-$header-color: #232323;
+$main-color: #141415;
+$header-color: #1D1E1F;
 
 $secondary-color: #F8F9FA;
 $foreground-color: #21252b;
@@ -8,8 +8,11 @@ $background-color: #28282e;
 
 $item-color: #242424;
 
-$text-secondary: #908e92;
+$text-secondary: #808081;
+$text-on-light: #707070;
 $text-darker: #616161;
+
+$text-subtitle: #939393;
 
 $text-hover: #7f5ff9;
 
@@ -17,17 +20,25 @@ $gradient-color: linear-gradient(90deg, rgba(127,95,249,1) 0%, rgba(96,127,235,1
 
 $active-color: #2f2f2f;
 
-$border-color: #2d2d2d;
+$border-color: #252628;
 
 
 
-$color-success: #5df8bd;
+$color-success: #5effc1;
 $color-amber: #e2b24b;
-$color-red: #ea2e32;
+$color-red: #eb5255;
 
 $color-blue: #52ACF5;
+$color-blue-dark: #2885ec;
+$color-blue-dark-dark: #1c2935;
 $color-purple: #8566F9;
+$color-yellow: #ECB728;
+$color-yellow-dark: #352F1C;
 
-$primary-brand-color: $color-purple;
+$color-green-light: #BBE668;
+
+$primary-brand-color: $color-blue-dark;
+
+
 
 $header-size: 75px;

@@ -1,14 +1,15 @@
 @import "../../styles/variables";
 
 .user-dropdown {
-    height: 70px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
+    width: 100%;
 
     .user-info {
+        width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -27,6 +28,7 @@
         }
 
         @mixin bar {
+            display: flex;
             padding: 9px 18px;
             font-size: 13px;
             font-weight: 600;
@@ -45,6 +47,8 @@
     
             color: $color-amber;
 
+            width: 100%;
+
             i {
                 margin-right: 5px;
                 margin-top: -1px;
@@ -58,7 +62,9 @@
 
             border-radius: 0px 5px 5px 0px;
         
-            color: $primary-brand-color;
+            color: white;
+
+            width: 100%;
 
 
             i {
@@ -71,8 +77,8 @@
 
 .action-menu {
     position: absolute;
-    right: 30px;
-    top: 70px;
+    left: 20px;
+    top: 140px;
 
     padding: 5px;
     box-sizing: border-box;

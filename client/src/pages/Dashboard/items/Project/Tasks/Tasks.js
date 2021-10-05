@@ -8,7 +8,7 @@ import { UserContext } from "../../../../../providers/UserProvider";
 import { firestore, auth } from "../../../../../firebase";
 import { DndContext } from '@dnd-kit/core';
 
-import CreateSection from "../../../../../popups/CreateSection";
+import CreateSection from "../../../../../popups/Task/CreateSection";
 import CreateTask from "../../../../../popups/Task/CreateTask";
 import EditTask from "../../../../../popups/Task/EditTask";
 
@@ -89,6 +89,7 @@ export default (props) => {
   }, []);
 
     return (
+      <div className="itemContent">
        <div className="outer" onClick={() => editClickedMenu(-1)}>
          <div className="project-tasks">  
                <TaskBar/>
@@ -96,7 +97,7 @@ export default (props) => {
                <div className="project-tasks-head">
 
                   <div className="project-tasks-buttons">
-                     <button className="button add primary" onClick={openSection}>+ New Section</button>
+                     <button onClick={openSection}>+ New Section</button>
                      <button className="button filter">Filter Tasks</button>
                      <button className="button filter">Tasks Type</button>
                   </div>
@@ -157,6 +158,7 @@ export default (props) => {
 
                </div>
          </div>
+       </div>
        </div>
     )
 }

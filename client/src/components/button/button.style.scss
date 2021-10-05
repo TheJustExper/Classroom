@@ -20,26 +20,27 @@
 }
 
 button {
-    padding: 10px 20px;
+    padding: 8px 20px;
     border-radius: 3px;
-    color: white;
+    color: $primary-brand-color;
     border: none;
-    background: $primary-brand-color;
+    background-color: $color-blue-dark-dark;
     font-size: 15px;
     font-weight: 700;
 
     transition: .1s;
 
-    position: relative;
-    background-image: linear-gradient(-45deg,rgba(23,23,33,.1) 25%,transparent 0,transparent 50%,rgba(23,23,33,.1) 0,rgba(23,23,33,.1) 75%,transparent 0,transparent) !important;
-    background-size: 20px 20px !important;
-
     &:hover {
-        background-color: darken($primary-brand-color, 5%)
+        background-color: darken($color-blue-dark-dark, 3%)
     }
 
     &:active {
-        background-color: darken($primary-brand-color, 10%);
+        background-color: darken($color-blue-dark-dark, 5%);
+    }
+
+    i {
+        font-size: 13px;
+        margin-left: 2px;
     }
 }
 
