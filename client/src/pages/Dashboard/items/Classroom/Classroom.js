@@ -6,7 +6,11 @@ import { firestore, auth } from "../../../../firebase";
 import faker from "faker";
 
 import Popup from "./Popups/classroom-content";
+
+import { ContentDelete } from "./Popups";
+
 import ProgressBar from "../../../../components/progressBar/ProgressBar"
+
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 import 'react-circular-progressbar/dist/styles.css';
@@ -23,6 +27,7 @@ export default (props) => {
     const [ topics, setTopics ] = useState([]);
 	const [ tasks, setTasks ] = useState([]);
 	const [ guides, setGuides ] = useState([]);
+	const [ assignments, setAssignments ] = useState([]);
 
     const [ teachers, setTeachers ] = useState([]);
 	const [ users, setUsers ] = useState([]);
@@ -63,10 +68,10 @@ export default (props) => {
 							return (
 								<div className="user">
 									<div className="icon">
-										<img src={photoURL}/>
+										<img className="user-me-icon" src={photoURL}/>
 										<div className={"status " + status}></div>
 									</div>
-									<p className={uid == user.uid && "user-me"}>{ displayName }</p>
+									<p style={{ color: "rgb(36,180,126)" }}>{ displayName }</p>
 								</div>
 							)
 
@@ -89,7 +94,7 @@ export default (props) => {
 										<img src={photoURL}/>
 										<div className={"status " + status}></div>
 									</div>
-									<p className={uid == user.uid && "user-me"}>{ displayName }</p>
+									<p style={{ color: "" }}>{ displayName }</p>
 								</div>
 							)
 
@@ -159,91 +164,37 @@ export default (props) => {
 
     const Topic = ({ data }) => {
         const { title, description } = data;
+		const uid = data.id;
+
+		const deleteContentPopup = (uid) => {
+			props.setPopup(<ContentDelete setPopup={props.setPopup} refresh={getTopics} id={id} uid={uid}/>)
+		}
 
         return (
             <div className="classroom-topic">
-                <div className="topic-header">
+                <div className="classroom-topic__header">
                     
                 </div>
 
-                <div className="content">
-                    <div className="topic-progress-bar">
+                <div className="classroom-topic__content">
+                    <div className="classroom-topic__progress-bar">
                         <ProgressBar progress=""/>
                         <span>0/10</span>
                     </div>
 
                     <b>{ title }</b>
-                    <p className="content-subheading">{ description }</p>
+                    <p className="classroom-topic__subheading">{ description }</p>
 
-                    <div className="buttons">
-                        <button className="small">View <i class="fas fa-arrow-circle-right"></i></button>
+                    <div className="classroom-topic__buttons">
+                        <button className="small clear">View <i class="fas fa-arrow-circle-right"></i></button>
+						
+						{ teachers.find(u => u.uid == user.uid) && <span className="classroom-topic__edit" onClick={() => deleteContentPopup(uid)}><i class="fas fa-ellipsis-h"></i></span>}
                     </div>
                 </div>
 
             </div>
         )
     }
-
-    const Activity = () => {
-        return (
-            <div className="activity">
-                <img src={faker.image.avatar()}/>
-                <div className="text">
-                    <p className="title"><span>{faker.name.findName()}</span> edited <font>Blog</font></p>
-                    <p>March 22nd, 2019</p>
-                </div>
-            </div>
-        )
-    }
-
-	const Radial = ({ progress }) => {
-		let percentage = progress;
-
-		return (
-			<div style={{ width: 40, height: 40 }}>
-				<CircularProgressbar
-					value={percentage}
-					text={`${percentage}%`}
-					styles={buildStyles({
-						// Rotation of path and trail, in number of turns (0-1)
-						rotation: 0.25,
-
-						// Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-						strokeLinecap: 'butt',
-
-						// Text size
-						textSize: '25px',
-
-						// How long animation takes to go from one percentage to another, in seconds
-						pathTransitionDuration: 0.5,
-
-						// Can specify path transition in more detail, or remove it entirely
-						// pathTransition: 'none',
-
-						// Colors
-						pathColor: "#eb5255",
-						textColor: '#fff',
-						trailColor: '#252628',
-						backgroundColor: '#252628',
-					})}
-				/>
-			</div>
-		)
-	}
-
-    const addTopic = () => {
-        let itemRefs = firestore.collection('classrooms').doc(id);
-        let topicsRefs = itemRefs.collection("topics");
-
-        topicsRefs.add({ 
-            title: "Testing Topic",
-            description: "Understanding a testing thing",
-        });
-    }
-
-	const addContent = () => {
-		addTopic();
-	}
 
 	const getTopics = () => {
 		let itemRefs = firestore.collection('classrooms').doc(id);
@@ -264,11 +215,25 @@ export default (props) => {
 		let guidesRefs = itemRefs.collection("guides");
 
 		guidesRefs.get().then((doc) => {
-			const items1 = doc.docs.map((doc) => {
+			const items = doc.docs.map((doc) => {
 				return { id: doc.id, ...doc.data() }
 			});
 			
-			setGuides(items1);                 
+			setGuides(items);                 
+		});
+	}
+
+	const getAssignments = () => {
+		let itemRefs = firestore.collection('classrooms').doc(id);
+
+		let guidesRefs = itemRefs.collection("assignments");
+
+		guidesRefs.get().then((doc) => {
+			const items = doc.docs.map((doc) => {
+				return { id: doc.id, ...doc.data() }
+			});
+			
+			setAssignments(items);                 
 		});
 	}
 
@@ -290,8 +255,14 @@ export default (props) => {
 		});
 	}
 
+	const refresh = {
+		getTopics,
+		getGuides,
+		getAssignments,
+	}
+
 	const openContentPopup = () => {
-		props.setPopup(<Popup/>);
+		props.setPopup(<Popup setPopup={props.setPopup} topics={topics} refresh={refresh} id={id}/>);
 	}
     
     useEffect(() => {
@@ -308,6 +279,7 @@ export default (props) => {
 
             getTopics();
 			getGuides();
+			getAssignments();
         }
     }, [ loading ]);
     
@@ -315,11 +287,6 @@ export default (props) => {
         <>
             <div className="itemContent">
                 <div className="classroom side">
-                    <div className="head-image">
-                        <div className="image"></div>
-                        <div className="gradient"></div>
-                    </div>
-
 					<div className="text">
 						<h1>{ classroom ? classroom.title : "Loading..." }</h1>
 						<p className="title">There is <b>{ topics.length }</b> topic(s) avaliable in <b>{ classroom.title }</b></p>
@@ -336,7 +303,20 @@ export default (props) => {
 
                         <div className="classroom-left">
 
-							{ guides.length > 0 &&
+							<div className="container">
+                                <div className="row">
+                                    <i class="fas fa-chart-line"></i>
+                                    <p>Activity</p>
+                                    <div className="line"></div>
+                                </div>
+
+                                <div className="classroom-activity">
+
+                                </div>
+                            </div>
+
+
+							{/* { guides.length > 0 &&
 								<div className="container">
 									<div className="row">
 										<i class="fas fa-book"></i>
@@ -370,7 +350,7 @@ export default (props) => {
 
 									</div>
 								</div>
-							}
+							} */}
 
                             <div className="container">
                                 <div className="row">
@@ -390,11 +370,11 @@ export default (props) => {
 									</thead>
 									<tbody>
 
-										{ tasks.map((task) => {
+										{ assignments.map(({ title, topic }) => {
 											return (
 												<tr>
-													<td>Classroom Setup</td>
-													<td>Finish setting up the classroom</td>
+													<td>{ topic }</td>
+													<td>{ title }</td>
 													<td>{ date }</td>
 													<td>
 														<ProgressBar progress={Math.random() * 100}/>

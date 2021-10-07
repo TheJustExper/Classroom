@@ -2,7 +2,7 @@
 
 .small {
     padding: 7px 10px;
-    font-size: 13px;
+    font-size: .875rem;
 }
 
 .fit {
@@ -22,20 +22,20 @@
 button {
     padding: 8px 20px;
     border-radius: 3px;
-    color: $primary-brand-color;
+    color: white;
     border: none;
-    background-color: $color-blue-dark-dark;
+    background-color: $primary-brand-color;
     font-size: 15px;
     font-weight: 700;
 
     transition: .1s;
 
     &:hover {
-        background-color: darken($color-blue-dark-dark, 3%)
+        background-color: darken($primary-brand-color, 10%)
     }
 
     &:active {
-        background-color: darken($color-blue-dark-dark, 5%);
+        background-color: darken($primary-brand-color, 15%);
     }
 
     i {

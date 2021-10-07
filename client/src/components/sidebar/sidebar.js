@@ -20,7 +20,7 @@ export default (props) => {
                 <div className="section">
                     <UserDropdown user={user}/>
 
-                    { user.plan == 1 && 
+                    { user && user.plan == 1 && 
                         <div className="feature-notification">
                             <p>Unlock premium features</p>
                             <i class="fas fa-arrow-right"></i>

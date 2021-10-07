@@ -22,6 +22,8 @@
 
         img {
             width: 45px;
+            height: 45px;
+            
             border-radius: 50%;
 
             z-index: 2;
@@ -32,7 +34,7 @@
             padding: 9px 18px;
             font-size: 13px;
             font-weight: 600;
-            background-color: $border-color;
+            background-color: $header-color;
             z-index: 1;
             display: flex;
             align-items: center;

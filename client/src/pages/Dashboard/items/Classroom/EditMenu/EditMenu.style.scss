@@ -1,0 +1,62 @@
+@import "../../../../../styles/variables";
+
+.edit-outer {
+    &__icon {
+        color: $text-secondary;
+        transition: .15s;
+
+        &:hover {
+            color: $primary-brand-color;
+        }
+
+        &:active {
+            color: $text-secondary;
+        }
+    }
+
+    &__menu {
+        position: absolute;
+        padding: 5px;
+        box-sizing: border-box;
+        z-index: 1000;
+
+        user-select: none;
+
+        background-color: $header-color;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        border: 2px solid $border-color;
+        border-radius: 3px;
+
+        width: 230px;
+        font-size: 14px;
+        font-weight: 400;
+
+        li {
+            display: flex;
+            align-items: center;
+    
+            box-sizing: border-box;
+    
+            padding: 12px 10px;
+            border-bottom: 1px solid $border-color;
+    
+            color: $text-secondary;
+            font-weight: 500;
+    
+            i {
+                margin-right: 7px;
+                color: $text-secondary;
+            }
+    
+            &:hover {
+                background-color: $border-color;
+                color: white;
+            }
+    
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+}
+

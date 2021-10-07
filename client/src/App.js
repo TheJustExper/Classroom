@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import UserProvider, { UserContext } from "./providers/UserProvider";
 
 import { firebaser, firestore, auth } from "./firebase";
@@ -9,6 +9,8 @@ import Account from "./pages/Account/Account";
 
 import Fade from "./components/fade/Fade";
 
+import Login from "./popups/Login/Login";
+
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 import "animate.css";
@@ -16,6 +18,7 @@ import './styles/index.scss';
 
 export default function App() {
   const [ popup, setPopup ] = useState(null);
+  const { user, loading } = useContext(UserContext);
 
   function PrivateRoute ({ component: Component, authed, ...rest }) {
     const user = useContext(UserContext);
@@ -29,6 +32,12 @@ export default function App() {
       />
     )
   }
+
+  useEffect(() => {
+    if (!user) {
+      //setPopup(<Login setPopup={setPopup}/>);
+    }
+  }, [ loading ])
 
   return (
     <UserProvider>

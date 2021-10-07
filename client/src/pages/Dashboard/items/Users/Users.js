@@ -28,7 +28,7 @@ export default (props) => {
         return sorted.map((user) => {
             var dateObj = new Date(user.joined);
 
-            var month = dateObj.getUTCMonth() + 1; 
+            var month = dateObj.getUTCMonth(); 
             var day = dateObj.getUTCDate();
             var year = dateObj.getUTCFullYear();
             var date = `${monthNames[month]} ${day}, ${year}`;

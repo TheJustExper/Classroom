@@ -1,5 +1,5 @@
-$main-color: #141415;
-$header-color: #1D1E1F;
+$main-color: #181818;
+$header-color: #1F1F1F;
 
 $secondary-color: #F8F9FA;
 $foreground-color: #21252b;
@@ -18,13 +18,13 @@ $text-hover: #7f5ff9;
 
 $gradient-color: linear-gradient(90deg, rgba(127,95,249,1) 0%, rgba(96,127,235,1) 100%);
 
-$active-color: #2f2f2f;
+$active-color: rgb(33, 33, 33);
 
 $border-color: #252628;
 
 
 
-$color-success: #5effc1;
+$color-success: rgb(36,180,126);
 $color-amber: #e2b24b;
 $color-red: #eb5255;
 
@@ -37,7 +37,7 @@ $color-yellow-dark: #352F1C;
 
 $color-green-light: #BBE668;
 
-$primary-brand-color: $color-blue-dark;
+$primary-brand-color: $color-success;
 
 
 

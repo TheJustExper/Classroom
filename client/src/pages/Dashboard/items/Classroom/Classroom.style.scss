@@ -156,6 +156,8 @@
                     color: $primary-brand-color;
                 }
 
+                .user-me-icon {}
+
                 .icon {
                     display: flex;
                     position: relative;
@@ -164,6 +166,8 @@
 
                     img {
                         height: 30px;
+                        width: 30px;
+
                         border-radius: 50%;
                     }
 
@@ -198,7 +202,7 @@
                     color: $text-secondary;
                     font-size: 15px;
                     font-weight: 600;
-                    margin-left: 10px;
+                    margin-left: 15px;
                 }
             }
         }
@@ -206,17 +210,16 @@
 }
 
 
-.buttons {
-    margin-top: 50px;
-
-    button {
-        margin-right: 10px;
-    }
-}
-
-
 .classroom {
     position: relative;
+
+    .buttons {
+        margin-top: 50px;
+    
+        button {
+            margin-right: 10px;
+        }
+    }
 
     .classroom-outer {
         display: flex;
@@ -621,7 +624,7 @@
         .classroom-topic {
             border-radius: 10px;
 
-            .topic-header {
+            &__header {
                 height: 135px;
                 border-radius: 5px;
 
@@ -632,27 +635,57 @@
                 }
             }
 
-            .content {
-                padding: 20px 0px 0px 0px;
-                box-sizing: border-box;
+            &__buttons {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-top: 20px;
 
-                .topic-progress-bar {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    justify-content: space-between;
+                button {
+                    font-size: 11px;
 
-                    margin-bottom: 10px;
-
-                    span {
-                        padding: 5px 7px;
-                        border-radius: 5px;
-                        font-size: 13px;
-                        color: $text-secondary;
-                        font-weight: 500;
-                        background-color: $border-color;
+                    i {
+                        font-size: 11px;
                     }
                 }
+            }
+
+            &__edit {
+                color: $text-secondary;
+
+                text-align: center;
+                
+                width: 30px;
+                padding: 5px;
+                border-radius: 50%;
+
+                &:hover {
+                    background-color: darken($primary-brand-color, 30%);
+                    color: $primary-brand-color;
+                }
+            }
+
+            &__progress-bar {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+
+                margin-bottom: 10px;
+
+                span {
+                    padding: 5px 7px;
+                    border-radius: 5px;
+                    font-size: 13px;
+                    color: $text-secondary;
+                    font-weight: 500;
+                    background-color: $border-color;
+                }
+            }
+
+            &__content {
+                padding: 20px 0px 0px 0px;
+                box-sizing: border-box;
 
                 b {
                     color: white;
@@ -663,26 +696,14 @@
                     color: $text-secondary;
                     font-size: 13px;
                 }
+            }
 
-                &-subheading {
-                    margin-top: 5px;
+            &__subheading {
+                margin-top: 5px;
 
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                }
-
-                .buttons {
-                    margin-top: 20px;
-
-                    button {
-                        font-size: 11px;
-
-                        i {
-                            font-size: 11px;
-                        }
-                    }
-                }
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
     }
