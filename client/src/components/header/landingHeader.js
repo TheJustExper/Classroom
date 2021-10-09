@@ -13,7 +13,7 @@ export default () => {
         <div className="landingHeader">
             <div className="content">
                 <div className="content-left">
-                    <img src="https://assets-global.website-files.com/5fb2b5d778be407a560568d8/5fbfce6ce38b23552b2d06fc_attioLogo_white%26colour.svg"/>
+                   
                 </div>
                 <div className="links">
                     <Link to="/">Home</Link>

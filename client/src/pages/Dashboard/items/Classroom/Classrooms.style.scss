@@ -22,8 +22,10 @@
 
         box-sizing: border-box;
 
-        background-color: $header-color;
-        border: 2px solid $border-color;
+        @include themify($themes) {
+            background-color: themed("header-color");
+            border: 2px solid themed("border-color");
+        }
 
         border-radius: 5px;
 
@@ -39,14 +41,19 @@
             p {
                 font-size: 14px;
                 line-height: none;
-                color: rgb(225, 225, 225);
+
+                @include themify($themes) {
+                    color: themed("text-secondary");
+                }
             }
     
             h3 {
                 font-size: 15px;
                 margin-top: 5px;
 
-                color: white;
+                @include themify($themes) {
+                    color: themed("text-primary");
+                }
             }
 
             .edit-icon {

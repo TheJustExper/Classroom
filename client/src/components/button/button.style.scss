@@ -10,8 +10,11 @@
 }
 
 .clear {
-    border: 2px solid $border-color;
-    color: $text-secondary;
+    @include themify($themes) {
+        color: themed("text-secondary");
+        border: 2px solid themed("border-color");
+    }
+
     background: none;
 
     &:hover {
@@ -25,8 +28,8 @@ button {
     color: white;
     border: none;
     background-color: $primary-brand-color;
-    font-size: 15px;
-    font-weight: 700;
+    font-size: 13px;
+    font-weight: 500;
 
     transition: .1s;
 

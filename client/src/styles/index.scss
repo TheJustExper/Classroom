@@ -36,7 +36,9 @@
 }
 
 body {
-    background-color: $main-color;
+  @include themify($themes) {
+    background-color: themed('main-color');  
+  }
 }
 
 #app {

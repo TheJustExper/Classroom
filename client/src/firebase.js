@@ -60,8 +60,6 @@ export const registerWithEmailAndPassword = (email, password) => {
 
 export const loginWithEmailAndPassword = (email, password) => {
     auth.signInWithEmailAndPassword(email, password).then((result) => {
-        alert("Logged in");
-
         let doc = firestore.collection("users").doc(auth.currentUser.uid);
 
         doc.get().then((docData) => {

@@ -13,21 +13,13 @@ export default (props) => {
     const { user } = useContext(UserContext);
     const { getTopics } = props.refresh;
 
-    const [ inputValues, setInputValues ] = useReducer(
-        (state, newState) => ({ ...state, ...newState }),
-        { title: '', description: '' }
-    );
-      
-    const handleOnChange = event => {
-        const { name, value } = event.target;
-        setInputValues({ [name]: value });
-    };
-
     const clicked = async () => {
         const fire = firestore.collection("classrooms");
-        const topics = fire.doc(props.id).collection("topics");
+        const base = fire.doc(props.id).collection(props.type);
+
+        console.log(props.id, props.type, props.uid)
         
-        await topics.doc(props.uid).delete();
+        await base.doc(props.uid).delete();
 
         props.setPopup(null);
         props.refresh();

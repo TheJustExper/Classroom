@@ -42,7 +42,7 @@ export default function App() {
   return (
     <UserProvider>
       <Router>
-          <div id="app">
+          <div id="app" className="theme-light">
           { popup != null ? <>{popup} {<Fade setPopup={setPopup}/>}</> : "" } 
 
             <Switch>

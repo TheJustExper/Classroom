@@ -6,6 +6,7 @@ import { firestore, auth } from "../../../../firebase";
 import faker from "faker";
 
 import Popup from "./Popups/classroom-content";
+import Topic from "./Components/Topic";
 
 import { ContentDelete } from "./Popups";
 
@@ -162,40 +163,6 @@ export default (props) => {
 		)
 	}
 
-    const Topic = ({ data }) => {
-        const { title, description } = data;
-		const uid = data.id;
-
-		const deleteContentPopup = (uid) => {
-			props.setPopup(<ContentDelete setPopup={props.setPopup} refresh={getTopics} id={id} uid={uid}/>)
-		}
-
-        return (
-            <div className="classroom-topic">
-                <div className="classroom-topic__header">
-                    
-                </div>
-
-                <div className="classroom-topic__content">
-                    <div className="classroom-topic__progress-bar">
-                        <ProgressBar progress=""/>
-                        <span>0/10</span>
-                    </div>
-
-                    <b>{ title }</b>
-                    <p className="classroom-topic__subheading">{ description }</p>
-
-                    <div className="classroom-topic__buttons">
-                        <button className="small clear">View <i class="fas fa-arrow-circle-right"></i></button>
-						
-						{ teachers.find(u => u.uid == user.uid) && <span className="classroom-topic__edit" onClick={() => deleteContentPopup(uid)}><i class="fas fa-ellipsis-h"></i></span>}
-                    </div>
-                </div>
-
-            </div>
-        )
-    }
-
 	const getTopics = () => {
 		let itemRefs = firestore.collection('classrooms').doc(id);
         let topicsRefs = itemRefs.collection("topics");
@@ -286,37 +253,25 @@ export default (props) => {
     return (
         <>
             <div className="itemContent">
-                <div className="classroom side">
-					<div className="text">
-						<h1>{ classroom ? classroom.title : "Loading..." }</h1>
-						<p className="title">There is <b>{ topics.length }</b> topic(s) avaliable in <b>{ classroom.title }</b></p>
-					</div>
-
-					{ teachers.find(u => u.uid == user.uid) && (
-						<div className="buttons">
-							<button onClick={() => openContentPopup()}>Add Content</button>
-							<button className="clear">Settings</button>
+                <div className="classroom">
+					<div className="classroom__header container">
+						<div className="text">
+							<h1>{ classroom ? classroom.title : "Loading..." }</h1>
+							<p className="title">There is <b>{ topics.length }</b> topic(s) avaliable in <b>{ classroom.title }</b></p>
 						</div>
-					)}
+
+						{ teachers.find(u => u.uid == user.uid) && (
+							<div className="buttons">
+								<button onClick={() => openContentPopup()}>Add Content</button>
+								<button className="clear">Settings</button>
+							</div>
+						)}
+					</div>
 
                     <div className="classroom-outer">
 
                         <div className="classroom-left">
-
-							<div className="container">
-                                <div className="row">
-                                    <i class="fas fa-chart-line"></i>
-                                    <p>Activity</p>
-                                    <div className="line"></div>
-                                </div>
-
-                                <div className="classroom-activity">
-
-                                </div>
-                            </div>
-
-
-							{/* { guides.length > 0 &&
+							 {/* { guides.length > 0 &&
 								<div className="container">
 									<div className="row">
 										<i class="fas fa-book"></i>
@@ -350,16 +305,28 @@ export default (props) => {
 
 									</div>
 								</div>
-							} */}
+							}  */}
+
+							{/* <div className="container">
+                                <div className="row">
+                                    <i class="fas fa-chart-line"></i>
+                                    <p>Activity</p>
+                                    <div className="line"></div>
+                                </div>
+
+                                <div className="classroom-activity">
+
+                                </div>
+                            </div> */}
 
                             <div className="container">
                                 <div className="row">
                                     <i class="fas fa-tasks"></i>
-                                    <p>Tasks <b>({ tasks.length })</b></p>
+                                    <p>Assignment(s) <b>({ assignments.length })</b></p>
                                     <div className="line"></div>
                                 </div>
 
-								<table className="classroom-homework">
+								{/* <table className="classroom-homework-table">
 									<thead>
 										<tr>
 											<th>Topic</th>
@@ -370,21 +337,41 @@ export default (props) => {
 									</thead>
 									<tbody>
 
-										{ assignments.map(({ title, topic }) => {
+										{ assignments.map((data) => {
+											const { title, topic } = data;
+											const uid = data.id;
+
 											return (
 												<tr>
-													<td>{ topic }</td>
+													<td onClick={() => props.setPopup(<ContentDelete type="assignments" setPopup={props.setPopup} refresh={getAssignments} id={id} uid={uid}/>)}>{ topic }</td>
 													<td>{ title }</td>
 													<td>{ date }</td>
 													<td>
-														<ProgressBar progress={Math.random() * 100}/>
+														<ProgressBar progress={0}/>
 													</td>
 												</tr>
 											)
 										})}
 									
 									</tbody>
-								</table>
+								</table> */}
+
+								<div className="classroom-homework">
+									{ assignments.map((data) => {
+										const { title, topic } = data;
+										const uid = data.id;
+
+										return (
+											<div className="classroom-homework__item" onClick={() => props.setPopup(<ContentDelete type="assignments" setPopup={props.setPopup} refresh={getAssignments} id={id} uid={uid}/>)}>
+												<div className="classroom-homework__icon" style={{ backgroundColor: `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 126)` }}></div>
+												<div className="classroom-homework__text">
+													<b>{ title }</b>
+													<p>{ topic }</p>
+												</div>
+											</div>
+										)
+									})}
+								</div>
                             </div>
                             
                             <div className="container">
@@ -396,7 +383,7 @@ export default (props) => {
 
                                 <div className="classroom-topics">
 
-                                    { topics.map(topic => <Topic data={topic}/>) }  
+                                    { topics.map(topic => <Topic data={topic} teacher={teachers.find(u => u.uid == user.uid)} id={id} refresh={getTopics} setPopup={props.setPopup}/>) }  
 
                                 </div>
                             </div>

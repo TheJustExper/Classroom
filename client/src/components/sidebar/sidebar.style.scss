@@ -5,12 +5,14 @@
     min-width: 260px;
 
     height: 100vh;
-    border-radius: 5px;
 
     padding: 15px;
     box-sizing: border-box;
 
-    border-right: 1px solid $border-color;
+    @include themify($themes) {
+        border-right: 1px solid themed('border-color');  
+        background-color: themed('main-color');
+    }
 
     display: flex;
     flex-direction: column;
@@ -44,7 +46,10 @@
     .section {
         padding-top: 20px;
         padding-bottom: 20px;
-        border-bottom: 2px solid $border-color;
+
+        @include themify($themes) {
+            border-bottom: 2px solid themed('border-color');  
+        }
 
         &:first-child {
             padding-top: 0px;
@@ -56,7 +61,10 @@
         }
 
         .title {
-            color: $text-secondary;
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+
             font-weight: 600;
             font-size: 13px;
             padding-left: 10px;
@@ -70,14 +78,20 @@
 
 
     .active {
-        background-color: $active-color;
+        @include themify($themes) {
+            background-color: themed("active-color");
+        }
         
         p {
-            color: white !important;
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
         }
 
         i {
-            color: white !important;
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
         }
 
         img {
@@ -105,14 +119,15 @@
             font-size: 12px;
             font-weight: 700;
 
-            color: $header-color;
-            background-color: $text-secondary;
+            @include themify($themes) {
+                color: themed("header-color");
+                background-color: themed("text-secondary");
+            }
         }
 
         &-inner {
             display: flex;
             flex-direction: row;
-            
         }
 
         &:first-child {
@@ -121,8 +136,11 @@
 
         i {
             width: 30px;
-            color: $text-secondary;
             padding-right: 15px;
+
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
         }
 
         img {
@@ -132,17 +150,23 @@
         }
 
         p {
-            color: $text-secondary;
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
 
             font-size: 13px;
             font-weight: 400;
         }
 
         &:hover {
-            background-color: $active-color;
+            @include themify($themes) {
+                background-color: themed("active-color");
+            }
 
             i {
-                color: white;
+                @include themify($themes) {
+                    color: themed("text-primary");
+                }
             }
 
             img {
@@ -150,7 +174,9 @@
             }
 
             p {
-                color: white;
+                @include themify($themes) {
+                    color: themed("text-primary");
+                }
             }
         }
     }

@@ -1,3 +1,44 @@
+$themes: (
+  light: (
+    main-color: #F4F6F8,
+    header-color: #ffff,
+    active-color: rgb(220, 220, 220),
+    text-primary: #000,
+    text-secondary: #5c6178,
+    border-color: #E3E5E9,
+  ),
+  dark: (
+    main-color: #181818,
+    header-color: #1f1f1f,
+    active-color: rgb(33, 33, 33),
+    text-primary: #fff,
+    text-secondary: #808081,
+    border-color: #252628,
+  ),
+);
+
+
+@mixin themify($themes: $themes) {
+  @each $theme, $map in $themes {
+
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+
+      @content;
+      $theme-map: null !global;
+    }
+
+  }
+}
+
+@function themed($key) {
+    @return map-get($theme-map, $key);
+}
+
 $main-color: #181818;
 $header-color: #1F1F1F;
 
@@ -39,6 +80,5 @@ $color-green-light: #BBE668;
 
 $primary-brand-color: $color-success;
 
-
-
 $header-size: 75px;
+

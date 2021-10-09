@@ -8,7 +8,10 @@
     }
 
     &__widget {
-        border: 2px solid $border-color;
+        @include themify($themes) {
+            border: 2px solid themed("border-color");
+        }
+
         border-radius: 5px;
         padding: 10px;
         box-sizing: border-box;
@@ -24,7 +27,9 @@
 
         transition: .2s;
     
-        color: $text-secondary;
+        @include themify($themes) {
+            color: themed("text-secondary");
+        }
 
         img {
             height: 40px;
@@ -37,10 +42,14 @@
         }
 
         &:hover {
-            border: 2px solid white;
+            @include themify($themes) {
+                border: 2px solid themed("text-primary");
+            }
 
             p {
-                color: white;
+                @include themify($themes) {
+                    color: themed("text-primary");
+                }
             }
         }
     }

@@ -5,7 +5,10 @@
     height: 6px;
 
     border-radius: 5px;
-    background-color: $border-color;
+
+    @include themify($themes) {
+        background-color: themed("border-color");
+    }
 
     .green {
         background-color: $color-success !important;

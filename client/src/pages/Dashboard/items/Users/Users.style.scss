@@ -14,14 +14,19 @@
     padding: 0px 0px 0px 10px;
     border-radius: 3px;
 
-    background-color: $header-color;
-
-    border: 2px solid $border-color;
+    @include themify($themes) {
+        background-color: themed("header-color");
+        border: 2px solid themed("border-color");
+    }
 
     input {
         padding: 8px 0px 8px 10px;
         border-radius: 3px;
-        color: white;
+
+        @include themify($themes) {
+            color: themed("text-primary");
+        }
+
         border: none;
         background-color: transparent;
         font-size: 15px;
@@ -35,7 +40,10 @@
     }
 
     i {
-        color: $text-secondary;
+        @include themify($themes) {
+            color: themed("text-secondary");
+        }
+
         font-size: 14px;
     }
 }
@@ -66,12 +74,17 @@
 
         tr {
             &:first-child {
-                background-color: $header-color;
+                 @include themify($themes) {
+                    background-color: themed("header-color");
+                }
     
                 th {
                     font-size: 13px;
                     font-weight: 500;
-                    color: $text-secondary;
+
+                    @include themify($themes) {
+                        color: themed("text-secondary");
+                    }
                 }
             }
         }
@@ -102,13 +115,18 @@
         border-radius: 5px;
 
         &:hover {
-            background-color: $border-color;
+             @include themify($themes) {
+                background-color: themed("border-color");
+            }
         }
     }
 
     .edit-user {
         text-align: center;
-        color: $text-secondary;
+
+        @include themify($themes) {
+            color: themed("text-secondary");
+        }
 
         width: 20px;
 
@@ -137,7 +155,11 @@
         box-sizing: border-box;
         padding: 2px 10px 2px 0px;
         border-radius: 3px;
-        background-color: $border-color;
+
+        @include themify($themes) {
+            background-color: themed("border-color");
+            color: themed("text-primary");
+        }
 
         font-weight: 500;
 

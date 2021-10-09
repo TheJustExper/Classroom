@@ -17,7 +17,10 @@
         .role {
             font-size: 10px;
             padding: 3px;
-            background-color: $header-color;
+
+            @include themify($themes) {
+                background-color: themed("header-color");
+            }
         }
 
         img {
@@ -34,10 +37,13 @@
             padding: 9px 18px;
             font-size: 13px;
             font-weight: 600;
-            background-color: $header-color;
             z-index: 1;
             display: flex;
             align-items: center;
+
+            @include themify($themes) {
+                background-color: themed("header-color");
+            }
         }
 
         .user-experience {
@@ -64,10 +70,11 @@
 
             border-radius: 0px 5px 5px 0px;
         
-            color: white;
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
 
             width: 100%;
-
 
             i {
                 margin-left: 8px;
@@ -86,8 +93,11 @@
     box-sizing: border-box;
     z-index: 1000;
 
-    background-color: $header-color;
-    border: 2px solid $border-color;
+    @include themify($themes) {
+        background-color: themed("header-color");
+        border: 2px solid themed("border-color");
+    }
+
     border-radius: 5px;
 
     width: 230px;
