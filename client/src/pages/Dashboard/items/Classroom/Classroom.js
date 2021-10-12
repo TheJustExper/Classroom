@@ -375,7 +375,7 @@ export default (props) => {
 
 													return (
 														<div className="classroom-homework__outer">
-															<div className="classroom-homework__item" onClick={() => props.setPopup(<ContentDelete type="assignments" setPopup={props.setPopup} refresh={getAssignments} id={id} uid={uid}/>)}>
+															<div className="classroom-homework__item">
 																<div className="classroom-homework__inner">
 																	<CircularProgressBar
 																		strokeWidth="2"
@@ -387,7 +387,7 @@ export default (props) => {
 																	</div>
 																</div>
 
-																<i class="classroom-homework__edit fas fa-ellipsis-v"></i>
+																<i class="classroom-homework__edit fas fa-ellipsis-v" onClick={() => props.setPopup(<ContentDelete type="assignments" setPopup={props.setPopup} refresh={getAssignments} id={id} uid={uid}/>)}></i>
 															</div>
 														</div>
 													)

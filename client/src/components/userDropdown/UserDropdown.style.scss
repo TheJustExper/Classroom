@@ -132,13 +132,15 @@
         padding: 0px 12px;
         display: flex;
         align-items: center;
-        color: rgb(140, 148, 161);
         font-size: 14px;
         letter-spacing: -0.19px;
         cursor: pointer;
         transition: all 0.2s ease 0s;
         text-decoration: none;
-        justify-content: space-between;
+
+        @include themify($themes) {
+            color: themed("text-secondary");
+        }
 
         i {
             margin-right: 7px;

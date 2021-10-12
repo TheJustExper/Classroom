@@ -647,11 +647,18 @@
         &__inner {
             display: flex;
             flex-direction: row;
+            align-items: center;
         }
 
         &__edit {
             @include themify($themes) {
                 color: themed("text-secondary");
+            }
+
+            &:hover {
+                @include themify($themes) {
+                    color: themed("text-primary");
+                }
             }
         }
 
@@ -742,6 +749,7 @@
                 }
 
                 font-size: 14px;
+                margin-bottom: 1px;
             }
 
             p {
