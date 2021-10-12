@@ -61,8 +61,8 @@ export default (props) => {
                     <p className="title">Seach directory of { classrooms.length } classrooms</p>
 
                     <div className="flex-bar">
-                        <button className="classroom-add" onClick={() => props.setPopup(<Popup setPopup={props.setPopup} refresh={loadClassrooms}/>)}>+ Add new classroom</button>
-                        <button className="classroom-join clear" onClick={() => joinClassroom("8oWczZ9G2lSFZbqrQlmQ")}>Join a classroom</button>
+                        <button className="button classroom-add" onClick={() => props.setPopup(<Popup setPopup={props.setPopup} refresh={loadClassrooms}/>)}>+ Add new classroom</button>
+                        <button className="button classroom-join clear" onClick={() => joinClassroom("VQrLusUVzX9IjE8wcaM5")}>Join a classroom</button>
                     </div>
                 </div>
 

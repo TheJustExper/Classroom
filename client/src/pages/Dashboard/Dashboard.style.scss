@@ -33,6 +33,12 @@
     .dashboard-content {
         display: flex;
         flex-direction: row;
+
+        height: calc(100vh - 125px);
+        
+        @include themify($themes) {
+            background-color: themed('main-color');  
+        }
     }
 
     .itemContent {

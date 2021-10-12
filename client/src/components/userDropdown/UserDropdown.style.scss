@@ -5,14 +5,37 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    width: 100%;
+
+    width: fit-content;
+
+    user-select: none;
 
     .user-info {
         width: 100%;
         display: flex;
         flex-direction: row;
         align-items: center;
+        border-radius: 17px;
+        padding: 5px;
+
+        i {
+            margin-left: 10px;
+            margin-right: 5px;
+
+            font-size: 12px;
+        
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            @include themify($themes) {
+                background-color: themed("active-color");
+            }
+        }
 
         .role {
             font-size: 10px;
@@ -24,8 +47,8 @@
         }
 
         img {
-            width: 45px;
-            height: 45px;
+            width: 30px;
+            height: 30px;
             
             border-radius: 50%;
 
@@ -40,10 +63,6 @@
             z-index: 1;
             display: flex;
             align-items: center;
-
-            @include themify($themes) {
-                background-color: themed("header-color");
-            }
         }
 
         .user-experience {
@@ -86,21 +105,23 @@
 
 .action-menu {
     position: absolute;
-    left: 20px;
-    top: 140px;
+    right: 20px;
+    top: 60px;
 
     padding: 5px;
     box-sizing: border-box;
     z-index: 1000;
+    box-shadow: 0 3px 12px -2px rgba(51, 51, 51, 0.10);
+
 
     @include themify($themes) {
         background-color: themed("header-color");
-        border: 2px solid themed("border-color");
+        border: 1px solid themed("border-color");
     }
 
     border-radius: 5px;
 
-    width: 230px;
+    width: 250px;
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
@@ -112,10 +133,9 @@
         box-sizing: border-box;
 
         padding: 10px;
-        border-bottom: 1px solid $border-color;
 
         color: $text-secondary;
-        font-weight: 500;
+        font-weight: 400;
 
         font-size: 13px;
 
@@ -126,7 +146,9 @@
         }
 
         &:hover {
-            background-color: $border-color;
+            @include themify($themes) {
+                background-color: themed("active-color");
+            }
             color: $primary-brand-color;
 
             i {

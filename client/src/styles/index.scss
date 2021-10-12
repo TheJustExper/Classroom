@@ -35,14 +35,9 @@
     font-family: "Inter";
 }
 
-body {
-  @include themify($themes) {
-    background-color: themed('main-color');  
-  }
-}
-
 #app {
     height: 100vh;
+    overflow: hidden;
 }
 
 html {

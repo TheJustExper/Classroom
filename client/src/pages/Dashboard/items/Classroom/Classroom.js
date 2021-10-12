@@ -1,7 +1,9 @@
-import { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, Switch, useHistory, useParams, Route } from "react-router-dom";
 import { UserContext, hasRole } from "../../../../providers/UserProvider";
 import { firestore, auth } from "../../../../firebase";
+
+import _ from "lodash";
 
 import faker from "faker";
 
@@ -16,6 +18,60 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 import 'react-circular-progressbar/dist/styles.css';
 import "./Classroom.style.scss";
+
+class CircularProgressBar extends React.Component {
+	constructor(props) {
+	  super(props);
+	  this.state = {};
+	}
+  
+	render() {
+	  // Size of the enclosing square
+	  const sqSize = this.props.sqSize;
+	  // SVG centers the stroke width on the radius, subtract out so circle fits in square
+	  const radius = (this.props.sqSize - this.props.strokeWidth) / 2;
+	  // Enclose cicle in a circumscribing square
+	  const viewBox = `0 0 ${sqSize} ${sqSize}`;
+	  // Arc length at 100% coverage is the circle circumference
+	  const dashArray = radius * Math.PI * 2;
+	  // Scale 100% coverage overlay with the actual percent
+	  const dashOffset = dashArray - dashArray * this.props.percentage / 100;
+  
+	  return (
+		<svg
+			width={this.props.sqSize}
+			height={this.props.sqSize}
+			viewBox={viewBox}>
+			<circle
+			  className="circle-background"
+			  cx={this.props.sqSize / 2}
+			  cy={this.props.sqSize / 2}
+			  r={radius}
+			  strokeWidth={`${this.props.strokeWidth}px`} />
+			<circle
+			  className="circle-progress"
+			  cx={this.props.sqSize / 2}
+			  cy={this.props.sqSize / 2}
+			  r={radius}
+			  strokeWidth={`${this.props.strokeWidth}px`}
+			  // Start progress marker at 12 O'Clock
+			  transform={`rotate(-90 ${this.props.sqSize / 2} ${this.props.sqSize / 2})`}
+			  style={{
+				strokeDasharray: dashArray,
+				strokeDashoffset: dashOffset
+			  }} />
+			<text
+			  className="circle-text"
+			  x="50%"
+			  y="50%"
+			  dy=".3em"
+			  textAnchor="middle">
+			  {`${this.props.percentage}%`}
+			</text>
+		</svg>
+	  );
+	}
+  }
 
 export default (props) => {
 
@@ -41,15 +97,6 @@ export default (props) => {
 
 	const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-	var dateObj = new Date();
-
-	var month = dateObj.getUTCMonth() + 1; 
-	var day = dateObj.getUTCDate();
-	var year = dateObj.getUTCFullYear();
-	var date = `${monthNames[month]} ${day}, ${year}`;
-
-	const percentage = 20;
-
 	const UntoggledSidebar = () => {
 		return (
 			<div className="classroom-sidebar">
@@ -72,7 +119,7 @@ export default (props) => {
 										<img className="user-me-icon" src={photoURL}/>
 										<div className={"status " + status}></div>
 									</div>
-									<p style={{ color: "rgb(36,180,126)" }}>{ displayName }</p>
+									<p>{ displayName }</p>
 								</div>
 							)
 
@@ -200,8 +247,23 @@ export default (props) => {
 				return { id: doc.id, ...doc.data() }
 			});
 			
-			setAssignments(items);                 
+			setAssignments(items);  
 		});
+	}
+
+	const getAssignmentsGrouped = () => {
+		const group = _.groupBy(assignments, (work) => new Date(work.date).getUTCDate());
+
+		const updated = Object.keys(group).map(key => {
+			return {
+				date: dateToString(group[key][0].date),
+				data: group[key]
+			}
+		});
+
+		console.log(assignments)
+
+		return updated;
 	}
 
 	const getUsers = (items) => {
@@ -231,6 +293,17 @@ export default (props) => {
 	const openContentPopup = () => {
 		props.setPopup(<Popup setPopup={props.setPopup} topics={topics} refresh={refresh} id={id}/>);
 	}
+
+	const dateToString = (date) => {
+		var dateObj = new Date(date);
+
+		var month = dateObj.getUTCMonth(); 
+		var day = dateObj.getUTCDate() + 1;
+		var year = dateObj.getUTCFullYear();
+		var date = `${monthNames[month]} ${day}, ${year}`;
+
+		return date;
+	}
     
     useEffect(() => {
         if (user) {
@@ -254,7 +327,7 @@ export default (props) => {
         <>
             <div className="itemContent">
                 <div className="classroom">
-					<div className="classroom__header container">
+					<div className="classroom__header">
 						<div className="text">
 							<h1>{ classroom ? classroom.title : "Loading..." }</h1>
 							<p className="title">There is <b>{ topics.length }</b> topic(s) avaliable in <b>{ classroom.title }</b></p>
@@ -262,8 +335,8 @@ export default (props) => {
 
 						{ teachers.find(u => u.uid == user.uid) && (
 							<div className="buttons">
-								<button onClick={() => openContentPopup()}>Add Content</button>
-								<button className="clear">Settings</button>
+								<button className="button gray" onClick={() => openContentPopup()}>+ Add Content</button>
+								<button className="button clear">Settings</button>
 							</div>
 						)}
 					</div>
@@ -271,103 +344,51 @@ export default (props) => {
                     <div className="classroom-outer">
 
                         <div className="classroom-left">
-							 {/* { guides.length > 0 &&
-								<div className="container">
-									<div className="row">
-										<i class="fas fa-book"></i>
-										<p>Your quick start guide</p>
-										<div className="line"></div>
-									</div>
-
-									<div className="classroom-guides">
-										
-										{ guides.map(({ title, description, completed }) => {
-											return (
-												<div className="guide">
-													<div className="guide-inner">
-														<div className="guide-icon">
-															{ completed ? <div className="icon checked">
-																<i class="fas fa-check"></i>
-															</div> : <div className="icon"></div>
-															}
-														</div>
-
-														<div className="guide-text">
-															<b>{ title }</b>
-															<p>{ description }</p>
-														</div>
-													</div>
-
-													<i class="more-info fas fa-chevron-right"></i>
-											</div>
-											)
-										})}
-
-									</div>
-								</div>
-							}  */}
-
-							{/* <div className="container">
-                                <div className="row">
-                                    <i class="fas fa-chart-line"></i>
-                                    <p>Activity</p>
-                                    <div className="line"></div>
-                                </div>
-
-                                <div className="classroom-activity">
-
-                                </div>
-                            </div> */}
 
                             <div className="container">
                                 <div className="row">
-                                    <i class="fas fa-tasks"></i>
                                     <p>Assignment(s) <b>({ assignments.length })</b></p>
                                     <div className="line"></div>
                                 </div>
 
-								{/* <table className="classroom-homework-table">
-									<thead>
-										<tr>
-											<th>Topic</th>
-											<th>Homework</th>
-											<th>Due date</th>
-											<th>Completion</th>
-										</tr>
-									</thead>
-									<tbody>
-
-										{ assignments.map((data) => {
-											const { title, topic } = data;
-											const uid = data.id;
-
-											return (
-												<tr>
-													<td onClick={() => props.setPopup(<ContentDelete type="assignments" setPopup={props.setPopup} refresh={getAssignments} id={id} uid={uid}/>)}>{ topic }</td>
-													<td>{ title }</td>
-													<td>{ date }</td>
-													<td>
-														<ProgressBar progress={0}/>
-													</td>
-												</tr>
-											)
-										})}
-									
-									</tbody>
-								</table> */}
-
 								<div className="classroom-homework">
-									{ assignments.map((data) => {
-										const { title, topic } = data;
-										const uid = data.id;
+									{ getAssignmentsGrouped().map((data) => {
+										if (data.length == 0) return null;
+
+										const od = new Date(data.date).getUTCDate() + 1;
+										const td = new Date().getUTCDate();
+
+										console.log(td, od)
 
 										return (
-											<div className="classroom-homework__item" onClick={() => props.setPopup(<ContentDelete type="assignments" setPopup={props.setPopup} refresh={getAssignments} id={id} uid={uid}/>)}>
-												<div className="classroom-homework__icon" style={{ backgroundColor: `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 126)` }}></div>
-												<div className="classroom-homework__text">
-													<b>{ title }</b>
-													<p>{ topic }</p>
+											<div className="classroom-homework__section">
+												<div className="classroom-homework__date_section">
+													<p className="classroom-homework__date">{ dateToString(data.date) } </p>
+													{ od == td ? <span className="classroom-homework__today">Due Today</span> :  
+													  od - td <= 3 && od - td != 0 && <span className="classroom-homework__today classroom-homework__soon">Due Soon</span> }
 												</div>
+
+												{ data.data.map((data) => {
+													const { title, topic } = data;
+													const uid = data.id;
+
+													return (
+														<div className="classroom-homework__outer">
+															<div className="classroom-homework__item" onClick={() => props.setPopup(<ContentDelete type="assignments" setPopup={props.setPopup} refresh={getAssignments} id={id} uid={uid}/>)}>
+															<CircularProgressBar
+																strokeWidth="2"
+																sqSize="30"
+																percentage={10}/>
+																<div className="classroom-homework__text">
+																	<b>{ title }</b>
+																	<p>{ topic }</p>
+																</div>
+															</div>
+														</div>
+													)
+
+												})
+											}
 											</div>
 										)
 									})}
@@ -376,7 +397,6 @@ export default (props) => {
                             
                             <div className="container">
                                 <div className="row">
-                                    <i class="fas fa-thumbs-up"></i>
                                     <p>Topic List <b>({ topics.length })</b></p>
                                     <div className="line"></div>
                                 </div>

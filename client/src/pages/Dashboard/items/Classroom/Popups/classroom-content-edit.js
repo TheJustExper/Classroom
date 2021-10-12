@@ -38,8 +38,8 @@ export default (props) => {
                 
 
             <div className="bottom">
-                <button className="small clear" onClick={() => props.setPopup(null)}>Cancel</button>
-                <button className="small delete" onClick={() => create()}>Delete</button>
+                <button className="button small clear" onClick={() => props.setPopup(null)}>Cancel</button>
+                <button className="button small delete" onClick={() => create()}>Delete</button>
             </div>
         </Popup>
     )

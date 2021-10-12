@@ -1,52 +1,79 @@
 import React, { useContext, useState, useEffect } from "react";
-import { UserContext } from "../../providers/UserProvider";
+
+import { hasRole, UserContext } from "../../providers/UserProvider";
+import { auth } from "../../firebase";
+import { Link } from "react-router-dom";
+
 import UserDropdown from "../userDropdown/UserDropdown";
-import { signInWithGoogle, auth } from "../../firebase";
 
 import "./header.style.scss";
 
-function Notifications() {
-    const [ notifications, setNotifications ] = useState([{
-        title: "Physics Homework",
-        description: "Due in on the 5th"
-    }]);
-
-    const [ openMenu, setOpenMenu ] = useState(false);
-
-    const openNotificationMenu = () => {
-        setOpenMenu(!openMenu);
-    }
-
-    useEffect(() => {
-        
-    }, []);
+export default (props) => {
+    const { user } = useContext(UserContext);
+    const [ selected, setSelected ] = useState(localStorage.getItem('sidebarItem'));
 
     return (
-        <div className="notification-outer">
-            <div onClick={() => openNotificationMenu()} className={ "notification " + (notifications.length > 0 ? "animate__animated animate__headShake" : "" )}>
-                <i class="fas fa-bell"></i>
+        <div className="dashboard__header">
+            <div className="dashboard__section">
+                <img className="logo" src=""/>
+                <UserDropdown user={user}/>
             </div>
 
-            { openMenu ? 
-                <ul className="notification-menu">
-                    { notifications.length > 0 ? notifications.map(({ title, description }) => <li class="site-nav-user-item"><b>{ title }</b> - { description }</li>) : "" }
-                </ul>
-            : "" }
-        </div>
-    )
-}
+            <div className="dashboard__section">
+                <div className="links">
+                    { user && user.plan == 1 && 
+                        <div className="feature-notification">
+                            <p>Unlock premium features</p>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    }
 
-export default () => {
-    const user = useContext(UserContext);
+                    <Link onClick={() => { setSelected(1); localStorage.setItem('sidebarItem', 1); }} to="/dashboard/classrooms" className={ selected == 1 ? "links__item links__item--active" : "links__item" }>
+                        <div className="item-inner">
+                            <p>Classrooms</p>
+                        </div>
+                    </Link>
 
-    return (
-        <div className="header">
-            <div className="content-left">
-                <h1>exper.style.scss</h1>
-            </div>
-            
-            <div className="content-right">
-                
+                    <Link onClick={() => { setSelected(2); localStorage.setItem('sidebarItem', 2); }} to="/dashboard/projects" className={ selected == 2 ? "links__item links__item--active" : "links__item" }>
+                        <div className="item-inner">
+                            <p>Projects</p>
+                        </div>
+                    </Link>
+                    
+                    <Link to="#" className="links__item">
+                        <div className="item-inner">
+                            <p>Notifications</p>
+                        </div>
+                    </Link>
+
+                    <Link to="#" className="links__item">
+                        <div className="item-inner">
+                            <p>Settings</p>
+                        </div>
+                    </Link>
+
+                    <Link onClick={props.setToggledTheme} to="#" className="links__item">
+                        <div className="item-inner">
+                            <p>Toggle Theme</p>
+                        </div>
+                    </Link>
+                    
+                    { hasRole(user, ["ADMIN"]) && 
+                            <>
+                                <Link onClick={() => { setSelected(3); localStorage.setItem('sidebarItem', 3); }} to="/dashboard/users" className={ selected == 3 ? "links__item links__item--active" : "links__item" }>
+                                    <div className="item-inner">
+                                        <p>Users</p>
+                                    </div>
+                                </Link>
+                            </>
+                    }   
+
+                    <Link onClick={() => auth.signOut()} to="#" className="links__item links__logout">
+                        <div className="item-inner">
+                            <p>Logout</p>
+                        </div>
+                    </Link>
+                </div>
             </div>
         </div>
     )

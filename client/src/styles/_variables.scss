@@ -1,19 +1,24 @@
 $themes: (
   light: (
-    main-color: #F4F6F8,
+    main-color: #F9F9FA,
     header-color: #ffff,
-    active-color: rgb(220, 220, 220),
-    text-primary: #000,
-    text-secondary: #5c6178,
-    border-color: #E3E5E9,
+    subheader-color: #fcfcfd,
+    active-color: #f0f1f2,
+    text-primary: #5a6370,
+    text-secondary: #8c94a1,
+    border-color: rgb(225, 228, 232),
+    background-color: #f9f9fa,
+    text-nav-link: #5c6573,
   ),
   dark: (
     main-color: #181818,
     header-color: #1f1f1f,
-    active-color: rgb(33, 33, 33),
+    subheader-color: #212121,
+    active-color: rgb(41, 41, 41),
     text-primary: #fff,
     text-secondary: #808081,
     border-color: #252628,
+    text-nav-link: #808081,
   ),
 );
 
@@ -69,16 +74,17 @@ $color-success: rgb(36,180,126);
 $color-amber: #e2b24b;
 $color-red: #eb5255;
 
-$color-blue: #52ACF5;
+$color-blue: #4573E3;
 $color-blue-dark: #2885ec;
 $color-blue-dark-dark: #1c2935;
 $color-purple: #8566F9;
 $color-yellow: #ECB728;
 $color-yellow-dark: #352F1C;
+$color-orange: #FF620B;
 
 $color-green-light: #BBE668;
 
-$primary-brand-color: $color-success;
+$primary-brand-color: $color-blue;
 
 $header-size: 75px;
 

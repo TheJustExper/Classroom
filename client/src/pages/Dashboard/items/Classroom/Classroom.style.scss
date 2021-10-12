@@ -1,9 +1,48 @@
 @import "../../../../styles/variables";
+  
+  #progressInput {
+    margin: 20px auto;
+    width: 30%;
+  }
+  
+  .circle-background,
+  .circle-progress {
+    fill: none;
+  }
+  
+  .circle-background {
+    @include themify($themes) {
+        stroke: themed("border-color");
+    }
+  }
+  
+  .circle-progress {
+    stroke: $primary-brand-color;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  
+  .circle-text {
+    font-size: 8px;
+    font-weight: bold;
+
+    @include themify($themes) {
+        fill: themed("text-primary");
+    }
+  }
 
 .classroom {
     width: 100%;
     max-width: 1000px;
     margin: auto;
+    border-radius: 10px;
+
+    @include themify($themes) {
+        background-color: themed("header-color");
+        border: 1px solid themed("border-color");
+    }
+
+    padding-bottom: 55px;
 
     .buttons {
         margin-top: 30px;
@@ -15,10 +54,13 @@
 
     &__header {
         padding: 25px;
-        border-radius: 5px;
+
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
 
         @include themify($themes) {
-            background-color: themed("header-color");
+            background-color: themed("subheader-color");
+            border-bottom: 1px solid themed("border-color");
         }
     
         .text {
@@ -135,6 +177,7 @@
 
     @include themify($themes) {
         background-color: themed("header-color");
+        border-left: 1px solid themed("border-color");
     }
 
     padding: 30px 0px;
@@ -153,7 +196,7 @@
         user-select: none;
 
         @include themify($themes) {
-            background-color: themed("border-color");
+            background-color: themed("active-color");
             color: themed("text-secondary");
         }
 
@@ -287,9 +330,8 @@
         display: flex;
         flex-direction: row;
 
-        margin-top: 30px;
-
         z-index: 3;
+        padding: 25px;
 
         .classroom-left {
             width: 100%;
@@ -554,23 +596,69 @@
 
     .classroom-homework {
 
-        &__item {
-            $num-colors: 4;
+        &__outer {
+            margin-bottom: 10px;
 
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+
+        &__section {
+            margin-bottom: 30px;
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+
+        &__item {
             display: flex;
             flex-direction: row;
             align-items: center;
 
             padding: 15px;
-            margin-bottom: 10px;
+
+            border-radius: 5px;
 
             @include themify($themes) {
-                background-color: themed("header-color");
+                background-color: themed("subheader-color");
+                border: 1px solid themed("border-color");
             }
+        }
 
-            &:last-child {
-                margin-bottom: 0px;
+        &__date {
+            font-size: 14px;
+
+            @include themify($themes) {
+                color: themed("text-secondary");
             }
+        }
+
+        &__date_section {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            margin-bottom: 15px;
+        }
+
+        &__today {
+            color: #eb5255;
+            background-color: rgba(235, 82, 85, .12);
+            border-radius: 4px;
+            margin-left: 12px;
+            padding: 3px 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .33px;
+            height: fit-content;
+            text-transform: uppercase;
+        }
+
+        &__soon {
+            color: $color-yellow;
+            background-color: rgba(236, 183, 40, .12);
         }
 
         &__text {
@@ -601,6 +689,10 @@
             height: 25px;
 
             border-radius: 3px;
+
+            @include themify($themes) {
+                border: 2px dotted themed("border-color");
+            }
         }
     }
 
@@ -732,8 +824,11 @@
             }
 
             i {
-                margin-right: 15px;
-                color: $primary-brand-color;
+                margin-right: 10px;
+
+                @include themify($themes) {
+                    color: themed("text-secondary");
+                }
             }
 
             .line {
@@ -791,9 +886,13 @@
             &__header {
                 height: 135px;
                 border-radius: 5px;
+                
+                @include themify($themes) {
+                    border: 1px solid themed("border-color");
+                }
 
                 @include themify($themes) {
-                    background-color: themed("header-color");
+                    background-color: themed("subheader-color");
                 }
 
                 img {
@@ -857,7 +956,8 @@
                     font-weight: 500;
 
                     @include themify($themes) {
-                        background-color: themed("border-color");
+                        border: 1px solid themed("border-color");
+                        background-color: themed("header-color");
                     }
                 }
             }

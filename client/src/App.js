@@ -18,6 +18,8 @@ import './styles/index.scss';
 
 export default function App() {
   const [ popup, setPopup ] = useState(null);
+  const [ toggledTheme, setToggledTheme ] = useState( localStorage.getItem("toggled-theme") === 'true' );
+
   const { user, loading } = useContext(UserContext);
 
   function PrivateRoute ({ component: Component, authed, ...rest }) {
@@ -33,16 +35,18 @@ export default function App() {
     )
   }
 
+  const toggleTheme = () => {
+    setToggledTheme(!toggledTheme);
+  }
+
   useEffect(() => {
-    if (!user) {
-      //setPopup(<Login setPopup={setPopup}/>);
-    }
-  }, [ loading ])
+    localStorage.setItem("toggled-theme", toggledTheme);
+  }, [ toggledTheme ])
 
   return (
     <UserProvider>
       <Router>
-          <div id="app" className="theme-light">
+          <div id="app" className={ toggledTheme ? "theme-dark" : "theme-light" }>
           { popup != null ? <>{popup} {<Fade setPopup={setPopup}/>}</> : "" } 
 
             <Switch>
@@ -50,7 +54,7 @@ export default function App() {
                 <LandingPage/>
               </Route>
               <Route path="/dashboard">
-                <Dashboard setPopup={setPopup}/>
+                <Dashboard setPopup={setPopup} setToggledTheme={toggleTheme}/>
               </Route>
               <Route path="/account">
                 <Account/>

@@ -6,6 +6,8 @@ import { firestore, auth } from "../../firebase";
 import Header from "../../components/header/header";
 import Sidebar from "../../components/sidebar/sidebar";
 
+import UserDropdown from "../../components/userDropdown/UserDropdown";
+
 import Users from "./items/Users/Users";
 
 import Classrooms from "./items/Classroom/Classrooms";
@@ -57,10 +59,9 @@ export default (props) => {
     if (!loading) {
         return (
             <div className="dashboard">
+                <Header setToggledTheme={props.setToggledTheme}/>
+
                 <div className="dashboard-content">
-    
-                    <Sidebar activeSection={activeId} setSection={setSection}/>
-    
                     
                         <Switch>
                             { user && hasRole(user, ["ADMIN"]) && (

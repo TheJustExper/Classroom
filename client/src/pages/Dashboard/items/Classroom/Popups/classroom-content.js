@@ -61,7 +61,7 @@ export default (props) => {
             </div>
 
             <div className="bottom">
-                <button className="small clear" onClick={() => props.setPopup(null)}>Cancel</button>
+                <button className="button small clear" onClick={() => props.setPopup(null)}>Cancel</button>
             </div>
         </Popup>
     )

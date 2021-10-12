@@ -9,7 +9,7 @@
 
     &__widget {
         @include themify($themes) {
-            border: 2px solid themed("border-color");
+            border: 1px solid themed("border-color");
         }
 
         border-radius: 5px;
@@ -43,7 +43,7 @@
 
         &:hover {
             @include themify($themes) {
-                border: 2px solid themed("text-primary");
+                border: 1px solid themed("text-primary");
             }
 
             p {

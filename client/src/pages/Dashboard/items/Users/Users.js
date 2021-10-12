@@ -85,14 +85,14 @@ export default (props) => {
                     <h1>Users</h1>
                     <p className="title">Showing a total of { users.length } users</p>
 
-                    <div className="flex-bar">
+                    <div className="flex-bar space-between">
                         <div className="input-with-icon">
                             <i class="fas fa-search"></i>
                             <input placeholder="Search for a user" value={searchFilter} onChange={handleChange}/>
                         </div>
                         <div className="buttons">
-                            <button className="classroom-join clear">Filter</button>
-                            <button className="classroom-join">Import / Export</button>
+                            <button className="button classroom-join clear">Filter</button>
+                            <button className="button classroom-join">Import / Export</button>
                         </div>
                     </div>
 

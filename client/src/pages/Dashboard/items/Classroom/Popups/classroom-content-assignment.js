@@ -4,9 +4,13 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../../../../../providers/UserProvider";
 import { firestore, auth } from "../../../../../firebase";
 
+import Calendar from 'react-calendar'
 import Popup from "../../../../../popups/Popup";
-import DropDown from "../../../../../components/dropdown/dropdown";
 
+import DropDown from "../../../../../components/dropdown/dropdown";
+import DropDownChild from "../../../../../components/dropdown/dropdownchild";
+
+import 'react-calendar/dist/Calendar.css';
 import "./classroom-content-assignment.style.scss";
 
 export default (props) => {
@@ -14,7 +18,7 @@ export default (props) => {
 
     const [ inputValues, setInputValues ] = useReducer(
         (state, newState) => ({ ...state, ...newState }),
-        { title: '', description: '', topic: '' }
+        { title: '', description: '', topic: '', date: Date.now() }
     );
       
     const handleOnChange = event => {
@@ -23,14 +27,19 @@ export default (props) => {
     };
 
     const create = async () => {
-        const { title, description } = inputValues;
+        const { title, description, topic } = inputValues;
 
-        if (title.length == 0 || description.length == 0) return;
+        if (title.length == 0 || description.length == 0 || topic.length == 0) return;
 
         const fire = firestore.collection("classrooms");
         const topics = fire.doc(props.id).collection("assignments");
 
-        await topics.add(inputValues);
+        await topics.add({
+            title, 
+            description,
+            topic,
+            date: inputValues.date.valueOf()
+        });
 
         props.setPopup(null);
         props.refresh();
@@ -56,7 +65,13 @@ export default (props) => {
 
                 <div className="input-outer">
                     <label for="title">Due Date</label>
-                    <DropDown dataset={[]}/>
+                    <DropDownChild>
+                        <Calendar
+                            onChange={(date) => setInputValues({ date })}
+                            showWeekNumbers
+                            value={new Date(inputValues.date)}
+                        />
+                    </DropDownChild>
                 </div>
 
                 <div className="input-outer">
@@ -66,8 +81,8 @@ export default (props) => {
             </div>
 
             <div className="bottom">
-                <button className="small clear" onClick={() => props.setPopup(null)}>Cancel</button>
-                <button className="small" onClick={() => create()}>Create</button>
+                <button className="button small clear" onClick={() => props.setPopup(null)}>Cancel</button>
+                <button className="button small" onClick={() => create()}>Create</button>
             </div>
         </Popup>
     )

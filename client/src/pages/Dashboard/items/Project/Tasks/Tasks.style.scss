@@ -121,17 +121,6 @@
     border-bottom: 2px solid rgb(random(255), random(255), random(255));
 }
 
-.button {
-    padding: 7px 10px;
-
-    font-weight: 600;
-
-    box-sizing: border-box;
-    border: 1px solid $border-color !important;
-    background: $header-color;
-    color: $text-secondary;
-}
-
 .project-tasks {
     width: 100%;
     user-select: none;

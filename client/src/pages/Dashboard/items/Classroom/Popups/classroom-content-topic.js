@@ -30,7 +30,7 @@ export default (props) => {
         const fire = firestore.collection("classrooms");
         const topics = fire.doc(props.id).collection("topics");
 
-        await topics.add({ title, description });
+        await topics.add({ title, description, date: Date.now() });
 
         props.setPopup(null);
         props.refresh();
@@ -56,8 +56,8 @@ export default (props) => {
             </div>
 
             <div className="bottom">
-                <button className="small clear" onClick={() => props.setPopup(null)}>Cancel</button>
-                <button className="small" onClick={() => create()}>Create</button>
+                <button className="button small clear" onClick={() => props.setPopup(null)}>Cancel</button>
+                <button className="button small" onClick={() => create()}>Create</button>
             </div>
         </Popup>
     )

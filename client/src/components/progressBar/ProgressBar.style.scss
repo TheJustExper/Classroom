@@ -2,12 +2,13 @@
 
 .progress-bar {
     width: 100%;
-    height: 6px;
+    height: 9px;
 
     border-radius: 5px;
 
     @include themify($themes) {
-        background-color: themed("border-color");
+        background-color: themed("header-color");
+        border: 1px solid themed("border-color");
     }
 
     .green {
@@ -24,7 +25,7 @@
 
     .bar {
         width: 0%;
-        height: 6px;
+        height: 8px;
 
         border-radius: 5px;
         background: $color-success;

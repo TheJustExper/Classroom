@@ -10,10 +10,10 @@ export default ({ user }) => {
     const [ hovered, setHovered ] = useState(false);
 
     return (
-        <div className="user-dropdown">
+        <div className="user-dropdown" onClick={() => setHovered(!hovered)}>
             <div className="user-info">
                 <img src={user.photoURL} referrerpolicy="no-referrer"/>
-                <span className="user-username">{user.displayName}</span>
+                <i class="fas fa-chevron-down"></i>
             </div>
 
             { hovered ?

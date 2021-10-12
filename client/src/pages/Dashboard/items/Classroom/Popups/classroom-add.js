@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../../../../providers/UserProvider";
 import { firestore, auth } from "../../../../../firebase";
@@ -10,42 +10,31 @@ import "./classroom-add.style.scss";
 export default (props) => {
     const { user } = useContext(UserContext);
 
+    const [ inputValues, setInputValues ] = useReducer(
+        (state, newState) => ({ ...state, ...newState }),
+        { title: '' }
+    );
+
+    const handleOnChange = event => {
+        const { name, value } = event.target;
+        setInputValues({ [name]: value });
+    };
+
     const create = () => {
         const fire = firestore.collection("classrooms");
+        const { title } = inputValues;
+
+        if (title.length == 0) return;
         
         fire.add({
 
-            title: "Test Classroom",
+            title: title,
             users: [{
                 id: user.uid,
                 role: "teacher"
             }],
             usersIds: [user.uid],
             date: Date.now(),
-
-        }).then(async function({ id }) {
-
-            const topics = fire.doc(id).collection("topics");
-            const guide = fire.doc(id).collection("guides");
-
-            await topics.add({ 
-                title: "Testing Topic",
-                description: "Understanding a testing thing",
-            });
-
-            await guide.add({
-                id: 1,
-                title: "Add new content",
-                description: "Use the intuitive editing interface to fill your classroom with content",
-                completed: false,
-            })
-
-            await guide.add({
-                id: 2,
-                title: "Invite users",
-                description: "Invite new users to the classroom",
-                completed: false,
-            })
 
         });
 
@@ -63,7 +52,7 @@ export default (props) => {
 
                 <div className="input-outer">
                     <label for="title">Name</label>
-                    <input name="title" placeholder="Write a name"/>
+                    <input name="title" placeholder="Write a name" onChange={handleOnChange}/>
                 </div>
 
                 <div className="input-outer">
@@ -73,8 +62,8 @@ export default (props) => {
             </div>
 
             <div className="bottom">
-                <button className="small clear" onClick={() => props.setPopup(null)}>Cancel</button>
-                <button className="small" onClick={() => create()}>Create Classroom</button>
+                <button className="button small clear" onClick={() => props.setPopup(null)}>Cancel</button>
+                <button className="button small" onClick={() => create()}>Create Classroom</button>
             </div>
         </Popup>
     )

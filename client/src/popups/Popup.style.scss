@@ -120,7 +120,10 @@
                     background-color: transparent;
                 
                     box-sizing: border-box;
-                    border: 1px solid rgb(68, 68, 68);
+
+                    @include themify($themes) {
+                        border: 1px solid themed("border-color");
+                    }
 
                     display: flex;
                     align-items: center;
@@ -150,9 +153,11 @@
                 
                     box-sizing: border-box;
 
-                    border-left: 1px solid rgb(68, 68, 68);
-                    border-right: 1px solid rgb(68, 68, 68);
-                    border-bottom: 1px solid rgb(68, 68, 68);
+                    @include themify($themes) {
+                        border-left: 1px solid themed("border-color");
+                        border-right: 1px solid themed("border-color");
+                        border-bottom: 1px solid themed("border-color");
+                    }
                 }
 
                 &__item {
@@ -160,7 +165,9 @@
                     font-size: 14px;
 
                     &:hover {
-                        color: white;
+                        @include themify($themes) {
+                            color: themed("text-primary");
+                        }
                     }
 
                     &:last-child {
@@ -190,8 +197,10 @@
                 }
             
                 box-sizing: border-box;
-                border: 1px solid rgb(68, 68, 68);
 
+                @include themify($themes) {
+                    border: 1px solid themed("border-color");
+                }
                 &:focus {
                     border: 1px solid rgb(68, 68, 68);
                     outline: none;
@@ -214,7 +223,10 @@
                 padding-left: 10px;
             
                 box-sizing: border-box;
-                border: 1px solid rgb(68, 68, 68);
+
+                @include themify($themes) {
+                    border: 1px solid themed("border-color");
+                }
                 
                 &:focus {
                     border: 1px solid rgb(68, 68, 68);

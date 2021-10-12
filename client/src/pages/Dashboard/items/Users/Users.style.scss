@@ -1,10 +1,9 @@
 @import "../../../../styles/variables";
 
-.flex-bar {
+.space-between {
     justify-content: space-between;
-
-    .buttons {}
 }
+
 
 .input-with-icon {
     display: flex;
@@ -157,7 +156,8 @@
         border-radius: 3px;
 
         @include themify($themes) {
-            background-color: themed("border-color");
+            background-color: themed("active-color");
+            border: 1px solid themed("border-color");
             color: themed("text-primary");
         }
 
