@@ -163,7 +163,7 @@ export default (props) => {
 				</div>
 
 				<div className="section">
-						<b>Te</b>
+						<b>Tea</b>
 						<div className="users">
 
 						{ teachers && teachers.sort((a, b ) => b.status = a.status).map(({ displayName, photoURL, status }) => {
@@ -185,7 +185,7 @@ export default (props) => {
 				</div>	
 
 				<div className="section">
-						<b>Us</b>
+						<b>Use</b>
 						<div className="users">
 
 						{ users && users.sort((a, b) => b.status - a.status).map(({ displayName, photoURL, status }) => {
@@ -330,13 +330,14 @@ export default (props) => {
 					<div className="classroom__header">
 						<div className="text">
 							<h1>{ classroom ? classroom.title : "Loading..." }</h1>
-							<p className="title">There is <b>{ topics.length }</b> topic(s) avaliable in <b>{ classroom.title }</b></p>
+							<p className="title">There is { topics.length } topic(s) avaliable</p>
 						</div>
 
 						{ teachers.find(u => u.uid == user.uid) && (
 							<div className="buttons">
-								<button className="button gray" onClick={() => openContentPopup()}>+ Add Content</button>
-								<button className="button clear">Settings</button>
+								<span className="buttons__icon" onClick={() => openContentPopup()}><i class="fas fa-plus"></i></span>
+								<span className="buttons__icon"><i class="fas fa-file"></i></span>
+								<span className="buttons__icon"><i class="fas fa-cog"></i></span>
 							</div>
 						)}
 					</div>
@@ -375,14 +376,18 @@ export default (props) => {
 													return (
 														<div className="classroom-homework__outer">
 															<div className="classroom-homework__item" onClick={() => props.setPopup(<ContentDelete type="assignments" setPopup={props.setPopup} refresh={getAssignments} id={id} uid={uid}/>)}>
-															<CircularProgressBar
-																strokeWidth="2"
-																sqSize="30"
-																percentage={10}/>
-																<div className="classroom-homework__text">
-																	<b>{ title }</b>
-																	<p>{ topic }</p>
+																<div className="classroom-homework__inner">
+																	<CircularProgressBar
+																		strokeWidth="2"
+																		sqSize="30"
+																		percentage={0}/>
+																	<div className="classroom-homework__text">
+																		<b>{ title }</b>
+																		<p>{ topic }</p>
+																	</div>
 																</div>
+
+																<i class="classroom-homework__edit fas fa-ellipsis-v"></i>
 															</div>
 														</div>
 													)

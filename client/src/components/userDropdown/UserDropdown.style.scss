@@ -127,17 +127,18 @@
     line-height: 20px;
 
     li {
+        height: 30px;
+        border-radius: 4px;
+        padding: 0px 12px;
         display: flex;
         align-items: center;
-
-        box-sizing: border-box;
-
-        padding: 10px;
-
-        color: $text-secondary;
-        font-weight: 400;
-
-        font-size: 13px;
+        color: rgb(140, 148, 161);
+        font-size: 14px;
+        letter-spacing: -0.19px;
+        cursor: pointer;
+        transition: all 0.2s ease 0s;
+        text-decoration: none;
+        justify-content: space-between;
 
         i {
             margin-right: 7px;

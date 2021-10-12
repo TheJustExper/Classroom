@@ -17,10 +17,10 @@ export default ({ data, setPopup, refresh, teacher, id }) => {
             </div>
 
             <div className="classroom-topic__content">
-                <div className="classroom-topic__progress-bar">
-                    <ProgressBar progress=""/>
+                {/* <div className="classroom-topic__progress-bar">
+                    <ProgressBar progress="0"/>
                     <span>0/10</span>
-                </div>
+                </div> */}
 
                 <b>{ title }</b>
                 <p className="classroom-topic__subheading">{ description }</p>

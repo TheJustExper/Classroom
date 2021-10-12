@@ -17,11 +17,11 @@ export default ({ user }) => {
             </div>
 
             { hovered ?
-                <ul className="action-menu">
-                    <li class="site-nav-user-item"><i class="fas fa-user"></i> Profile</li>
-                    <li class="site-nav-user-item"><i class="fas fa-columns"></i> Dashboard</li>
-                    <li class="site-nav-user-item" onClick={() => history.push("/account")}><i class="fas fa-cog"></i> Account Settings</li>
-                    <li class="site-nav-user-item" onClick={() => auth.signOut()}><i class="fas fa-sign-out-alt"></i> Sign Out</li>
+                <ul className="action-menu ">
+                    <li class="site-nav-user-item">Profile</li>
+                    <li class="site-nav-user-item">Dashboard</li>
+                    <li class="site-nav-user-item" onClick={() => history.push("/account")}>Account Settings</li>
+                    <li class="site-nav-user-item" onClick={() => auth.signOut()}>Sign Out</li>
                 </ul>
             : "" }
         </div>

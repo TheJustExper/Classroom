@@ -28,6 +28,7 @@ export default (props) => {
                 </div>
 
                 <div className="classroom-content__widgets">
+                    
                     <div className="classroom-content__widget" onClick={() => props.setPopup(<ContentAssignment setPopup={props.setPopup} topics={props.topics} refresh={getAssignments} id={props.id}/>)}>
                         <img src="https://cdn-icons-png.flaticon.com/512/167/167755.png"/>
                         <p>Assignment</p>
@@ -38,25 +39,6 @@ export default (props) => {
                         <p>Topic</p>
                     </div>
                    
-                    <div className="classroom-content__widget">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1632/1632670.png"/>
-                        <p>Task</p>
-                    </div>
-
-                    <div className="classroom-content__widget">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2641/2641457.png"/>
-                        <p>Quiz</p>
-                    </div>
-
-                    <div className="classroom-content__widget">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3767/3767084.png"/>
-                        <p>Material</p>
-                    </div>
-
-                    <div className="classroom-content__widget">
-                        <img src="https://cdn-icons-png.flaticon.com/512/3176/3176367.png"/>
-                        <p>Award</p>
-                    </div>
                 </div>
             </div>
 

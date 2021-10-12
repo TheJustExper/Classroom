@@ -15,7 +15,10 @@ export default (props) => {
     return (
         <div className="dashboard__header">
             <div className="dashboard__section">
-                <img className="logo" src=""/>
+                <div className="row">
+                <i class="fas fa-laptop-code"></i>
+                    <h1>studentroom</h1>
+                </div>
                 <UserDropdown user={user}/>
             </div>
 

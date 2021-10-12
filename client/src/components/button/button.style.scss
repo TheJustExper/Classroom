@@ -11,45 +11,30 @@
 
 .clear {
     @include themify($themes) {
-        color: themed("text-secondary") !important;
-        border: 1px solid themed("border-color") !important;
+        color: themed("text-secondary");
+        border: 1px solid themed("border-color");
     }
 
-    background: none !important;
+    background: none;
 
     &:hover {
         background: none;
     }
 }
 
-.gray {
-    @include themify($themes) {
-        background-color: themed("active-color") !important;
-        color: themed("text-secondary") !important;
-    }
-
-    &:hover {
-        background-color: rgba($primary-brand-color, .12) !important;
-        color: $primary-brand-color !important;
-    }
-}
-
-.button {
+button {
     padding: 8px 20px;
-    border-radius: 15px;
+    border-radius: 3px;
+    color: white;
     border: none;
-    background-color: rgba($primary-brand-color, .12);
+    background-color: $primary-brand-color;
     font-size: 13px;
     font-weight: 500;
 
     transition: .1s;
 
-    color: $primary-brand-color;
-
-    border: 2px solid rgba($primary-brand-color, .0);
-    
     &:hover {
-        background-color: lighten($primary-brand-color, 30%)
+        background-color: darken($primary-brand-color, 10%)
     }
 
     &:active {

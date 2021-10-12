@@ -26,6 +26,27 @@
         justify-content: space-between;
         margin-bottom: 15px;
 
+        .row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            i {
+                @include themify($themes) {
+                    color: themed('text-primary');  
+                }
+            }
+
+            h1 {
+                font-size: 20px;
+                margin-left: 5px;
+    
+                @include themify($themes) {
+                    color: themed('text-primary');  
+                }
+            }    
+        }
+
         &:last-child {
             margin-bottom: 0px;
         }
@@ -40,12 +61,6 @@
 
         .logo {
             height: 30px;
-        }
-
-        h1 {
-            @include themify($themes) {
-                color: themed('text-primary');  
-            }
         }
 
         .links {
