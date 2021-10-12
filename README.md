@@ -1,4 +1,4 @@
 # project-v.1
 Blog for my own apps
 
-![vid](https://i.imgur.com/OChtXWl.mp4)
+![vid](https://github.com/TheJustExper/Classroom/blob/master/Capture.png?raw=true)
