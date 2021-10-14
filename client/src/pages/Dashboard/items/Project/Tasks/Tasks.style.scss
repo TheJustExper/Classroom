@@ -154,7 +154,9 @@
 
                 border: 2px solid $main-color;
 
-                background-color: $header-color;
+                @include themify($themes) {
+                    background-color: themed("header-color");
+                }
 
                 &:only-child {
                     margin-left: 0px;
@@ -226,7 +228,9 @@
                 flex-direction: row;
                 justify-content: space-between;
 
-                border-bottom: 2px solid $border-color;
+                @include themify($themes) {
+                    border-bottom: 2px solid themed("border-color");
+                }
 
                 .edit-outer {
                     .edit-icon {
@@ -250,7 +254,10 @@
 
                         user-select: none;
 
-                        background-color: $header-color;
+                        @include themify($themes) {
+                            background-color: themed("header-color");
+                        }
+
                         box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
                         border: 2px solid $border-color;
                         border-radius: 3px;
@@ -302,9 +309,12 @@
                 margin-top: 20px;
 
                 border-radius: 5px;
-                border: 2px dotted $border-color;
 
-                color: $text-secondary;
+                @include themify($themes) {
+                    color: themed("text-secondary");
+                    border: 2px dotted themed("border-color");
+                }
+
                 font-weight: 600;
                 
                 font-size: 13px;
@@ -326,11 +336,14 @@
 
                 cursor: pointer;
 
-                background-color: $header-color;
+                @include themify($themes) {
+                    border: 1px solid themed("border-color");
+                    background-color: themed("header-color");
+                }
+
                 padding: 15px;
 
                 border-radius: 5px;
-                border: 2px solid $border-color;
 
                 box-sizing: border-box;
 
@@ -340,7 +353,10 @@
 
                 .far {
                     margin-right: 5px;
-                    color: $text-secondary;
+
+                    @include themify($themes) {
+                        color: themed("text-secondary");
+                    }
                 }
 
                 &:last-child {
@@ -348,14 +364,18 @@
                 }
 
                 &:hover {
-                    background-color: $main-color;
+                    @include themify($themes) {
+                        background-color: themed("subheader-color");
+                    }
                 }
 
                 .title {
                     font-weight: 500;
                     font-size: 14px;
 
-                    color: white;
+                    @include themify($themes) {
+                        color: themed("text-secondary");
+                    }
                 }
 
                 .description {
@@ -484,7 +504,10 @@
         }
 
         b {
-            color: white;
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+
             font-weight: 500;
             font-size: 16px;
         }

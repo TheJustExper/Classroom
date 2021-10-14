@@ -18,7 +18,7 @@ export default (props) => {
 
     const [ inputValues, setInputValues ] = useReducer(
         (state, newState) => ({ ...state, ...newState }),
-        { title: '', description: '', topic: '', date: Date.now() }
+        { title: '', description: '', topic: '', date: new Date().valueOf() }
     );
       
     const handleOnChange = event => {
@@ -45,9 +45,11 @@ export default (props) => {
         props.refresh();
     }
 
+    const [ toggledCalender, setToggledCalender ] = useState(false);
+
     return (
         <Popup class="fixed">
-            <div className="content">
+            <div className="content" >
                 <div className="text">
                     <p>Expers website</p>
                     <h1>Assignment</h1>
@@ -65,13 +67,19 @@ export default (props) => {
 
                 <div className="input-outer">
                     <label for="title">Due Date</label>
-                    <DropDownChild>
+
+                    <DropDownChild value={inputValues.date} toggled={toggledCalender} toggle={() => setToggledCalender(!toggledCalender)}>
                         <Calendar
-                            onChange={(date) => setInputValues({ date })}
+                            onChange={(date) => {
+                                console.log(date, date.valueOf())
+                                setInputValues({ date: date.valueOf() }) 
+                                setToggledCalender(false); 
+                            }}
                             showWeekNumbers
                             value={new Date(inputValues.date)}
                         />
                     </DropDownChild>
+
                 </div>
 
                 <div className="input-outer">

@@ -88,10 +88,13 @@ export default (props) => {
 
     const [ teachers, setTeachers ] = useState([]);
 	const [ users, setUsers ] = useState([]);
-	
 
+	const [ sidebarActive, setSidebarActive ] = useState(localStorage.getItem("sidebar-active") === 'true');
 
-	const [ sidebarActive, setSidebarActive ] = useState(false);
+	const setSidebar = () => {
+		localStorage.setItem("sidebar-active", !sidebarActive);
+		setSidebarActive(!sidebarActive);
+	}
 
 	const statuses = ["offline", "away", "online"];
 
@@ -100,7 +103,7 @@ export default (props) => {
 	const UntoggledSidebar = () => {
 		return (
 			<div className="classroom-sidebar">
-				<div className="toggle-sidebar" onClick={() => setSidebarActive(!sidebarActive)}>
+				<div className="toggle-sidebar" onClick={() => setSidebar()}>
 					<i class="fas fa-toggle-on"></i>
 					<p>Toggle Sidebar</p>
 				</div>
@@ -158,7 +161,7 @@ export default (props) => {
 	const ToggledSidebar = () => {
 		return (
 			<div className="classroom-sidebar toggle">
-				<div className="toggle-sidebar" onClick={() => setSidebarActive(!sidebarActive)}>
+				<div className="toggle-sidebar" onClick={() => setSidebar()}>
 					<i class="fas fa-toggle-on"></i>
 				</div>
 
@@ -252,7 +255,7 @@ export default (props) => {
 	}
 
 	const getAssignmentsGrouped = () => {
-		const group = _.groupBy(assignments, (work) => new Date(work.date).getUTCDate());
+		const group = _.groupBy(assignments, (work) => new Date(work.date).getDate());
 
 		const updated = Object.keys(group).map(key => {
 			return {
@@ -297,12 +300,23 @@ export default (props) => {
 	const dateToString = (date) => {
 		var dateObj = new Date(date);
 
-		var month = dateObj.getUTCMonth(); 
-		var day = dateObj.getUTCDate() + 1;
-		var year = dateObj.getUTCFullYear();
+		var month = dateObj.getMonth(); 
+		var day = dateObj.getDate();
+		var year = dateObj.getFullYear();
 		var date = `${monthNames[month]} ${day}, ${year}`;
 
 		return date;
+	}
+
+	const deleteHomework = async (id, uid) => {
+		const fire = firestore.collection("classrooms");
+        const base = fire.doc(id).collection("assignments");
+        
+        await base.doc(uid).delete();
+
+        props.setPopup(null);
+
+        getAssignments();
 	}
     
     useEffect(() => {
@@ -346,27 +360,40 @@ export default (props) => {
 
                         <div className="classroom-left">
 
-                            <div className="container">
+							<div className="classroom__container" style={{ padding: "0px" }}>
+								<div className="input-with-icon" style={{ height: "60px" }}>
+									<div className="input-with-icon__inner">
+										<img src={user.photoURL} style={{ marginRight: "5px" }}/>
+										<input style={{ width: "100%" }} placeholder="Start a discussion, share class materials, etc..."/>
+									</div>
+
+									<div className="input-with-icon_inner">
+										<i class="fas fa-images"></i>
+									</div>
+								</div>
+							</div>
+
+                            <div className="classroom__container">
                                 <div className="row">
                                     <p>Assignment(s) <b>({ assignments.length })</b></p>
                                     <div className="line"></div>
                                 </div>
 
-								<div className="classroom-homework">
+								{ assignments.length > 0 &&
+									<div className="classroom-homework">
 									{ getAssignmentsGrouped().map((data) => {
 										if (data.length == 0) return null;
 
-										const od = new Date(data.date).getUTCDate() + 1;
-										const td = new Date().getUTCDate();
+										const od = new Date(data.date).getDate();
+										const td = new Date().getDate();
 
-										console.log(td, od)
 
 										return (
 											<div className="classroom-homework__section">
 												<div className="classroom-homework__date_section">
 													<p className="classroom-homework__date">{ dateToString(data.date) } </p>
 													{ od == td ? <span className="classroom-homework__today">Due Today</span> :  
-													  od - td <= 3 && od - td != 0 && <span className="classroom-homework__today classroom-homework__soon">Due Soon</span> }
+													od - td <= 3 && od - td != 0 && <span className="classroom-homework__today classroom-homework__soon">Due Soon</span> }
 												</div>
 
 												{ data.data.map((data) => {
@@ -387,7 +414,7 @@ export default (props) => {
 																	</div>
 																</div>
 
-																<i class="classroom-homework__edit fas fa-ellipsis-v" onClick={() => props.setPopup(<ContentDelete type="assignments" setPopup={props.setPopup} refresh={getAssignments} id={id} uid={uid}/>)}></i>
+																<i class="classroom-homework__edit fas fa-ellipsis-v" onClick={() => props.setPopup(<ContentDelete deleteContent={() => deleteHomework(id, uid)}/>)}></i>
 															</div>
 														</div>
 													)
@@ -398,19 +425,22 @@ export default (props) => {
 										)
 									})}
 								</div>
+								}
                             </div>
                             
-                            <div className="container">
+                            <div className="classroom__container">
                                 <div className="row">
                                     <p>Topic List <b>({ topics.length })</b></p>
                                     <div className="line"></div>
                                 </div>
 
-                                <div className="classroom-topics">
+                                { topics.length > 0 &&
+									<div className="classroom-topics">
 
-                                    { topics.map(topic => <Topic data={topic} teacher={teachers.find(u => u.uid == user.uid)} id={id} refresh={getTopics} setPopup={props.setPopup}/>) }  
+									{ topics.map(topic => <Topic data={topic} teacher={teachers.find(u => u.uid == user.uid)} id={id} refresh={getTopics} setPopup={props.setPopup}/>) }  
 
-                                </div>
+									</div>
+								}
                             </div>
 
                         </div>

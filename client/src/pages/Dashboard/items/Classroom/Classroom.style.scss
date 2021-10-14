@@ -35,11 +35,59 @@
     width: 100%;
     max-width: 1000px;
     margin: auto;
-    border-radius: 10px;
 
-    @include themify($themes) {
-        background-color: themed("header-color");
-        border: 1px solid themed("border-color");
+    &__container {
+        margin-bottom: 20px;
+        padding: 25px;
+        border-radius: 8px;
+
+        @include themify($themes) {
+            background-color: themed("header-color");
+            border: 1px solid themed("border-color");
+        }
+
+        &:first-child {
+            margin-bottom: 20px;
+        }
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+
+            font-size: 14px;
+
+            p {
+                white-space: nowrap;
+                padding-right: 15px;
+                font-weight: 600;
+            }
+
+            i {
+                margin-right: 10px;
+
+                @include themify($themes) {
+                    color: themed("text-secondary");
+                }
+            }
+
+            .line {
+                width: 100%;
+                height: 1px;
+
+                @include themify($themes) {
+                    background-color: themed("border-color");
+                }
+            }
+        }
     }
 
     &__header {
@@ -48,13 +96,14 @@
         justify-content: space-between;
 
         padding: 25px;
+        margin-bottom: 20px;
 
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
 
         @include themify($themes) {
             background-color: themed("subheader-color");
-            border-bottom: 1px solid themed("border-color");
+            border: 1px solid themed("border-color");
         }
 
         .buttons {
@@ -305,7 +354,13 @@
                         background-color: themed("border-color");
                     }
 
-                    border-left: 3px solid $color-red;
+                    p {
+                        @include themify($themes) {
+                            color: themed("text-primary");
+                        }
+                    }
+
+                    border-left: 3px solid $primary-brand-color;
                     background-color: $border-color;
                 }
 
@@ -380,7 +435,6 @@
         flex-direction: row;
 
         z-index: 3;
-        padding: 25px;
 
         .classroom-left {
             width: 100%;
@@ -644,6 +698,8 @@
     }
 
     .classroom-homework {
+        margin-top: 20px;
+
         &__inner {
             display: flex;
             flex-direction: row;
@@ -720,12 +776,14 @@
         }
 
         &__today {
-            color: #eb5255;
+            color: $color-red;
             background-color: rgba(235, 82, 85, .12);
+            border: 1px solid $color-red;
+
             border-radius: 4px;
             margin-left: 12px;
-            padding: 3px 8px;
-            font-size: 11px;
+            padding: 3px 5px;
+            font-size: 9px;
             font-weight: 700;
             letter-spacing: .33px;
             height: fit-content;
@@ -735,6 +793,8 @@
         &__soon {
             color: $color-yellow;
             background-color: rgba(236, 183, 40, .12);
+            border: 1px solid $color-yellow;
+            font-size: 9px;
         }
 
         &__text {
@@ -878,55 +938,12 @@
         }
     }
 
-    .container {
-        margin-bottom: 40px;
-
-        &:last-child {
-            margin-bottom: 0px;
-        }
-
-        .row {
-            margin-bottom: 20px;
-
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-
-            @include themify($themes) {
-                color: themed("text-secondary");
-            }
-
-            font-size: 14px;
-
-            p {
-                white-space: nowrap;
-                padding-right: 15px;
-                font-weight: 600;
-            }
-
-            i {
-                margin-right: 10px;
-
-                @include themify($themes) {
-                    color: themed("text-secondary");
-                }
-            }
-
-            .line {
-                width: 100%;
-                height: 1px;
-
-                @include themify($themes) {
-                    background-color: themed("border-color");
-                }
-            }
-        }
-    }
-
     .classroom-topics {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         grid-gap: 30px;
+
+        margin-top: 20px;
 
         max-height: 320px;
 

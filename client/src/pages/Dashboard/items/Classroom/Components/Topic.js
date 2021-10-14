@@ -1,4 +1,5 @@
 import { ContentDelete } from "../Popups";
+import { firestore } from "../../../../../firebase";
 
 import ProgressBar from "../../../../../components/progressBar/ProgressBar"
 
@@ -6,8 +7,18 @@ export default ({ data, setPopup, refresh, teacher, id }) => {
     const { title, description } = data;
     const uid = data.id;
 
+    const deleteTopic = async () => {
+        const fire = firestore.collection("classrooms");
+        const base = fire.doc(id).collection("topics");
+        
+        await base.doc(uid).delete();
+
+        setPopup(null);
+        refresh();
+    }
+
     const deleteContentPopup = (uid) => {
-        setPopup(<ContentDelete type="topics" setPopup={setPopup} refresh={refresh} id={id} uid={uid}/>)
+        setPopup(<ContentDelete setPopup={setPopup} deleteContent={deleteTopic}/>)
     }
 
     return (

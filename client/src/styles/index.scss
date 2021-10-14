@@ -29,11 +29,39 @@
   background-repeat: no-repeat;
 }
 
-.react-calendar button {
-  margin: 0;
-  border: 0;
-  outline: none;
-  color: black;
+.react-calendar {
+  @include themify($themes) {
+    background-color: themed("subheader-color");
+  }
+
+  border: none !important;
+
+  &__tile {
+    &--active {
+      color: white !important;
+      background-color: $primary-brand-color;
+    }
+
+    &--now {
+      background-color: $color-success !important;
+    }
+  }
+
+  button {
+    margin: 0;
+    border: 0;
+    outline: none;
+
+    @include themify($themes) {
+      color: themed("text-primary");
+    }
+  
+    &:hover {
+      @include themify($themes) {
+        background-color: themed("active-color") !important;
+      }
+    }
+  }
 }
 
 * {

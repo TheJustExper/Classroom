@@ -10,19 +10,9 @@ import Popup from "../../../../../popups/Popup";
 import "./classroom-content-topic.style.scss";
 
 export default (props) => {
-    const { user } = useContext(UserContext);
-    const { getTopics } = props.refresh;
 
     const clicked = async () => {
-        const fire = firestore.collection("classrooms");
-        const base = fire.doc(props.id).collection(props.type);
-
-        console.log(props.id, props.type, props.uid)
-        
-        await base.doc(props.uid).delete();
-
-        props.setPopup(null);
-        props.refresh();
+        props.deleteContent();
     }
 
     return (

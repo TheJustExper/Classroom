@@ -24,13 +24,6 @@ export default (props) => {
 
             <div className="dashboard__section">
                 <div className="links">
-                    { user && user.plan == 1 && 
-                        <div className="feature-notification">
-                            <p>Unlock premium features</p>
-                            <i class="fas fa-arrow-right"></i>
-                        </div>
-                    }
-
                     <Link onClick={() => { setSelected(1); localStorage.setItem('sidebarItem', 1); }} to="/dashboard/classrooms" className={ selected == 1 ? "links__item links__item--active" : "links__item" }>
                         <div className="item-inner">
                             <p>Classrooms</p>
@@ -42,6 +35,16 @@ export default (props) => {
                             <p>Projects</p>
                         </div>
                     </Link>
+
+                    { hasRole(user, ["ADMIN"]) && 
+                            <>
+                                <Link onClick={() => { setSelected(3); localStorage.setItem('sidebarItem', 3); }} to="/dashboard/users" className={ selected == 3 ? "links__item links__item--active" : "links__item" }>
+                                    <div className="item-inner">
+                                        <p>Users</p>
+                                    </div>
+                                </Link>
+                            </>
+                    }   
                     
                     <Link to="#" className="links__item">
                         <div className="item-inner">
@@ -61,21 +64,6 @@ export default (props) => {
                         </div>
                     </Link>
                     
-                    { hasRole(user, ["ADMIN"]) && 
-                            <>
-                                <Link onClick={() => { setSelected(3); localStorage.setItem('sidebarItem', 3); }} to="/dashboard/users" className={ selected == 3 ? "links__item links__item--active" : "links__item" }>
-                                    <div className="item-inner">
-                                        <p>Users</p>
-                                    </div>
-                                </Link>
-                            </>
-                    }   
-
-                    <Link onClick={() => auth.signOut()} to="#" className="links__item links__logout">
-                        <div className="item-inner">
-                            <p>Logout</p>
-                        </div>
-                    </Link>
                 </div>
             </div>
         </div>

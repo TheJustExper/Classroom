@@ -10,7 +10,10 @@
 
 .project-overview {
     height: calc(100vh - 200px);
-    color: white;
+
+    @include themify($themes) {
+        color: themed("text-primary");
+    }
 
     .project-head {
         padding-bottom: 50px;
@@ -71,21 +74,25 @@
                 flex-direction: column;
                 justify-content: space-between;
 
-                background-color: $header-color;
-                border: 2px solid $border-color;
                 border-radius: 5px;
 
                 padding: 20px;
                 box-sizing: border-box;
 
+                @include themify($themes) {
+                    background-color: themed("header-color");
+                    border: 1px solid themed("border-color");
+                }
+
                 .active {
                     color: $color-success;
                 }
 
-            
-
                 p {
-                    color: #908e92;
+                    @include themify($themes) {
+                        color: themed("text-secondary");
+                    }
+
                     font-size: 14px;
                     font-weight: 500;
                 }
@@ -97,7 +104,10 @@
                     flex-direction: row;
     
                     h2 {
-                        color: white;
+                        @include themify($themes) {
+                            color: themed("text-primary");
+                        }
+
                         margin-bottom: 15px;
                     }
 
@@ -107,7 +117,9 @@
 
                         font-size: 15px;
 
-                        color: white;
+                        @include themify($themes) {
+                            color: themed("text-primary");
+                        }
                     }
                 }
             }

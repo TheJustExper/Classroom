@@ -30,12 +30,12 @@ export default (props) => {
                 <div className="classroom-content__widgets">
                     
                     <div className="classroom-content__widget" onClick={() => props.setPopup(<ContentAssignment setPopup={props.setPopup} topics={props.topics} refresh={getAssignments} id={props.id}/>)}>
-                        <img src="https://cdn-icons-png.flaticon.com/512/167/167755.png"/>
+                        <i class="fas fa-book"></i>
                         <p>Assignment</p>
                     </div>
 
                     <div className="classroom-content__widget" onClick={() => props.setPopup(<ContentTopic setPopup={props.setPopup} refresh={getTopics} id={props.id}/>)}>
-                        <img src="https://cdn-icons-png.flaticon.com/512/5455/5455650.png"/>
+                        <i class="fas fa-comments"></i>
                         <p>Topic</p>
                     </div>
                    
