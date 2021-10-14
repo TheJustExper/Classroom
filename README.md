@@ -1,4 +1,4 @@
-# project-v.1
-Blog for my own apps
+# Classroom
+A functional and eductional classroom management platform
 
-![vid](https://i.imgur.com/OChtXWl.mp4)
+![vid](https://imgur.com/vhNYBVf.jpg)
