@@ -2,19 +2,16 @@ import React, { useState, useReducer } from "react";
 
 import "./dropdown.style.scss";
 
-const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const dateFormat = new Intl.DateTimeFormat('en-US', {
+    month: "long",
+    day: "numeric",
+    year: "numeric"
+});
 
 export default ({ toggled, toggle, children, value }) => { 
     const dateToString = (date) => {
-		var dateObj = new Date(date);
-
-		var month = dateObj.getMonth(); 
-		var day = dateObj.getDate();
-		var year = dateObj.getFullYear();
-
-		var date = `${monthNames[month]} ${day}, ${year}`;
-
-		return date;
+		const dateObj = new Date(date);
+        return dateFormat.format(dateObj);
 	}
 
     return (

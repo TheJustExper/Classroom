@@ -38,7 +38,9 @@ export default (props) => {
             title, 
             description,
             topic,
-            date: inputValues.date.valueOf()
+            date: inputValues.date.valueOf(),
+            handedIn: [],
+            marked: [],
         });
 
         props.setPopup(null);

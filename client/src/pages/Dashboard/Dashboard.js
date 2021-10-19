@@ -13,6 +13,8 @@ import Users from "./items/Users/Users";
 import Classrooms from "./items/Classroom/Classrooms";
 import Classroom from "./items/Classroom/Classroom";
 
+import AssignmentView from "./items/Classroom/Views/Assignment/AssignmentView";
+
 import Projects from "./items/Projects/Projects";
 import ProjectOverview from "./items/Project/ProjectOverview";
 
@@ -70,12 +72,16 @@ export default (props) => {
                                 </Route>
                             )}
     
-                            <Route exact path="/dashboard/classrooms">
+                            <Route exact path="/dashboard/c">
                                 <Classrooms setPopup={props.setPopup}/>
                             </Route>
     
-                            <Route exact path="/dashboard/classrooms/:id">
+                            <Route exact path="/dashboard/c/:id">
                                 <Classroom setPopup={props.setPopup}/>
+                            </Route>
+
+                            <Route exact path="/dashboard/c/:id/a/:assignmentId">
+                                <AssignmentView setPopup={props.setPopup}/>
                             </Route>
     
                             <Route exact path="/dashboard/projects">

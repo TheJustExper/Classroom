@@ -10,7 +10,11 @@ import faker from "faker";
 import Popup from "./Popups/classroom-content";
 import Topic from "./Components/Topic";
 
-import { ContentDelete } from "./Popups";
+import Error404Page from "../Error404/Error404";
+
+import InputWithIcon from "../../../../components/commentInput/CommentInput";
+
+import Assignment from "./Components/Assignment/Assignment";
 
 import ProgressBar from "../../../../components/progressBar/ProgressBar"
 
@@ -18,60 +22,6 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 import 'react-circular-progressbar/dist/styles.css';
 import "./Classroom.style.scss";
-
-class CircularProgressBar extends React.Component {
-	constructor(props) {
-	  super(props);
-	  this.state = {};
-	}
-  
-	render() {
-	  // Size of the enclosing square
-	  const sqSize = this.props.sqSize;
-	  // SVG centers the stroke width on the radius, subtract out so circle fits in square
-	  const radius = (this.props.sqSize - this.props.strokeWidth) / 2;
-	  // Enclose cicle in a circumscribing square
-	  const viewBox = `0 0 ${sqSize} ${sqSize}`;
-	  // Arc length at 100% coverage is the circle circumference
-	  const dashArray = radius * Math.PI * 2;
-	  // Scale 100% coverage overlay with the actual percent
-	  const dashOffset = dashArray - dashArray * this.props.percentage / 100;
-  
-	  return (
-		<svg
-			width={this.props.sqSize}
-			height={this.props.sqSize}
-			viewBox={viewBox}>
-			<circle
-			  className="circle-background"
-			  cx={this.props.sqSize / 2}
-			  cy={this.props.sqSize / 2}
-			  r={radius}
-			  strokeWidth={`${this.props.strokeWidth}px`} />
-			<circle
-			  className="circle-progress"
-			  cx={this.props.sqSize / 2}
-			  cy={this.props.sqSize / 2}
-			  r={radius}
-			  strokeWidth={`${this.props.strokeWidth}px`}
-			  // Start progress marker at 12 O'Clock
-			  transform={`rotate(-90 ${this.props.sqSize / 2} ${this.props.sqSize / 2})`}
-			  style={{
-				strokeDasharray: dashArray,
-				strokeDashoffset: dashOffset
-			  }} />
-			<text
-			  className="circle-text"
-			  x="50%"
-			  y="50%"
-			  dy=".3em"
-			  textAnchor="middle">
-			  {`${this.props.percentage}%`}
-			</text>
-		</svg>
-	  );
-	}
-  }
 
 export default (props) => {
 
@@ -98,7 +48,11 @@ export default (props) => {
 
 	const statuses = ["offline", "away", "online"];
 
-	const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	const dateFormat = new Intl.DateTimeFormat('en-US', {
+		month: "long",
+		day: "numeric",
+		year: "numeric"
+	});
 
 	const UntoggledSidebar = () => {
 		return (
@@ -298,158 +252,133 @@ export default (props) => {
 	}
 
 	const dateToString = (date) => {
-		var dateObj = new Date(date);
-
-		var month = dateObj.getMonth(); 
-		var day = dateObj.getDate();
-		var year = dateObj.getFullYear();
-		var date = `${monthNames[month]} ${day}, ${year}`;
-
-		return date;
+		const dateObj = new Date(date);
+  		return dateFormat.format(dateObj);
 	}
 
-	const deleteHomework = async (id, uid) => {
-		const fire = firestore.collection("classrooms");
-        const base = fire.doc(id).collection("assignments");
-        
-        await base.doc(uid).delete();
+	const getDateString = (od, td) => {
+		if (od == td) return "today";
+		if (od - td <= 3 && od - td >= 0) return "soon";
+		if (od - td < 0) return "late";
+	}
 
-        props.setPopup(null);
-
-        getAssignments();
+	const getDateTag = (od, td) => {
+		if (od == td) return <span className="classroom-homework__today">Due Today</span>;  
+		if (od - td <= 3 && od - td >= 0) return <span className="classroom-homework__today classroom-homework__soon">Due Soon</span>;
+		if (od - td < 0) return <span className="classroom-homework__today classroom-homework__late">Late</span>;
 	}
     
-    useEffect(() => {
+    useEffect(async () => {
         if (user) {
-            let itemRefs = firestore.collection('classrooms').doc(id);
+            const itemRefs = firestore.collection('classrooms').doc(id);
 
-            itemRefs.get().then(d => {
-                const items = d.data();
+            const doc = await itemRefs.get();
+
+			if (doc.exists) {
+				const items = doc.data();
 
 				getUsers(items);
 
-                setClassroom(items);
-            });
-
-            getTopics();
-			getGuides();
-			getAssignments();
+				setClassroom(items);
+	
+				getTopics();
+				getGuides();
+				getAssignments();
+			} else {
+				setClassroom(false);
+			}
         }
     }, [ loading ]);
     
-    return (
-        <>
-            <div className="itemContent">
-                <div className="classroom">
-					<div className="classroom__header">
-						<div className="text">
-							<h1>{ classroom ? classroom.title : "Loading..." }</h1>
-							<p className="title">There is { topics.length } topic(s) avaliable</p>
+	if (!classroom) return (
+		<div className="itemContent">
+			<div className="classroom">
+				<Error404Page/>
+			</div>
+		</div>
+	)
+
+    if (classroom) {
+		return (
+			<>
+				<div className="itemContent">
+						<div className="classroom">
+						<div className="classroom__header">
+							<div className="text">
+								<h1>{ classroom ? classroom.title : "Loading..." }</h1>
+								<p className="title">There is { topics.length } topic(s) avaliable</p>
+							</div>
+	
+							{ teachers.find(u => u.uid == user.uid) && (
+								<div className="buttons">
+									<span className="buttons__icon" onClick={() => openContentPopup()}><i class="fas fa-plus"></i></span>
+									<span className="buttons__icon"><i class="fas fa-file"></i></span>
+									<span className="buttons__icon"><i class="fas fa-cog"></i></span>
+								</div>
+							)}
 						</div>
-
-						{ teachers.find(u => u.uid == user.uid) && (
-							<div className="buttons">
-								<span className="buttons__icon" onClick={() => openContentPopup()}><i class="fas fa-plus"></i></span>
-								<span className="buttons__icon"><i class="fas fa-file"></i></span>
-								<span className="buttons__icon"><i class="fas fa-cog"></i></span>
-							</div>
-						)}
-					</div>
-
-                    <div className="classroom-outer">
-
-                        <div className="classroom-left">
-
-							<div className="classroom__container" style={{ padding: "0px" }}>
-								<div className="input-with-icon" style={{ height: "60px" }}>
-									<div className="input-with-icon__inner">
-										<img src={user.photoURL} style={{ marginRight: "5px" }}/>
-										<input style={{ width: "100%" }} placeholder="Start a discussion, share class materials, etc..."/>
+	
+						<div className="classroom-outer">
+	
+							<div className="classroom-left">
+	
+								<InputWithIcon placeholder="Start a discussion" photoURL={user.photoURL} icon="fas fa-images"/>
+	
+								<div className="container padding">
+									<div className="row">
+										<p>Assignment(s) <b>({ assignments.length })</b></p>
+										<div className="line"></div>
 									</div>
-
-									<div className="input-with-icon_inner">
-										<i class="fas fa-images"></i>
-									</div>
-								</div>
-							</div>
-
-                            <div className="classroom__container">
-                                <div className="row">
-                                    <p>Assignment(s) <b>({ assignments.length })</b></p>
-                                    <div className="line"></div>
-                                </div>
-
-								{ assignments.length > 0 &&
-									<div className="classroom-homework">
-									{ getAssignmentsGrouped().map((data) => {
-										if (data.length == 0) return null;
-
-										const od = new Date(data.date).getDate();
-										const td = new Date().getDate();
-
-
-										return (
-											<div className="classroom-homework__section">
-												<div className="classroom-homework__date_section">
-													<p className="classroom-homework__date">{ dateToString(data.date) } </p>
-													{ od == td ? <span className="classroom-homework__today">Due Today</span> :  
-													od - td <= 3 && od - td != 0 && <span className="classroom-homework__today classroom-homework__soon">Due Soon</span> }
+	
+									{ assignments.length > 0 &&
+										<div className="classroom-homework">
+										{ getAssignmentsGrouped().map((data) => {
+											if (data.length == 0) return null;
+	
+											const od = new Date(data.date).getDate();
+											const td = new Date().getDate();
+	
+											return (
+												<div className="classroom-homework__section">
+													<div className="classroom-homework__date_section">
+														<p className="classroom-homework__date">{ dateToString(data.date) } </p>
+														{ getDateTag(od, td) }
+													</div>
+	
+													{ data.data.map((data) => {
+														return <Assignment type={getDateString(od, td)} getAssignments={getAssignments} setPopup={props.setPopup} data={data} id={id} amountAssigned={classroom.usersIds.length}/>
+													})
+												}
 												</div>
-
-												{ data.data.map((data) => {
-													const { title, topic } = data;
-													const uid = data.id;
-
-													return (
-														<div className="classroom-homework__outer">
-															<div className="classroom-homework__item">
-																<div className="classroom-homework__inner">
-																	<CircularProgressBar
-																		strokeWidth="2"
-																		sqSize="30"
-																		percentage={0}/>
-																	<div className="classroom-homework__text">
-																		<b>{ title }</b>
-																		<p>{ topic }</p>
-																	</div>
-																</div>
-
-																<i class="classroom-homework__edit fas fa-ellipsis-v" onClick={() => props.setPopup(<ContentDelete deleteContent={() => deleteHomework(id, uid)}/>)}></i>
-															</div>
-														</div>
-													)
-
-												})
-											}
-											</div>
-										)
-									})}
-								</div>
-								}
-                            </div>
-                            
-                            <div className="classroom__container">
-                                <div className="row">
-                                    <p>Topic List <b>({ topics.length })</b></p>
-                                    <div className="line"></div>
-                                </div>
-
-                                { topics.length > 0 &&
-									<div className="classroom-topics">
-
-									{ topics.map(topic => <Topic data={topic} teacher={teachers.find(u => u.uid == user.uid)} id={id} refresh={getTopics} setPopup={props.setPopup}/>) }  
-
+											)
+										})}
 									</div>
-								}
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            { sidebarActive ?  <ToggledSidebar/> : <UntoggledSidebar/> }
-        </>
-    )
+									}
+								</div>
+								
+								<div className="container padding">
+									<div className="row">
+										<p>Topic List <b>({ topics.length })</b></p>
+										<div className="line"></div>
+									</div>
+	
+									{ topics.length > 0 &&
+										<div className="classroom-topics">
+	
+										{ topics.map(topic => <Topic data={topic} teacher={teachers.find(u => u.uid == user.uid)} id={id} refresh={getTopics} setPopup={props.setPopup}/>) }  
+	
+										</div>
+									}
+								</div>
+	
+							</div>
+	
+						</div>
+					</div>
+				</div>
+	
+				{ sidebarActive ?  <ToggledSidebar/> : <UntoggledSidebar/> }
+			</>
+		)
+	}
 }

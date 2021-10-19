@@ -16,7 +16,7 @@ export default (props) => {
         <div className="dashboard__header">
             <div className="dashboard__section">
                 <div className="row">
-                <i class="fas fa-laptop-code"></i>
+                    <i class="fas fa-laptop-code"></i>
                     <h1>studentroom</h1>
                 </div>
                 <UserDropdown user={user}/>
@@ -24,7 +24,7 @@ export default (props) => {
 
             <div className="dashboard__section">
                 <div className="links">
-                    <Link onClick={() => { setSelected(1); localStorage.setItem('sidebarItem', 1); }} to="/dashboard/classrooms" className={ selected == 1 ? "links__item links__item--active" : "links__item" }>
+                    <Link onClick={() => { setSelected(1); localStorage.setItem('sidebarItem', 1); }} to="/dashboard/c" className={ selected == 1 ? "links__item links__item--active" : "links__item" }>
                         <div className="item-inner">
                             <p>Classrooms</p>
                         </div>

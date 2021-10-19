@@ -73,14 +73,14 @@ export default (props) => {
 
                     <div className="flex-bar">
                         <button className="button classroom-add" onClick={() => props.setPopup(<Popup setPopup={props.setPopup} refresh={loadClassrooms}/>)}>+ Add new classroom</button>
-                        <button className="button classroom-join clear" onClick={() => joinClassroom("u3a9T5MwSy48123x0nWw")}>Join a classroom</button>
+                        <button className="button classroom-join clear" onClick={() => joinClassroom("Qd8yY1DwP5oXjDA0cFsA")}>Join a classroom</button>
                     </div>
                 </div>
 
                 <div className="classrooms-outer">
                     { classrooms && classrooms.map(({ title, id }) => {
                         return (
-                            <div className="classroom-inner" onClick={() => history.push("/dashboard/classrooms/" + id)}>
+                            <div className="classroom-inner" onClick={() => history.push("/dashboard/c/" + id)}>
                                 <div className="head">
                                     <div className="text">
                                         <p>Classroom</p>

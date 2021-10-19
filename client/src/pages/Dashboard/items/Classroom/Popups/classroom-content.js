@@ -14,11 +14,6 @@ export default (props) => {
 
     const { getTopics, getAssignments } = props.refresh;
 
-    const create = () => {
-        props.setPopup(null);
-        props.refresh();
-    }
-
     return (
         <Popup class="fixed">
             <div className="content classroom-content">
