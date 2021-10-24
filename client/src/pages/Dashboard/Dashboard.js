@@ -80,8 +80,8 @@ export default (props) => {
                                 <Classroom setPopup={props.setPopup}/>
                             </Route>
 
-                            <Route exact path="/dashboard/c/:id/a/:assignmentId">
-                                <AssignmentView setPopup={props.setPopup}/>
+                            <Route path="/dashboard/c/:id/a/:assignmentId">
+                                <AssignmentView setPopup={props.setPopup} />
                             </Route>
     
                             <Route exact path="/dashboard/projects">

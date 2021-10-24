@@ -19,7 +19,7 @@ export default (props) => {
                     <i class="fas fa-laptop-code"></i>
                     <h1>studentroom</h1>
                 </div>
-                <UserDropdown user={user}/>
+                <UserDropdown user={user} setToggledTheme={props.setToggledTheme}/>
             </div>
 
             <div className="dashboard__section">
@@ -55,12 +55,6 @@ export default (props) => {
                     <Link to="#" className="links__item">
                         <div className="item-inner">
                             <p>Settings</p>
-                        </div>
-                    </Link>
-
-                    <Link onClick={props.setToggledTheme} to="#" className="links__item">
-                        <div className="item-inner">
-                            <p>Toggle Theme</p>
                         </div>
                     </Link>
                     

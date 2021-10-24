@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Link, Switch, useHistory, useParams, Route } from "react-router-dom";
+import React, { useEffect, useState, useContext, createRef } from "react";
+import { Link, Switch, useHistory, useParams, Route, useRouteMatch } from "react-router-dom";
 import { UserContext, hasRole } from "../../../../providers/UserProvider";
 import { firestore, auth } from "../../../../firebase";
+import { ClassroomStore } from "../../../../store";
 
 import _ from "lodash";
 
@@ -15,6 +16,9 @@ import Error404Page from "../Error404/Error404";
 import InputWithIcon from "../../../../components/commentInput/CommentInput";
 
 import Assignment from "./Components/Assignment/Assignment";
+import AssignmentView from "./Views/Assignment/AssignmentView";
+
+import { ToggledSidebar, UntoggledSidebar } from "./Components/ClassroomSidebar";
 
 import ProgressBar from "../../../../components/progressBar/ProgressBar"
 
@@ -26,18 +30,24 @@ import "./Classroom.style.scss";
 export default (props) => {
 
     const  { id } = useParams();
-	const [ usersList, setUsersList ] = useState([]);
+	let { path, url } = useRouteMatch();
 
-    const { user, loading } = useContext(UserContext);
+	const assignmentsRef = createRef();
+	const topicsRef = createRef();
+
+	const { user, loading } = useContext(UserContext);
+
+	const [ usersList, setUsersList ] = useState([]);
 
     const [ classroom, setClassroom ] = useState({});
     const [ topics, setTopics ] = useState([]);
-	const [ tasks, setTasks ] = useState([]);
 	const [ guides, setGuides ] = useState([]);
 	const [ assignments, setAssignments ] = useState([]);
 
     const [ teachers, setTeachers ] = useState([]);
 	const [ users, setUsers ] = useState([]);
+
+	const [ isTeacher, setIsTeacher ] = useState(false);
 
 	const [ sidebarActive, setSidebarActive ] = useState(localStorage.getItem("sidebar-active") === 'true');
 
@@ -46,126 +56,13 @@ export default (props) => {
 		setSidebarActive(!sidebarActive);
 	}
 
-	const statuses = ["offline", "away", "online"];
-
 	const dateFormat = new Intl.DateTimeFormat('en-US', {
 		month: "long",
 		day: "numeric",
 		year: "numeric"
 	});
 
-	const UntoggledSidebar = () => {
-		return (
-			<div className="classroom-sidebar">
-				<div className="toggle-sidebar" onClick={() => setSidebar()}>
-					<i class="fas fa-toggle-on"></i>
-					<p>Toggle Sidebar</p>
-				</div>
-
-				<div className="section">
-						<b>Teachers - { teachers.length }</b>
-						<div className="users">
-
-						{ teachers && teachers.sort((a, b ) => b.status = a.status).map(({ uid, displayName, photoURL, status }) => {
-
-							status = statuses[status]
-
-							return (
-								<div className="user">
-									<div className="icon">
-										<img className="user-me-icon" src={photoURL}/>
-										<div className={"status " + status}></div>
-									</div>
-									<p>{ displayName }</p>
-								</div>
-							)
-
-						})}
-
-						</div>
-				</div>	
-
-				<div className="section">
-						<b>Users - { users.length }</b>
-						<div className="users">
-
-						{ users && users.sort((a, b) => b.status - a.status).map(({ uid, displayName, photoURL, status }) => {
-
-							status = statuses[status]
-
-							return (
-								<div className="user">
-									<div className="icon">
-										<img src={photoURL}/>
-										<div className={"status " + status}></div>
-									</div>
-									<p style={{ color: "" }}>{ displayName }</p>
-								</div>
-							)
-
-						})}
-
-						</div>
-				</div>	
-														
-			</div>
-		)
-	}
-
-	const ToggledSidebar = () => {
-		return (
-			<div className="classroom-sidebar toggle">
-				<div className="toggle-sidebar" onClick={() => setSidebar()}>
-					<i class="fas fa-toggle-on"></i>
-				</div>
-
-				<div className="section">
-						<b>Tea</b>
-						<div className="users">
-
-						{ teachers && teachers.sort((a, b ) => b.status = a.status).map(({ displayName, photoURL, status }) => {
-
-							status = statuses[status]
-
-							return (
-								<div className="user">
-									<div className="icon">
-										<img src={photoURL}/>
-										<div className={"status " + status}></div>
-									</div>
-								</div>
-							)
-
-						})}
-
-						</div>
-				</div>	
-
-				<div className="section">
-						<b>Use</b>
-						<div className="users">
-
-						{ users && users.sort((a, b) => b.status - a.status).map(({ displayName, photoURL, status }) => {
-
-							status = statuses[status]
-
-							return (
-								<div className="user">
-									<div className="icon">
-										<img src={photoURL}/>
-										<div className={"status " + status}></div>
-									</div>
-								</div>
-							)
-
-						})}
-
-						</div>
-				</div>	
-																		
-            </div>
-		)
-	}
+	const scrollIntoView = (ref) => ref.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
 
 	const getTopics = () => {
 		let itemRefs = firestore.collection('classrooms').doc(id);
@@ -218,12 +115,10 @@ export default (props) => {
 			}
 		});
 
-		console.log(assignments)
-
 		return updated;
 	}
 
-	const getUsers = (items) => {
+	const getUsers = async (items) => {
 		const usersRefs = firestore.collection("users").where("uid", "in", items.usersIds);
 
 		usersRefs.get().then((doc) => {
@@ -237,7 +132,9 @@ export default (props) => {
 			setTeachers(teachers);
 			setUsers(users);
 			
-			setUsersList(items1);                 
+			setUsersList(items1);    
+			
+			setIsTeacher(teachers.find(u => u.uid == user.uid))
 		});
 	}
 
@@ -278,7 +175,6 @@ export default (props) => {
 				const items = doc.data();
 
 				getUsers(items);
-
 				setClassroom(items);
 	
 				getTopics();
@@ -292,8 +188,10 @@ export default (props) => {
     
 	if (!classroom) return (
 		<div className="itemContent">
-			<div className="classroom">
-				<Error404Page/>
+			<div className="itemContent__inner">
+				<div className="classroom">
+					<Error404Page/>
+				</div>
 			</div>
 		</div>
 	)
@@ -301,83 +199,111 @@ export default (props) => {
     if (classroom) {
 		return (
 			<>
-				<div className="itemContent">
-						<div className="classroom">
-						<div className="classroom__header">
-							<div className="text">
-								<h1>{ classroom ? classroom.title : "Loading..." }</h1>
-								<p className="title">There is { topics.length } topic(s) avaliable</p>
-							</div>
-	
-							{ teachers.find(u => u.uid == user.uid) && (
-								<div className="buttons">
-									<span className="buttons__icon" onClick={() => openContentPopup()}><i class="fas fa-plus"></i></span>
-									<span className="buttons__icon"><i class="fas fa-file"></i></span>
-									<span className="buttons__icon"><i class="fas fa-cog"></i></span>
-								</div>
-							)}
-						</div>
-	
-						<div className="classroom-outer">
-	
-							<div className="classroom-left">
-	
-								<InputWithIcon placeholder="Start a discussion" photoURL={user.photoURL} icon="fas fa-images"/>
-	
-								<div className="container padding">
-									<div className="row">
-										<p>Assignment(s) <b>({ assignments.length })</b></p>
-										<div className="line"></div>
+					<div className="itemContent">
+						<div className="itemContent__inner">
+							<div className="classroom">
+								<div className="classroom__header">
+									<div className="text">
+										<h1>{ classroom ? classroom.title : "Loading..." }</h1>
+										<p className="title">There is { topics.length } topic(s) avaliable</p>
 									</div>
-	
-									{ assignments.length > 0 &&
-										<div className="classroom-homework">
-										{ getAssignmentsGrouped().map((data) => {
-											if (data.length == 0) return null;
-	
-											const od = new Date(data.date).getDate();
-											const td = new Date().getDate();
-	
-											return (
-												<div className="classroom-homework__section">
-													<div className="classroom-homework__date_section">
-														<p className="classroom-homework__date">{ dateToString(data.date) } </p>
-														{ getDateTag(od, td) }
-													</div>
-	
-													{ data.data.map((data) => {
-														return <Assignment type={getDateString(od, td)} getAssignments={getAssignments} setPopup={props.setPopup} data={data} id={id} amountAssigned={classroom.usersIds.length}/>
-													})
-												}
-												</div>
-											)
-										})}
-									</div>
-									}
-								</div>
-								
-								<div className="container padding">
-									<div className="row">
-										<p>Topic List <b>({ topics.length })</b></p>
-										<div className="line"></div>
-									</div>
-	
-									{ topics.length > 0 &&
-										<div className="classroom-topics">
-	
-										{ topics.map(topic => <Topic data={topic} teacher={teachers.find(u => u.uid == user.uid)} id={id} refresh={getTopics} setPopup={props.setPopup}/>) }  
-	
+			
+									{ isTeacher && (
+										<div className="buttons">
+											<span className="buttons__icon" onClick={() => openContentPopup()}><i class="fas fa-plus"></i></span>
+											<span className="buttons__icon"><i class="fas fa-file"></i></span>
+											<span className="buttons__icon"><i class="fas fa-cog"></i></span>
 										</div>
-									}
+									)}
 								</div>
-	
+			
+								<div className="classroom-outer">
+			
+									<div className="classroom-left">
+			
+										<InputWithIcon placeholder="Start a discussion" photoURL={user.photoURL} icon="fas fa-images"/>
+			
+										<div className="container padding" ref={assignmentsRef}>
+											<div className="row">
+												<p>Assignment(s) <b>({ assignments.length })</b></p>
+												<div className="line"></div>
+											</div>
+			
+											{ assignments.length > 0 &&
+												<div className="classroom-homework">
+
+												{ getAssignmentsGrouped().map((data) => {
+													if (data.length == 0) return null;
+			
+													const od = new Date(data.date).getDate();
+													const td = new Date().getDate();
+			
+													return (
+														<div className="classroom-homework__section">
+															<div className="classroom-homework__date_section">
+																<p className="classroom-homework__date">{ dateToString(data.date) } </p>
+																{ getDateTag(od, td) }
+															</div>
+			
+															{ data.data.map((data) => {
+																return <Assignment getAssignments={getAssignments} setPopup={props.setPopup} data={data} id={id} amountAssigned={classroom.usersIds.length}/>
+															})
+														}
+														</div>
+													)
+												})}
+
+											</div>
+											}
+										</div>
+										
+										<div className="container padding" ref={topicsRef}>
+											<div className="row">
+												<p>Topic List <b>({ topics.length })</b></p>
+												<div className="line"></div>
+											</div>
+			
+											{ topics.length > 0 &&
+												<div className="classroom-topics">
+			
+												{ topics.map(topic => <Topic data={topic} teacher={teachers.find(u => u.uid == user.uid)} id={id} refresh={getTopics} setPopup={props.setPopup}/>) }  
+			
+												</div>
+											}
+										</div>
+			
+									</div>
+			
+								</div>
 							</div>
-	
+
+							<div className="itemContent__side">
+								<div className="sideItem">
+									<div className="sideItem__itemHeader">
+										<img src={user.photoURL} />
+										<div className="text">
+											<b>{ user.displayName }</b>
+											<p>Market Beginner - 20 points</p>
+										</div>
+									</div>
+
+									<div className="sideItem__content">
+										<ProgressBar progress={20}/>
+										<p>2 More lessons to be Market Leader</p>
+									</div>
+								</div>
+
+								<div className="sideItem">
+									<ul>
+										<li onClick={() => scrollIntoView(assignmentsRef)}>Assignments</li>
+										<li onClick={() => scrollIntoView(topicsRef)}>Topics</li>
+									</ul>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-	
-				{ sidebarActive ?  <ToggledSidebar/> : <UntoggledSidebar/> }
+
+				{ sidebarActive ?  <ToggledSidebar setSidebar={setSidebar} teachers={teachers} users={users} /> : <UntoggledSidebar setSidebar={setSidebar} teachers={teachers} users={users} /> }
 			</>
 		)
 	}

@@ -1,17 +1,17 @@
 @import "../../../../styles/variables";
-  
-  #progressInput {
+
+#progressInput {
     margin: 20px auto;
     width: 30%;
-  }
+}
 
-  .padding {
+.padding {
     padding: 25px;
-  }
+}
 
-  .container {
+.container {
     margin-top: 20px;
-    border-radius: 8px;
+    border-radius: 5px;
 
     @include themify($themes) {
         background-color: themed("header-color");
@@ -64,8 +64,7 @@
 
 .classroom {
     width: 100%;
-    max-width: 1000px;
-    margin: auto;
+
 
     &__header {
         display: flex;
@@ -75,7 +74,7 @@
         padding: 25px;
         margin-bottom: 20px;
 
-        border-radius: 8px;
+        border-radius: 5px;
 
         @include themify($themes) {
             background-color: themed("header-color");
@@ -85,26 +84,26 @@
         .buttons {
             display: flex;
             flex-direction: row;
-        
+
             button {
                 margin-right: 10px;
             }
-    
+
             &__icon {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                
+
                 border-radius: 6px;
                 margin-right: 15px;
-    
+
                 width: 30px;
                 height: 30px;
-    
+
                 @include themify($themes) {
                     background-color: themed("active-color");
                 }
-    
+
                 &:last-child {
                     margin-right: 0px;
                 }
@@ -114,28 +113,28 @@
                         border: 2px solid themed("border-color");
                     }
                 }
-    
+
                 i {
                     font-size: 13px;
-    
+
                     @include themify($themes) {
                         color: themed("text-secondary");
                     }
                 }
             }
         }
-    
+
         .text {
             @include themify($themes) {
                 color: themed("text-primary");
             }
 
             position: relative;
-    
+
             h1 {
                 font-size: 25px;
             }
-    
+
             p {
                 font-size: 14px;
                 font-weight: 500;
@@ -144,7 +143,7 @@
                     color: themed("text-secondary");
                 }
             }
-    
+
             .title {
                 margin-top: 10px;
             }
@@ -175,7 +174,7 @@
         opacity: 10%;
 
         z-index: 0;
-        
+
         background-image: url(https://cdn.dribbble.com/users/1731254/screenshots/14335377/media/70e37d6448b5da9139e4e3cf3f147703.png?compress=1&resize=1200x900);
     }
 
@@ -183,16 +182,16 @@
         height: 100%;
         position: relative;
         top: -100px;
-        background-image: linear-gradient(180deg,rgba(33,33,33,0),#141415 48%);
+        background-image: linear-gradient(180deg, rgba(33, 33, 33, 0), #141415 48%);
 
         z-index: 2;
     }
 }
 
 .toggle {
-    width: 60px !important; 
+    width: 60px !important;
     min-width: 60px !important;
-   
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -214,7 +213,7 @@
     }
 
     .toggle-sidebar {
-        border-radius: 8px;
+        border-radius: 5px;
 
         i {
             margin-right: 0px !important;
@@ -283,6 +282,7 @@
         b {
             font-size: 13px;
             text-transform: uppercase;
+            font-weight: 400;
 
             @include themify($themes) {
                 color: themed("text-secondary");
@@ -316,7 +316,7 @@
                 display: flex;
                 flex-direction: row;
                 align-items: center;
-                
+
                 padding: 7px 0px;
 
                 user-select: none;
@@ -349,7 +349,7 @@
                 .icon {
                     display: flex;
                     position: relative;
-                    
+
                     padding-left: 20px;
 
                     img {
@@ -393,7 +393,7 @@
                         color: themed("text-secondary");
                     }
 
-                    font-size: 15px;
+                    font-size: 14px;
                     font-weight: 600;
                     margin-left: 15px;
                 }
@@ -415,7 +415,7 @@
         .classroom-left {
             width: 100%;
             height: 100%;
-        
+
             .classroom-header {
                 width: 100%;
                 height: 200px;
@@ -434,14 +434,14 @@
             display: flex;
             justify-content: flex-end;
 
-            
+
 
             .box {
                 padding: 20px;
 
                 border-radius: 3px;
                 background-color: $header-color;
-    
+
                 border: 2px solid $border-color;
 
                 b {
@@ -473,15 +473,15 @@
                         margin-bottom: 20px;
 
                         &:last-child {
-                           margin-bottom: 0px;
+                            margin-bottom: 0px;
                         }
-    
+
                         img {
                             width: 35px;
                             border-radius: 5px;
                             margin-right: 15px;
                         }
-    
+
                         .text {
                             display: flex;
                             flex-direction: column;
@@ -506,11 +506,11 @@
                                     color: $primary-brand-color;
                                 }
                             }
-    
+
                             b {
                                 font-size: 12px;
                             }
-    
+
                             p {
                                 margin-top: 2px;
 
@@ -522,7 +522,7 @@
                     }
                 }
 
-                
+
             }
         }
     }
@@ -617,7 +617,7 @@
                     @include themify($themes) {
                         color: themed("text-secondary");
                     }
-                    
+
                     font-size: 14px;
                 }
             }
@@ -644,7 +644,7 @@
     .teachers {
         display: flex;
         flex-direction: row;
-    
+
         .teacher {
             display: flex;
             flex-direction: row;
@@ -675,11 +675,12 @@
 
     .classroom-homework-table {
         width: 100%;
-        
+
         border-collapse: collapse;
         overflow: auto;
 
-        td, th {
+        td,
+        th {
             padding: 15px;
         }
 
@@ -694,7 +695,7 @@
                     @include themify($themes) {
                         background-color: themed("header-color");
                     }
-        
+
                     th {
                         font-size: 13px;
                         font-weight: 500;
@@ -739,7 +740,7 @@
             border-spacing: .5em;
 
             &:first-child {
-                font-weight: 700;                
+                font-weight: 700;
 
                 &:hover {
                     cursor: pointer;
@@ -822,7 +823,7 @@
             &__header {
                 height: 135px;
                 border-radius: 5px;
-                
+
                 @include themify($themes) {
                     border: 1px solid themed("border-color");
                 }
@@ -861,7 +862,7 @@
                 }
 
                 text-align: center;
-                
+
                 width: 30px;
                 padding: 5px;
                 border-radius: 50%;

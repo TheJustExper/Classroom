@@ -85,7 +85,7 @@ export default ({ type, data, id, setPopup, getAssignments, amountAssigned = 0 }
                     <CircularProgressBar
                         strokeWidth="2"
                         sqSize="30"
-                        percentage={Math.floor(Math.random() * 100)}/>
+                        percentage={0}/>
                     <div className="classroom-homework__text">
                         <b>{ title }</b>
                         <p>{ topic }</p>
@@ -106,7 +106,7 @@ export default ({ type, data, id, setPopup, getAssignments, amountAssigned = 0 }
 
                     <div className="classroom-homework__inner">
                         <div className="classroom-homework__information">
-                            <h1>{ handedIn.length }</h1>
+                            <h1>0</h1>
                             <p>Handed in</p>
                         </div>
 

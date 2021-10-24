@@ -73,7 +73,7 @@ export default (props) => {
 
                     <div className="flex-bar">
                         <button className="button classroom-add" onClick={() => props.setPopup(<Popup setPopup={props.setPopup} refresh={loadClassrooms}/>)}>+ Add new classroom</button>
-                        <button className="button classroom-join clear" onClick={() => joinClassroom("Qd8yY1DwP5oXjDA0cFsA")}>Join a classroom</button>
+                        <button className="button classroom-join clear" onClick={() => joinClassroom("0dbX0Yv7HH4RNoZHdBhb")}>Join a classroom</button>
                     </div>
                 </div>
 

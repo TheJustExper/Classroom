@@ -32,16 +32,30 @@ export default (props) => {
         if (title.length == 0 || description.length == 0 || topic.length == 0) return;
 
         const fire = firestore.collection("classrooms");
-        const topics = fire.doc(props.id).collection("assignments");
 
-        await topics.add({
+        const assignments = fire.doc(props.id).collection("assignments");
+
+        const { id } = await assignments.add({
             title, 
             description,
+            content: "## Testing",
             topic,
             date: inputValues.date.valueOf(),
-            handedIn: [],
-            marked: [],
+            setBy: user.uid,
         });
+
+        const submissions = assignments.doc(id).collection("submissions");
+
+        await submissions.add({
+            userId: user.uid,
+            userPhotoURL: user.photoURL,
+            userName: user.displayName,
+
+            submission: "Testing",
+            grade: "B+",
+
+            dateSubmitted: Date.now(),
+        })
 
         props.setPopup(null);
         props.refresh();

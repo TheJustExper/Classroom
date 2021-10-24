@@ -1,8 +1,8 @@
 @import "../../styles/variables";
 
 .small {
-    padding: 7px 10px;
-    font-size: .875rem;
+    padding: 7px 12px;
+    font-size: .7rem;
 }
 
 .fit {
@@ -16,9 +16,36 @@
     }
 
     background: none;
+    height: fit-content;
 
     &:hover {
+        @include themify($themes) {
+            color: themed("text-primary");
+        }
+
         background: none;
+    }
+}
+
+.inactive {
+    color: transparentize($primary-brand-color, 0.5) !important;
+    background-color: transparentize($primary-brand-color, 0.9) !important;
+}
+
+.button {
+    &__danger {
+        $color: $color-pink;
+
+        background-color: $color;
+
+        &--inactive {
+            color: transparentize($color, 0.5) !important;
+            background-color: transparentize($color, 0.9) !important;
+        }
+
+        &:hover {
+            background-color: darken($color, 10%)
+        }
     }
 }
 
@@ -30,6 +57,9 @@ button {
     background-color: $primary-brand-color;
     font-size: 13px;
     font-weight: 500;
+    white-space: nowrap;
+
+    height: fit-content;
 
     transition: .1s;
 
