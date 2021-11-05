@@ -221,7 +221,7 @@ export default (props) => {
 			
 									<div className="classroom-left">
 			
-										<InputWithIcon placeholder="Start a discussion" photoURL={user.photoURL} icon="fas fa-images"/>
+										<InputWithIcon placeholder="Start a discussion" photoURL={user && user.photoURL} icon="fas fa-images"/> 
 			
 										<div className="container padding" ref={assignmentsRef}>
 											<div className="row">
@@ -279,25 +279,7 @@ export default (props) => {
 
 							<div className="itemContent__side">
 								<div className="sideItem">
-									<div className="sideItem__itemHeader">
-										<img src={user.photoURL} />
-										<div className="text">
-											<b>{ user.displayName }</b>
-											<p>Market Beginner - 20 points</p>
-										</div>
-									</div>
 
-									<div className="sideItem__content">
-										<ProgressBar progress={20}/>
-										<p>2 More lessons to be Market Leader</p>
-									</div>
-								</div>
-
-								<div className="sideItem">
-									<ul>
-										<li onClick={() => scrollIntoView(assignmentsRef)}>Assignments</li>
-										<li onClick={() => scrollIntoView(topicsRef)}>Topics</li>
-									</ul>
 								</div>
 							</div>
 						</div>

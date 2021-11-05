@@ -4,6 +4,8 @@ import { hasRole, UserContext } from "../../providers/UserProvider";
 import { auth } from "../../firebase";
 import { Link } from "react-router-dom";
 
+import Logo from "./../../styles/SVG/logo.png";
+
 import UserDropdown from "../userDropdown/UserDropdown";
 
 import "./header.style.scss";
@@ -12,52 +14,59 @@ export default (props) => {
     const { user } = useContext(UserContext);
     const [ selected, setSelected ] = useState(localStorage.getItem('sidebarItem'));
 
+    const links = [
+        {
+            title: "Classrooms",
+            to: "/dashboard/c"
+        },
+        {
+            title: "Editor",
+            to: "/dashboard/editor"
+        },
+        {
+            title: "Projects",
+            to: "/dashboard/projects"
+        },
+    ]
+
+    const textToImage = () => {
+        
+    }
+
     return (
         <div className="dashboard__header">
             <div className="dashboard__section">
                 <div className="row">
-                    <i class="fas fa-laptop-code"></i>
                     <h1>studentroom</h1>
                 </div>
-                <UserDropdown user={user} setToggledTheme={props.setToggledTheme}/>
-            </div>
+                <div className="row">
+                    <div className="links">
+                        {
+                            links.map(({ title, to }, index) => {
+                                return (
+                                    <Link onClick={() => { setSelected(index); localStorage.setItem('sidebarItem', index); }} to={to} className={ selected == index ? "links__item links__item--active" : "links__item" }>
+                                        <div className="item-inner">
+                                            <p>{ title }</p>
+                                        </div>
+                                    </Link>
+                                )
+                            })
+                        }
 
-            <div className="dashboard__section">
-                <div className="links">
-                    <Link onClick={() => { setSelected(1); localStorage.setItem('sidebarItem', 1); }} to="/dashboard/c" className={ selected == 1 ? "links__item links__item--active" : "links__item" }>
-                        <div className="item-inner">
-                            <p>Classrooms</p>
-                        </div>
-                    </Link>
-
-                    <Link onClick={() => { setSelected(2); localStorage.setItem('sidebarItem', 2); }} to="/dashboard/projects" className={ selected == 2 ? "links__item links__item--active" : "links__item" }>
-                        <div className="item-inner">
-                            <p>Projects</p>
-                        </div>
-                    </Link>
-
-                    { hasRole(user, ["ADMIN"]) && 
-                            <>
-                                <Link onClick={() => { setSelected(3); localStorage.setItem('sidebarItem', 3); }} to="/dashboard/users" className={ selected == 3 ? "links__item links__item--active" : "links__item" }>
-                                    <div className="item-inner">
-                                        <p>Users</p>
-                                    </div>
-                                </Link>
-                            </>
-                    }   
-                    
-                    <Link to="#" className="links__item">
-                        <div className="item-inner">
-                            <p>Notifications</p>
-                        </div>
-                    </Link>
-
-                    <Link to="#" className="links__item">
-                        <div className="item-inner">
-                            <p>Settings</p>
-                        </div>
-                    </Link>
-                    
+                        { user && hasRole(user, ["ADMIN"]) && 
+                                <>
+                                    <Link onClick={() => { setSelected(3); localStorage.setItem('sidebarItem', 3); }} to="/dashboard/users" className={ selected == 3 ? "links__item links__item--active" : "links__item" }>
+                                        <div className="item-inner">
+                                            <p>Users</p>
+                                        </div>
+                                    </Link>
+                                </>
+                        }   
+                        
+                    </div>
+                </div>
+                <div className="row">
+                    { user && <UserDropdown user={user} setToggledTheme={props.setToggledTheme}/> }
                 </div>
             </div>
         </div>

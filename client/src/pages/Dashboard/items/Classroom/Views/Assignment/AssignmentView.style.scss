@@ -207,6 +207,18 @@
         background: none;
     }
 
+    .wmde-markdown > table tr, .wmde-markdown > blockquote table tr {
+        @include themify($themes) {
+            background-color: themed("subheader-color");
+        }
+    }
+
+    .wmde-markdown > table td, .wmde-markdown > blockquote table td, .wmde-markdown > table th, .wmde-markdown > blockquote table th {
+        @include themify($themes) {
+            border: 1px solid themed("border-color");
+        }
+    }
+
     .wmde-markdown > blockquote, .wmde-markdown > blockquote blockquote {
         @include themify($themes) {
             border-left: 0.25em solid themed("border-color");
@@ -306,8 +318,91 @@
     }
 }
 
+
+.attachments {
+    display: flex;
+    flex-direction: column;
+
+    &__attachment {
+        margin-bottom: 10px;
+        border-radius: 5px;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        padding: 15px;
+
+        @include themify($themes) {
+            border: 1px solid themed("border-color");
+            background-color: themed("subheader-color");
+        }
+
+        img {
+            width: 30px;
+            height: 30px;
+        }
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
+
+        &:hover {
+            @include themify($themes) {
+                background-color: themed("active-color");
+            }
+        }
+        
+    }
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+
+        margin-left: 10px;
+
+        b {
+            font-size: 13px;
+
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
+        }
+
+        p {
+            font-size: 13px;
+            margin-top: 2px !important;
+
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+        }
+    }
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-10 {
+    margin-bottom: 10px
+}
+
+.mb-20 {
+    margin-bottom: 20px
+}
+
 .assignment-view {
     width: 100%;
+    margin-top: 0px !important;
+
+    &__activity {
+        min-height: 500px;
+    }
 
     .bar {
         display: flex;
@@ -432,19 +527,20 @@
         }
     }
 
-    &__header {
-        display: flex;
-        flex-direction: column;
+    &__header-buttons {
+        button {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
 
-        padding: 25px;
-        margin-bottom: 20px;
-
-        border-radius: 5px;
-
-        @include themify($themes) {
-            background-color: themed("header-color");
-            border: 1px solid themed("border-color");
+            i {
+                margin-right: 10px;
+            }
         }
+    }
+
+    &__header {
+        padding-bottom: 10px;
 
         .text {
             @include themify($themes) {
@@ -455,6 +551,7 @@
 
             h1 {
                 font-size: 25px;
+                margin-bottom: 10px;
             }
 
             p {
@@ -467,7 +564,6 @@
             }
 
             .title {
-                margin-top: 10px;
 
                 max-width: 90%;
             }

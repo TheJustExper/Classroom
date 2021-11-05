@@ -10,6 +10,10 @@ import { Link, useParams, useHistory, useLocation } from "react-router-dom";
 import InputWithIcon from "../../../../../../components/commentInput/CommentInput";
 import Error404Page from "../../../Error404/Error404.js";
 
+import Doc from "../../../../../../styles/icons/files/doc.png";
+import Xls from "../../../../../../styles/icons/files/xls.png";
+import Pdf from "../../../../../../styles/icons/files/pdf.png";
+
 import "./AssignmentView.style.scss";
 
 export default (props) => {
@@ -53,6 +57,29 @@ export default (props) => {
   		return dateFormat.format(dateObj);
 	}
 
+    const Explanation = () => {
+        return (
+            <div className="mt-20 explanation full-width">
+                { isTeacher ?  editContent ? 
+                    <div className="explanation__content">
+                        <MDEditor value={value} onChange={setValue} />
+                        <div className="explanation__buttons">
+                            <button className="small" onClick={() => saveMarkdown()}>Save</button>
+                        </div>
+                    </div> :
+                    <div className="explanation__content flex-row">
+                        <MDEditor.Markdown source={value} />
+                        <button className="small clear" onClick={() => setEditContent(true)}>Edit</button>
+                    </div>
+                : 
+                    <div className="explanation__content flex-row">
+                        <MDEditor.Markdown source={value} />
+                    </div>
+                }
+            </div>
+        )
+    }
+
     const StudentContent = () => {
         return (
             <div className="container padding">
@@ -63,7 +90,7 @@ export default (props) => {
 
     const TeacherContent = () => {
         return (
-            <div className="container padding student-marking">
+            <div className="mt-20 student-marking">
                     <div className="student-marking__buttons">
                         { selectedStudent ? (
                             <>
@@ -119,12 +146,57 @@ export default (props) => {
         )
     }
 
+    const Information = () => {
+        return (
+             showInformation && <div className={`container information ${!clickedExit ? 'alert-shown' : 'alert-hidden'}`} onTransitionEnd={() => (setShowInformation(false), setClickedExit(false))}>
+                <div className="information__inner">
+                    <h2>Did you know...</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</p>
+                    <a href="#">Learn more -></a>
+
+                    <div className="background"></div>
+                </div>
+
+                <span className="information__exit" onClick={() => setClickedExit(true)}>X</span>
+            </div> 
+        )
+    }
+
+    const Attachment = ({ name, size, icon }) => {
+        return (
+            <div className="attachments__attachment">
+                <img src={icon} />
+                <div className="attachments__text">
+                    <b>{ name }</b>
+                    <p>{ size } MB</p>
+                </div>
+            </div>
+        )
+    }
+
+    const addSubmission = async () => {
+        const itemRefs = firestore.collection('classrooms').doc(id);
+        const assignmentRefs = itemRefs.collection("assignments");
+        const submissions = assignmentRefs.doc(assignmentId).collection("submissions");
+
+        await submissions.add({
+            userId: user.uid,
+            userPhotoURL: user.photoURL,
+            userName: user.displayName,
+
+            submission: "Testing",
+            grade: "B+",
+
+            dateSubmitted: Date.now(),
+        });
+    }
+
     useEffect(async () => {
         if (id == null || assignmentId == null) return; 
         
         let itemRefs = firestore.collection('classrooms').doc(id);
         let assignmentRefs = itemRefs.collection("assignments").doc(assignmentId);
-        let submissionRefs = itemRefs.collection("assignments").doc(assignmentId).collection("submissions");
+        let submissionRefs = assignmentRefs.collection("submissions");
 
         const doc = await assignmentRefs.get()
         const submissions = await submissionRefs.get();
@@ -134,7 +206,6 @@ export default (props) => {
             return { id: doc.id, ...doc.data() }
         });
 
-        setIsTeacher(classroomData.data().users.find(u => u.id == user.uid).role == "teacher");
         setClassroom(classroomData.data());
         setSubmitted(items);
 
@@ -148,10 +219,12 @@ export default (props) => {
 
             setTeacher(teacherDoc.data())
 
+            if (user) setIsTeacher(classroomData.data().users.find(u => u.id == user.uid).role == "teacher");
+
         } else {
             setAssignment(false);
         }
-    }, [])
+    }, [ loading ])
 
     if (!assignment) return (
         <div className="itemContent">
@@ -163,21 +236,46 @@ export default (props) => {
         </div>
     )
 
+    // This is used for a sort of lazy loading
+
+    if (Object.keys(assignment).length == 0) return (
+        <div className="itemContent">
+            <div className="itemContent__inner">
+                <div className="assignment-view container padding">
+
+                </div>
+
+                <div className="itemContent__side">
+                    <div className="sideItem"></div>
+                </div>
+            </div>
+        </div>
+    );
+
     return (
         <div className="itemContent">
             <div className="itemContent__inner">
-                <div className="assignment-view">
-                    <div className="assignment-view__header">
+                <div className="assignment-view container padding">
+
+                    <div className="assignment-view__header border-bottom">
+
                         <div className="flex-row space-between">
-                            <div className="text">
+                            <div className="text mb-10">
+                                <p className="mb-10">LESSON PLAN</p>
+
                                 <h1>{ assignment.title }</h1>
-                                <p className="title">{ assignment.description }</p>
+                                <p>Assigned by: { teacher.displayName }</p>
+                                <p className="mt-10">Due by: { dateToString(assignment.date) }</p>
                             </div>
 
-                            { isTeacher && <button className="small clear">Edit Assignment</button> }
+                            { isTeacher && <div className="flex-column assignment-view__header-buttons">
+                                <button className="small"><i class="fas fa-edit"></i> Edit Assignment</button> 
+                                <button className="small clear" onClick={() => addSubmission()}><i class="fas fa-th"></i> Submission</button>
+                                <button className="small clear"><i class="fas fa-th"></i> Actions</button>
+                            </div> }
                         </div>
 
-                        { classroom && <div className="bar">
+                        {/* { classroom && <div className="bar">
                             <div className="status-outer">
                                 <div className="status">
                                     <p>{ submitted.length } Turned In</p>
@@ -192,79 +290,42 @@ export default (props) => {
                                 </div>
                             </div>
 
-                            <div className="set-by">
+                             <div className="set-by">
                                 <div className="teacher">
                                     <img src={ teacher.photoURL } />
                                     <p>{ teacher.displayName }</p>
                                 </div>
-                            </div>
-                        </div>}
+                            </div> 
+                        </div>
+                        
+                        } */}
                     </div> 
 
-                    <div className="container padding explanation">
-                        { isTeacher ?  editContent ? 
-                            <div className="explanation__content">
-                                <MDEditor extraCommands={false} previewOptions={false} value={value} onChange={setValue} />
-                                <div className="explanation__buttons">
-                                    <button className="small" onClick={() => saveMarkdown()}>Save</button>
-                                </div>
-                            </div> :
-                           <div className="explanation__content flex-row">
-                                <MDEditor.Markdown source={value} />
-                                <button className="small clear" onClick={() => setEditContent(true)}>Edit</button>
-                            </div>
-                        : 
-                            <div className="explanation__content flex-row">
-                                <MDEditor.Markdown source={value} />
-                            </div>
-                        }
-                    </div>
+                    <Information/>
+                    <TeacherContent/>
 
-                    { showInformation && <div className={`container information ${!clickedExit ? 'alert-shown' : 'alert-hidden'}`} onTransitionEnd={() => (setShowInformation(false), setClickedExit(false))}>
-                        <div className="information__inner">
-                            <h2>Did you know...</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</p>
-                            <a href="#">Learn more -></a>
-
-                            <div className="background"></div>
-                        </div>
-
-                        <span className="information__exit" onClick={() => setClickedExit(true)}>X</span>
-                    </div> }
-
-                    { isTeacher ? <TeacherContent/> : <StudentContent/> }
-
-                    <div className="container padding">
-                        <div className="assignment-view__comments">
-
-                            <div className="assignment-view__comment">
-                                <img src={user.photoURL} />
-                                <div className="text">
-                                    <b>Exper</b>
-                                    <p>Testing message for comment</p>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <InputWithIcon placeholder="Add class comment" photoURL={user.photoURL} />
-                    </div>
                 </div>
 
                 <div className="itemContent__side">
                     <div className="sideItem">
-                        <div className="sideItem__itemHeader">
-                            <img src={user.photoURL} />
+                        <div className="sideItem__itemHeader flex-row">
                             <div className="text">
-                                <b>{ user.displayName }</b>
-                                <p>Market Beginner - 20 points</p>
+                                <b>Attatchments</b>
                             </div>
+
+                            { isTeacher && <button className="small clear">Edit</button> }
                         </div>
 
                         <div className="sideItem__content">
-                            <p>2 More lessons to be Market Leader</p>
+                            <div className="attachments">
+
+                                <Attachment name="Homework" size="5" icon={Pdf} />
+                                <Attachment name="Homework" size="5" icon={Xls} />
+                                
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

@@ -12,10 +12,11 @@
         display: flex;
         flex-direction: column;
     
-        padding: 20px;
+        padding: 0px 20px;
     
         h1 {
             font-size: 14px;
+            padding: 20px 0px;
         }
     }
 
@@ -49,7 +50,6 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 15px;
 
         .row {
             display: flex;
@@ -64,12 +64,17 @@
 
             h1 {
                 font-size: 20px;
-                margin-left: 5px;
+                margin-left: 7px;
     
                 @include themify($themes) {
                     color: themed('text-primary');  
                 }
-            }    
+            }   
+            
+            img {
+                width: 30px;
+                height: 30px;
+            }
         }
 
         &:last-child {
@@ -90,6 +95,9 @@
 
         .links {
             display: flex;
+            height: 64px;
+ 
+            margin-right: 20px;
 
             .item-inner {
                 display: flex;
@@ -104,13 +112,10 @@
                 display: flex;
                 align-items: center;
         
-                height: 30px;
-                border-radius: 15px;
-                color: #5c6573;
+                height: 100%;
                 font-size: 13px;
                 letter-spacing: -.11px;
-                padding: 0 14px;
-                margin-right: 5px;
+                padding: 0 20px;
 
                 &:last-child {
                     margin-right: 0px;
@@ -119,15 +124,14 @@
                 text-decoration: none;
 
                 &--active {
-                    @include themify($themes) {
-                        background-color: themed("active-color");
-                    }
+                    border-top: 2px solid $primary-brand-color;
                     
                     p {
                         @include themify($themes) {
-                            color: themed("text-primary");
+                            color: themed("text-primary") !important;
                         }
 
+                        margin-top: -2px;
                         font-weight: 600 !important;
                     }
             
@@ -175,7 +179,7 @@
         
                 p {
                     @include themify($themes) {
-                        color: themed("text-nav-link");
+                        color: themed("text-secondary");
                     }
         
                     font-size: 13px;

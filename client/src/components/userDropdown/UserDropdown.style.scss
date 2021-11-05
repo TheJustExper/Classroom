@@ -135,7 +135,7 @@
         font-size: 14px;
         letter-spacing: -0.19px;
         cursor: pointer;
-        transition: all 0.2s ease 0s;
+        transition: all 0.1s ease 0s;
         text-decoration: none;
 
         @include themify($themes) {
@@ -151,8 +151,8 @@
         &:hover {
             @include themify($themes) {
                 background-color: themed("active-color");
+                color: themed("text-primary");
             }
-            color: $primary-brand-color;
 
             i {
                 color: $primary-brand-color;
@@ -161,6 +161,16 @@
 
         &:last-child {
             border-bottom: none;
+        }
+    }
+
+    &__logout {
+        $color: $color-red;
+
+        color: $color !important;
+
+        &:hover {
+            background-color: transparentize($color, 0.9) !important;
         }
     }
 }

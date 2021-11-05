@@ -9,6 +9,21 @@
     }
 }
 
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.border-bottom {
+    @include themify($themes) {
+        border-bottom: 1px solid themed("border-color");
+    }
+}
+
 .classrooms-outer {
     margin-top: 40px;
     

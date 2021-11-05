@@ -58,54 +58,50 @@ export default (props) => {
 
     const setSection = (id) => setActiveId(id);
 
-    if (!loading) {
-        return (
-            <div className="dashboard">
-                <Header setToggledTheme={props.setToggledTheme}/>
+    return (
+        <div className="dashboard">
+            <Header setToggledTheme={props.setToggledTheme}/>
 
-                <div className="dashboard-content">
-                    
-                        <Switch>
-                            { user && hasRole(user, ["ADMIN"]) && (
-                                <Route exact path="/dashboard/users">
-                                    <Users setPopup={props.setPopup}/>
-                                </Route>
-                            )}
-    
-                            <Route exact path="/dashboard/c">
-                                <Classrooms setPopup={props.setPopup}/>
+            <div className="dashboard-content">
+                
+                    <Switch>
+                        { user && hasRole(user, ["ADMIN"]) && (
+                            <Route exact path="/dashboard/users">
+                                <Users setPopup={props.setPopup}/>
                             </Route>
-    
-                            <Route exact path="/dashboard/c/:id">
-                                <Classroom setPopup={props.setPopup}/>
-                            </Route>
+                        ) }
 
-                            <Route path="/dashboard/c/:id/a/:assignmentId">
-                                <AssignmentView setPopup={props.setPopup} />
-                            </Route>
-    
-                            <Route exact path="/dashboard/projects">
-                                <Projects projects={projects} refresh={refreshProjects} setPopup={props.setPopup}/>
-                            </Route>
-    
-                            <Route exact path="/dashboard/project/:id">
-                                <ProjectOverview setPopup={props.setPopup}/>
-                            </Route>
-    
-                            <Route exact path="/dashboard/project/:id/tasks">
-                                <Tasks setPopup={props.setPopup}/>
-                            </Route>
-    
-                            <Route exact path="/dashboard/project/:id/files">
-                                <Files setPopup={props.setPopup}/>
-                            </Route>
-                        </Switch>
-                    
-    
-                </div>
+                        <Route exact path="/dashboard/c">
+                            <Classrooms setPopup={props.setPopup}/>
+                        </Route>
+
+                        <Route exact path="/dashboard/c/:id">
+                            <Classroom setPopup={props.setPopup}/>
+                        </Route>
+
+                        <Route path="/dashboard/c/:id/a/:assignmentId">
+                            <AssignmentView setPopup={props.setPopup} />
+                        </Route>
+
+                        <Route exact path="/dashboard/projects">
+                            <Projects projects={projects} refresh={refreshProjects} setPopup={props.setPopup}/>
+                        </Route>
+
+                        <Route exact path="/dashboard/project/:id">
+                            <ProjectOverview setPopup={props.setPopup}/>
+                        </Route>
+
+                        <Route exact path="/dashboard/project/:id/tasks">
+                            <Tasks setPopup={props.setPopup}/>
+                        </Route>
+
+                        <Route exact path="/dashboard/project/:id/files">
+                            <Files setPopup={props.setPopup}/>
+                        </Route>
+                    </Switch> 
+                
+
             </div>
-        )
-    } else {
-        return "";
-    }
+        </div>
+    )
 }

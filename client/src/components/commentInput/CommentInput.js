@@ -2,7 +2,7 @@ import React, { useState, useReducer } from "react";
 
 import "./CommentInput.style.scss";
 
-export default ({ photoURL, placeholder, icon }) => {
+export default ({ photoURL = "", placeholder, icon }) => {
     return (
         <div className="input-with-icon">
             <div className="input-with-icon__inner">

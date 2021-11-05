@@ -9,6 +9,7 @@ $themes: (
     border-color: rgb(225, 228, 232),
     background-color: #f9f9fa,
     text-nav-link: #5c6573,
+    oppositeTheme: #000,
   ),
   dark: (
     main-color: #181818,
@@ -19,6 +20,7 @@ $themes: (
     text-secondary: #808081,
     border-color: #2d2e30,
     text-nav-link: #808081,
+    oppositeTheme: #fff,
   ),
 );
 
@@ -84,9 +86,11 @@ $color-yellow: #ECB728;
 $color-yellow-dark: #352F1C;
 $color-orange: #FF620B;
 
+$color-green-nice: #21938A;
+
 $color-green-light: #BBE668;
 
-$primary-brand-color: $color-blue;
+$primary-brand-color: $color-green-nice;
 
 $header-size: 75px;
 

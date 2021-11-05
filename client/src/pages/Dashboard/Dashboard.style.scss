@@ -40,7 +40,7 @@
         display: flex;
         flex-direction: row;
 
-        height: calc(100vh - 125px);
+        height: calc(100vh - 64px);
         
         @include themify($themes) {
             background-color: themed('main-color');  
@@ -57,13 +57,63 @@
 
         overflow: auto;
 
+        .button-bar {
+            display: flex;
+
+            @include themify($themes) {
+                border-bottom: 1px solid themed("border-color");
+            }
+
+            &__button {
+                padding: 10px;
+
+                font-size: 14px;
+                font-weight: 500;
+
+                @include themify($themes) {
+                    background-color: themed("active-color");
+                    border: 1px solid themed("border-color");
+                    color: themed("text-secondary");
+                }
+            }
+
+            &__button--active {
+                color: $primary-brand-color !important;
+
+                z-index: 2;
+
+                @include themify($themes) {
+                    background-color: themed("header-color");
+                    border: 1px solid themed("border-color");
+                    border-top: 2px solid $primary-brand-color;
+                    border-bottom: 1px solid white;
+                }
+            }
+        }
+
         @include themify($themes) {
             background-color: themed('main-color');  
         }
 
+        &__header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+    
+            padding: 25px;
+            margin-bottom: 20px;
+    
+            border-radius: 5px;
+    
+            @include themify($themes) {
+                background-color: themed("header-color");
+                border: 1px solid themed("border-color");
+            }
+        }
+
         &__inner {
             width: 100%;
-            max-width: 1300px;
+            max-width: 1400px;
             margin: auto;
 
             display: flex;
@@ -74,7 +124,7 @@
         }
 
         .sideItem {
-            width: 300px;
+            width: 350px;
 
             border-radius: 5px;
 
@@ -106,6 +156,8 @@
             }
 
             &__content {
+                margin-top: 20px;
+
                 p {
                     font-size: 12px;
                     margin-top: 10px;
@@ -122,7 +174,7 @@
                 display: flex;
                 align-items: center;
     
-                margin-bottom: 20px;
+                margin-bottom: 10px;
     
                 img {
                     width: 30px;
@@ -132,11 +184,10 @@
                 }
     
                 .text {
-                    margin-left: 15px;
                     white-space: nowrap;
     
                     b {
-                        font-size: 15px;
+                        font-size: 14px;
                         line-height: 20px;
     
                         @include themify($themes) {

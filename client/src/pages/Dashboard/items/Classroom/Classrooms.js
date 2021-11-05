@@ -66,35 +66,39 @@ export default (props) => {
 
     return (
         <div className="itemContent">
-            <div className="side">
-                <div className="text">
-                    <h1>Classrooms</h1>
-                    <p className="title">Seach directory of { classrooms.length } classrooms</p>
+            <div className="itemContent__inner">
+                <div className="side">
+                    <div className="text">
+                        <h1>Classes</h1>
 
-                    <div className="flex-bar">
-                        <button className="button classroom-add" onClick={() => props.setPopup(<Popup setPopup={props.setPopup} refresh={loadClassrooms}/>)}>+ Add new classroom</button>
-                        <button className="button classroom-join clear" onClick={() => joinClassroom("0dbX0Yv7HH4RNoZHdBhb")}>Join a classroom</button>
+                        <div className="flex-bar">
+                            <button className="button classroom-add" onClick={() => props.setPopup(<Popup setPopup={props.setPopup} refresh={loadClassrooms}/>)}>+ Add new classroom</button>
+                            <button className="button classroom-join clear" onClick={() => joinClassroom("0dbX0Yv7HH4RNoZHdBhb")}>Join a classroom</button>
+                        </div>
+                        
                     </div>
-                </div>
 
-                <div className="classrooms-outer">
-                    { classrooms && classrooms.map(({ title, id }) => {
-                        return (
-                            <div className="classroom-inner" onClick={() => history.push("/dashboard/c/" + id)}>
-                                <div className="head">
-                                    <div className="text">
-                                        <p>Classroom</p>
-                                        <h3>{ title }</h3>
+                    <div className="classrooms-outer">
+
+                        { classrooms && classrooms.map(({ title, id }) => {
+                            return (
+                                <div className="classroom-inner" onClick={() => history.push("/dashboard/c/" + id)}>
+                                    <div className="head">
+                                        <div className="text">
+                                            <p>Classroom</p>
+                                            <h3>{ title }</h3>
+                                        </div>
+                                        <span className="edit-icon" onClick={(e) => (e.stopPropagation(), props.setPopup(<ContentDelete setPopup={props.setPopup} deleteContent={() => deleteClassroom(id)}/>))}><i class="fas fa-ellipsis-v"></i></span>
                                     </div>
-                                    <span className="edit-icon" onClick={(e) => (e.stopPropagation(), props.setPopup(<ContentDelete setPopup={props.setPopup} deleteContent={() => deleteClassroom(id)}/>))}><i class="fas fa-ellipsis-v"></i></span>
+                                    <div className="user">
+                                        <img src="https://lh3.googleusercontent.com/a/AATXAJxNZsoLdRTHpWvdQ9HE8JGJ23rNejpqKm_gQJOj=s96-c"/>
+                                        <p>Lorem Ipsum</p>
+                                    </div>
                                 </div>
-                                <div className="user">
-                                    <img src="https://lh3.googleusercontent.com/a/AATXAJxNZsoLdRTHpWvdQ9HE8JGJ23rNejpqKm_gQJOj=s96-c"/>
-                                    <p>Lorem Ipsum</p>
-                                </div>
-                            </div>
-                        )
-                    })}
+                            )
+                        })}
+                        
+                    </div>
                 </div>
             </div>
         </div>
