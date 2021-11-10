@@ -46,16 +46,12 @@ export default (props) => {
         loadClassrooms();
     }
 
-    const loadClassrooms = () => {
+    const loadClassrooms = async () => {
         let itemRefs = firestore.collection('classrooms').where("usersIds", "array-contains", user.uid);
-
-        itemRefs.get().then(doc => {
-            const items = doc.docs.map((doc) => {
-                return { id: doc.id, ...doc.data() }
-            });
-
-            setClassrooms(items);
-        })
+        let doc = await itemRefs.get();
+        let items = doc.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        
+        setClassrooms(items);
     }
 
     useEffect(() => {

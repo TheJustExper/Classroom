@@ -32,12 +32,10 @@ export default (props) => {
     const history = useHistory();
 
     useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            if (user == null) return history.push("/");
-
+        if (user) {
             refreshProjects(user.uid);
-        });
-    }, [])
+        }
+    }, [ loading ])
 
     const refreshProjects = (id) => {
         const projectStore = firestore.collection('users/' + id + "/projects");

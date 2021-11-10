@@ -54,7 +54,7 @@
 
             p {
                 @include themify($themes) {
-                    color: themed("text-secondary");
+                    color: themed("text-primary");
                 }
             }
         }

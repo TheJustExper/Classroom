@@ -221,7 +221,7 @@ export default (props) => {
 			
 									<div className="classroom-left">
 			
-										<InputWithIcon placeholder="Start a discussion" photoURL={user && user.photoURL} icon="fas fa-images"/> 
+										{/* <InputWithIcon placeholder="Start a discussion" photoURL={user && user.photoURL} icon="fas fa-images"/>  */}
 			
 										<div className="container padding" ref={assignmentsRef}>
 											<div className="row">

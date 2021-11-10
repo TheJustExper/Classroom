@@ -148,7 +148,7 @@ export default (props) => {
 
     const Information = () => {
         return (
-             showInformation && <div className={`container information ${!clickedExit ? 'alert-shown' : 'alert-hidden'}`} onTransitionEnd={() => (setShowInformation(false), setClickedExit(false))}>
+             showInformation && <div className="container information">
                 <div className="information__inner">
                     <h2>Did you know...</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</p>
@@ -157,7 +157,7 @@ export default (props) => {
                     <div className="background"></div>
                 </div>
 
-                <span className="information__exit" onClick={() => setClickedExit(true)}>X</span>
+                <span className="information__exit" onClick={() => setShowInformation(false)}>X</span>
             </div> 
         )
     }
@@ -175,9 +175,9 @@ export default (props) => {
     }
 
     const addSubmission = async () => {
-        const itemRefs = firestore.collection('classrooms').doc(id);
+        const itemRefs       = firestore.collection('classrooms').doc(id);
         const assignmentRefs = itemRefs.collection("assignments");
-        const submissions = assignmentRefs.doc(assignmentId).collection("submissions");
+        const submissions    = assignmentRefs.doc(assignmentId).collection("submissions");
 
         await submissions.add({
             userId: user.uid,
