@@ -270,7 +270,7 @@ export default (props) => {
 
                             { isTeacher && <div className="flex-column assignment-view__header-buttons">
                                 <button className="small"><i class="fas fa-edit"></i> Edit Assignment</button> 
-                                <button className="small clear" onClick={() => addSubmission()}><i class="fas fa-th"></i> Submission</button>
+                                <button className="small clear"><i class="fas fa-th"></i> Submission</button>
                                 <button className="small clear"><i class="fas fa-th"></i> Actions</button>
                             </div> }
                         </div>

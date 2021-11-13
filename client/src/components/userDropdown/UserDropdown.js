@@ -6,7 +6,6 @@ import "./UserDropdown.style.scss";
 
 export default ({ user, setToggledTheme }) => {
     const history = useHistory();
-
     const [ hovered, setHovered ] = useState(false);
 
     return (

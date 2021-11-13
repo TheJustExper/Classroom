@@ -5,7 +5,7 @@ import { firestore, auth } from "../../../../../firebase";
 
 import Popup from "../../../../../popups/Popup";
 
-import { ContentTopic, ContentAssignment } from "./index";
+import { ContentTopic, ContentAssignment, ContentQuiz } from "./index";
 
 import "./classroom-content.style.scss";
 
@@ -32,6 +32,11 @@ export default (props) => {
                     <div className="classroom-content__widget" onClick={() => props.setPopup(<ContentTopic setPopup={props.setPopup} refresh={getTopics} id={props.id}/>)}>
                         <i class="fas fa-comments"></i>
                         <p>Topic</p>
+                    </div>
+
+                    <div className="classroom-content__widget" onClick={() => props.setPopup(<ContentQuiz setPopup={props.setPopup} refresh={getTopics} id={props.id}/>)}>
+                        <i class="fas fa-question"></i>
+                        <p>Quiz</p>
                     </div>
                    
                 </div>

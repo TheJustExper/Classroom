@@ -80,39 +80,41 @@ export default (props) => {
 
     return (
         <div className="itemContent">
-            <div className="side">
-                <div className="text">
-                    <h1>Users</h1>
-                    <p className="title">Showing a total of { users.length } users</p>
+            <div className="itemContent__inner">
+                <div className="side">
+                    <div className="text">
+                        <h1>Users</h1>
+                        <p className="title">Showing a total of { users.length } users</p>
 
-                    <div className="flex-bar space-between">
-                        <div className="input-with-icon">
-                            <i class="fas fa-search"></i>
-                            <input placeholder="Search for a user" value={searchFilter} onChange={handleChange}/>
+                        <div className="flex-bar space-between">
+                            <div className="input-with-icon">
+                                <i class="fas fa-search"></i>
+                                <input placeholder="Search for a user" value={searchFilter} onChange={handleChange}/>
+                            </div>
+                            <div className="buttons">
+                                <button className="button classroom-join clear">Filter</button>
+                                <button className="button classroom-join">Import / Export</button>
+                            </div>
                         </div>
-                        <div className="buttons">
-                            <button className="button classroom-join clear">Filter</button>
-                            <button className="button classroom-join">Import / Export</button>
-                        </div>
-                    </div>
 
-                    <div className="table-outer">
-                        <table id="customers">
-                            <thead>
-                                <tr>
-                                    <th>User</th>
-                                    <th>Email</th>
-                                    <th>UID</th>
-                                    <th>Joined</th>
-                                    <th>Plan</th>
-                                    <th>Roles</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                { dataToRender() }
-                            </tbody>
-                        </table>
+                        <div className="table-outer">
+                            <table id="customers">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Email</th>
+                                        <th>UID</th>
+                                        <th>Joined</th>
+                                        <th>Plan</th>
+                                        <th>Roles</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    { dataToRender() }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

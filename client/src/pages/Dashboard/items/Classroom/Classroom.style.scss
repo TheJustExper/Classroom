@@ -58,24 +58,45 @@
     }
 }
 
+.quiz {
+    &__warning {
+        $color: $primary-brand-color;
+
+        border: 1px solid transparentize($color, 0.7) !important;
+        background-color: transparentize($color, 0.9) !important;
+
+        .quiz__text {
+            i {
+                margin-right: 5px;
+            }
+
+            p {
+                color: $color;
+            }
+        }
+
+        button {
+            margin-left: 10px;
+        }
+    }
+}
+
 .classroom {
     width: 100%;
 
+    &__inner {
+         max-width: 1000px !important;
+    }
 
     &__header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
 
-        padding: 25px;
+        padding-bottom: 20px;
         margin-bottom: 20px;
 
         border-radius: 5px;
-
-        @include themify($themes) {
-            background-color: themed("header-color");
-            border: 1px solid themed("border-color");
-        }
 
         .buttons {
             display: flex;
@@ -106,7 +127,12 @@
 
                 &:hover {
                     @include themify($themes) {
-                        border: 2px solid themed("border-color");
+                        border: 1px solid $primary-brand-color;
+                        background-color: transparentize($primary-brand-color, 0.9) !important;
+                    }
+
+                    i {
+                        color: $primary-brand-color !important;
                     }
                 }
 
@@ -782,8 +808,6 @@
 
         margin-top: 20px;
 
-        max-height: 320px;
-
         .add {
             .topic-header {
                 border: 2px dotted $border-color;
@@ -810,118 +834,6 @@
                     font-size: 13px;
                     font-weight: 300;
                 }
-            }
-        }
-
-        .classroom-topic {
-            border-radius: 10px;
-
-            &__header {
-                height: 135px;
-                border-radius: 5px;
-
-                @include themify($themes) {
-                    border: 1px solid themed("border-color");
-                }
-
-                @include themify($themes) {
-                    background-color: themed("subheader-color");
-                }
-
-                img {
-                    height: 100%;
-                }
-            }
-
-            &__buttons {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                margin-top: 20px;
-
-                button {
-                    font-size: 11px;
-
-                    @include themify($themes) {
-                        background-color: themed("subheader-color");
-                    }
-
-                    i {
-                        font-size: 11px;
-                    }
-                }
-            }
-
-            &__edit {
-                @include themify($themes) {
-                    color: themed("text-secondary");
-                }
-
-                text-align: center;
-
-                width: 30px;
-                padding: 5px;
-                border-radius: 50%;
-
-                &:hover {
-                    background-color: darken($primary-brand-color, 30%);
-                    color: $primary-brand-color;
-                }
-            }
-
-            &__progress-bar {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-between;
-
-                margin-bottom: 10px;
-
-                span {
-                    padding: 5px 7px;
-                    border-radius: 5px;
-                    font-size: 13px;
-
-                    @include themify($themes) {
-                        color: themed("text-secondary");
-                    }
-
-                    font-weight: 500;
-
-                    @include themify($themes) {
-                        border: 1px solid themed("border-color");
-                        background-color: themed("header-color");
-                    }
-                }
-            }
-
-            &__content {
-                padding: 20px 0px 0px 0px;
-                box-sizing: border-box;
-
-                b {
-                    @include themify($themes) {
-                        color: themed("text-primary");
-                    }
-
-                    font-size: 14px;
-                }
-
-                p {
-                    @include themify($themes) {
-                        color: themed("text-secondary");
-                    }
-
-                    font-size: 13px;
-                }
-            }
-
-            &__subheading {
-                margin-top: 5px;
-
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
             }
         }
     }

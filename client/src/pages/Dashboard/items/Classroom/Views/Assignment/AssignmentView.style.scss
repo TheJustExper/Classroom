@@ -587,6 +587,8 @@
 
     max-height: 157px;
 
+    margin-top: 20px;
+
     @include themify($themes) {
         background-color: themed("main-color") !important;
     }

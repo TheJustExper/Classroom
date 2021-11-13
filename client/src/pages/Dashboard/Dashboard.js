@@ -14,6 +14,7 @@ import Classrooms from "./items/Classroom/Classrooms";
 import Classroom from "./items/Classroom/Classroom";
 
 import AssignmentView from "./items/Classroom/Views/Assignment/AssignmentView";
+import QuizView from "./items/Classroom/Views/Quiz/QuizView";
 
 import Projects from "./items/Projects/Projects";
 import ProjectOverview from "./items/Project/ProjectOverview";
@@ -79,6 +80,10 @@ export default (props) => {
 
                         <Route path="/dashboard/c/:id/a/:assignmentId">
                             <AssignmentView setPopup={props.setPopup} />
+                        </Route>
+
+                        <Route path="/dashboard/c/:id/q/:quizId">
+                            <QuizView setPopup={props.setPopup} />
                         </Route>
 
                         <Route exact path="/dashboard/projects">

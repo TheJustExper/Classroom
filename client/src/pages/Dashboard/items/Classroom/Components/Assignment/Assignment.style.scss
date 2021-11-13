@@ -112,6 +112,16 @@
         }
     }
 
+    &__main {
+        cursor: pointer;
+        
+        &:hover {
+            @include themify($themes) {
+                background-color: themed("active-color");
+            }
+        }
+    }
+
     &__item {
         display: flex;
         flex-direction: row;
@@ -204,6 +214,7 @@
     .classroom-homework--toggled {
         $color: $primary-brand-color;
 
+        border: 1px solid transparentize($color, 0.9);
         background-color: transparentize($color, 0.9) !important;
         border-radius: 8px 8px 0px 0px;
 

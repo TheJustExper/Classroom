@@ -3,6 +3,8 @@ import { firestore } from "../../../../../firebase";
 
 import ProgressBar from "../../../../../components/progressBar/ProgressBar"
 
+import "./Topic.style.scss";
+
 export default ({ data, setPopup, refresh, teacher, id }) => {
     const { title, description } = data;
     const uid = data.id;

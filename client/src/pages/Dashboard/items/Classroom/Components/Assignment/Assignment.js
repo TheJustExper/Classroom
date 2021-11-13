@@ -79,7 +79,7 @@ export default ({ type, data, id, setPopup, getAssignments, amountAssigned = 0 }
 
     return (
         <div className="classroom-homework__outer">
-            <div className={"classroom-homework__item align-center " + ( open && "classroom-homework--toggled" )} onClick={() => setOpen(!open)}>
+            <div className={"classroom-homework__item classroom-homework__main align-center " + ( open && "classroom-homework--toggled" )} onClick={() => setOpen(!open)}>
 
                 <div className="classroom-homework__inner">
                     <CircularProgressBar

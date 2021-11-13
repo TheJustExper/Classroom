@@ -113,10 +113,15 @@
 
         &__inner {
             width: 100%;
+
             max-width: 1400px;
             margin: auto;
 
             display: flex;
+
+            &--fullHeight {
+                height: 100%;
+            }
         }
 
         &__side {

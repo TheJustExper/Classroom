@@ -16,7 +16,6 @@ import Error404Page from "../Error404/Error404";
 import InputWithIcon from "../../../../components/commentInput/CommentInput";
 
 import Assignment from "./Components/Assignment/Assignment";
-import AssignmentView from "./Views/Assignment/AssignmentView";
 
 import { ToggledSidebar, UntoggledSidebar } from "./Components/ClassroomSidebar";
 
@@ -30,6 +29,8 @@ import "./Classroom.style.scss";
 export default (props) => {
 
     const  { id } = useParams();
+	const history = useHistory();
+
 	let { path, url } = useRouteMatch();
 
 	const assignmentsRef = createRef();
@@ -168,6 +169,9 @@ export default (props) => {
     useEffect(async () => {
         if (user) {
             const itemRefs = firestore.collection('classrooms').doc(id);
+			const quizzes = itemRefs.collection("quizzes");
+
+			
 
             const doc = await itemRefs.get();
 
@@ -200,8 +204,9 @@ export default (props) => {
 		return (
 			<>
 					<div className="itemContent">
-						<div className="itemContent__inner">
+						<div className="itemContent__inner classroom__inner">
 							<div className="classroom">
+
 								<div className="classroom__header">
 									<div className="text">
 										<h1>{ classroom ? classroom.title : "Loading..." }</h1>
@@ -222,6 +227,16 @@ export default (props) => {
 									<div className="classroom-left">
 			
 										{/* <InputWithIcon placeholder="Start a discussion" photoURL={user && user.photoURL} icon="fas fa-images"/>  */}
+
+										<div className="container padding flex-row align-center quiz__warning">
+											<div className="quiz__text">
+												<p><i className="fa fa-question"></i> Testing your skills</p>
+											</div>
+											<div className="">
+												<button className="button small" onClick={() => history.push(`/dashboard/c/${id}/q/dP9ffkgXLIJ8uuFPkIsO`)}>Start Quiz</button>
+												{ isTeacher && <button className="button small">Edit</button> } 
+											</div>
+										</div>
 			
 										<div className="container padding" ref={assignmentsRef}>
 											<div className="row">
@@ -277,11 +292,6 @@ export default (props) => {
 								</div>
 							</div>
 
-							<div className="itemContent__side">
-								<div className="sideItem">
-
-								</div>
-							</div>
 						</div>
 					</div>
 

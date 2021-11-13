@@ -26,7 +26,7 @@
 
         user-select: none;
 
-        transition: .2s;
+        transition: .1s;
     
         @include themify($themes) {
             color: themed("text-secondary");
@@ -49,13 +49,18 @@
 
         &:hover {
             @include themify($themes) {
-                border: 1px solid themed("text-secondary");
+                border: 1px solid $primary-brand-color;
+                background-color: transparentize($primary-brand-color, 0.9) !important;
             }
 
             p {
                 @include themify($themes) {
-                    color: themed("text-primary");
+                    color: $primary-brand-color;
                 }
+            }
+
+            i {
+                color: $primary-brand-color;
             }
         }
     }

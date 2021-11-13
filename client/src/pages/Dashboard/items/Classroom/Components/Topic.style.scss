@@ -1,0 +1,110 @@
+@import "../../../../../styles/variables";
+
+.classroom-topic {
+    border-radius: 10px;
+
+    &__header {
+        height: 135px;
+        border-radius: 5px;
+
+        @include themify($themes) {
+            background-color: themed("subheader-color");
+            border: 1px solid themed("border-color");
+        }
+
+        img {
+            height: 100%;
+        }
+    }
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        button {
+            font-size: 11px;
+
+            @include themify($themes) {
+                background-color: themed("subheader-color");
+            }
+
+            i {
+                font-size: 11px;
+            }
+        }
+    }
+
+    &__edit {
+        @include themify($themes) {
+            color: themed("text-secondary");
+        }
+
+        text-align: center;
+
+        width: 30px;
+        padding: 5px;
+        border-radius: 50%;
+
+        &:hover {
+            background-color: darken($primary-brand-color, 30%);
+            color: $primary-brand-color;
+        }
+    }
+
+    &__progress-bar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-bottom: 10px;
+
+        span {
+            padding: 5px 7px;
+            border-radius: 5px;
+            font-size: 13px;
+
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+
+            font-weight: 500;
+
+            @include themify($themes) {
+                border: 1px solid themed("border-color");
+                background-color: themed("header-color");
+            }
+        }
+    }
+
+    &__content {
+        padding: 20px 0px 0px 0px;
+        box-sizing: border-box;
+
+        b {
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
+
+            font-size: 14px;
+        }
+
+        p {
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+
+            font-size: 13px;
+        }
+    }
+
+    &__subheading {
+        margin-top: 5px;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
