@@ -5,11 +5,11 @@ import { firebaser, firestore, auth } from "./firebase";
 
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import Login from "./pages/Login/Login";
 import Account from "./pages/Account/Account";
 
 import Fade from "./components/fade/Fade";
 
-import Login from "./popups/Login/Login";
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
@@ -53,12 +53,14 @@ export default function App() {
               <Route exact path="/">
                 <LandingPage/>
               </Route>
+
               <Route path="/dashboard">
                 <Dashboard setPopup={setPopup} setToggledTheme={toggleTheme}/>
               </Route>
-              <Route path="/account">
-                <Account/>
-              </Route>
+
+              <Route path="/account" compponent={Account}/>
+              <Route path="/login" component={Login}/>
+              
             </Switch>
           </div>
       </Router>

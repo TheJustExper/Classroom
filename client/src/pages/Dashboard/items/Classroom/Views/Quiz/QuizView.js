@@ -83,6 +83,7 @@ export default (props) => {
     }
 
     const nextQuestion = () => {
+        if (quizState.selectedAnswers.length !== quiz.questions[quizState.currentQuestion].answers.length) return; // Length of answers does not equal the amount expected from the question (Multi choice questions or normal)
         if (quiz.questions[quizState.currentQuestion + 1] == undefined) return;
 
         setQuizState(prev => ({
@@ -90,34 +91,29 @@ export default (props) => {
             currentQuestion: quizState.currentQuestion + 1,
             questionAnswers: [...prev.questionAnswers, quizState.selectedAnswers]
         }));
-
-        console.log(quizState)
     }
 
     const previousQuestion = () => {
         setQuizState(prev => ({ 
             ...prev,
+            selectedAnswers: prev.questionAnswers[quizState.currentQuestion - 1],
             currentQuestion: quizState.currentQuestion - 1,
         }));
+
+        // Create a way to go to previous question and show the selected data
+        
     }
 
     const selectedAnswer = (answer) => {
         const answers = quiz.questions[quizState.currentQuestion].answers.length;
 
-        if (quizState.selectedAnswers.includes(answer)) {
-            setQuizState(prev => ({
-                ...prev,
-                selectedAnswers: prev.selectedAnswers.filter(ans => ans != answer)
-            }))
-        } else {
-            if (quizState.selectedAnswers.length == answers) return;
+        if (quizState.selectedAnswers.includes(answer)) return setQuizState(prev => ({ ...prev, selectedAnswers: prev.selectedAnswers.filter(ans => ans != answer) }));
+        if (quizState.selectedAnswers.length == answers) return;
 
-            setQuizState(prev => ({
-                ...prev,
-                selectedAnswers: [...prev.selectedAnswers, answer]
-            }));
-        }
-
+        setQuizState(prev => ({
+            ...prev,
+            selectedAnswers: [...prev.selectedAnswers, answer]
+        }));
     }
 
     useEffect(async () => {
@@ -169,7 +165,7 @@ export default (props) => {
                         </div>
 
                         <div className="quiz__buttons">
-                            <button onClick={() => previousQuestion()}><i className="fa fa-arrow-left"></i> Previous</button>
+                            {/* <button onClick={() => previousQuestion()}><i className="fa fa-arrow-left"></i> Previous</button> */}
                             <button className={quizState.selectedAnswers.length !== quiz.questions[quizState.currentQuestion].answers.length && "inactive" } onClick={() => nextQuestion() }> { quiz.questions[quizState.currentQuestion + 1] != undefined ? "Next Question" : "Finish Quiz" } <i className="fa fa-arrow-right"></i></button>
                         </div>
 

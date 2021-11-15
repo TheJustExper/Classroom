@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { UserContext } from "../../providers/UserProvider";
 import { signInWithGoogle, auth } from "../../firebase";
 
@@ -8,6 +9,7 @@ import "./landingHeader.style.scss";
 
 export default () => {
     const { user } = useContext(UserContext);
+    const history = useHistory();
 
     return (
         <div className="landingHeader">
@@ -20,7 +22,7 @@ export default () => {
                     <Link to="/information">Information</Link>
                     { user ? <Link to="/dashboard">Dashboard</Link> : "" }
                 </div>
-                { user ? <button onClick={() => auth.signOut()}>Logout</button> : <button onClick={() => signInWithGoogle()}>Login</button> }
+                { user ? <button onClick={() => auth.signOut()}>Logout</button> : <button onClick={() => history.push("/login")}>Login</button> }
             </div>
         </div>
     )

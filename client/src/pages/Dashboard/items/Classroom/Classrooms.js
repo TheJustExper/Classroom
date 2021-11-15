@@ -19,19 +19,21 @@ export default (props) => {
         classroom.get().then((doc) => {
             let data = doc.data();
 
-            if (!data.usersIds.includes(user.uid)) {
-                classroom.update({
-                    users: firebase.firestore.FieldValue.arrayUnion({
-                        id: user.uid,
-                        role: "user"
-                    }),
-                    usersIds: firebase.firestore.FieldValue.arrayUnion(user.uid)
-                })
-                .then(() => {
-                    console.log("Document successfully updated!");
-
-                    loadClassrooms();
-                });
+            if (doc.exists) {
+                if (!data.usersIds.includes(user.uid)) {
+                    classroom.update({
+                        users: firebase.firestore.FieldValue.arrayUnion({
+                            id: user.uid,
+                            role: "user"
+                        }),
+                        usersIds: firebase.firestore.FieldValue.arrayUnion(user.uid)
+                    })
+                    .then(() => {
+                        console.log("Document successfully updated!");
+    
+                        loadClassrooms();
+                    });
+                }
             }
         });
     }
@@ -69,7 +71,7 @@ export default (props) => {
 
                         <div className="flex-bar">
                             <button className="button classroom-add" onClick={() => props.setPopup(<Popup setPopup={props.setPopup} refresh={loadClassrooms}/>)}>+ Add new classroom</button>
-                            <button className="button classroom-join clear" onClick={() => joinClassroom("0dbX0Yv7HH4RNoZHdBhb")}>Join a classroom</button>
+                            <button className="button classroom-join clear" onClick={() => joinClassroom("VIRf9Api6exmHQFKY4aH")}>Join a classroom</button>
                         </div>
                         
                     </div>
