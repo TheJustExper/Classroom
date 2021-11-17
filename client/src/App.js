@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import UserProvider, { UserContext } from "./providers/UserProvider";
 
-import { firebaser, firestore, auth } from "./firebase";
+import PrivateRoute from "./PrivateRoute";
 
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
@@ -18,22 +18,7 @@ import './styles/index.scss';
 
 export default function App() {
   const [ popup, setPopup ] = useState(null);
-  const [ toggledTheme, setToggledTheme ] = useState( localStorage.getItem("toggled-theme") === 'true' );
-
-  const { user, loading } = useContext(UserContext);
-
-  function PrivateRoute ({ component: Component, authed, ...rest }) {
-    const user = useContext(UserContext);
-    
-    return (
-      <Route
-        {...rest}
-        render={(props) => user
-          ? <Component setPopup={setPopup} {...props} />
-          : <Redirect to={{ pathname: '/login' }} />}
-      />
-    )
-  }
+  const [ toggledTheme, setToggledTheme ] = useState( localStorage.getItem("toggled-theme") === 'true' )
 
   const toggleTheme = () => {
     setToggledTheme(!toggledTheme);
@@ -41,7 +26,7 @@ export default function App() {
 
   useEffect(() => {
     localStorage.setItem("toggled-theme", toggledTheme);
-  }, [ toggledTheme ])
+  }, [ toggleTheme ])
 
   return (
     <UserProvider>
@@ -50,16 +35,11 @@ export default function App() {
           { popup != null ? <>{popup} {<Fade setPopup={setPopup}/>}</> : "" } 
 
             <Switch>
-              <Route exact path="/">
-                <LandingPage/>
-              </Route>
+              <PrivateRoute path="/dashboard" component={Dashboard} setPopup={setPopup} setToggledTheme={toggleTheme}/>
 
-              <Route path="/dashboard">
-                <Dashboard setPopup={setPopup} setToggledTheme={toggleTheme}/>
-              </Route>
-
-              <Route path="/account" compponent={Account}/>
-              <Route path="/login" component={Login}/>
+              <Route exact path="/" component={LandingPage} />
+              <Route path="/account" compponent={Account} />
+              <Route path="/login" component={Login} />
               
             </Switch>
           </div>

@@ -15,7 +15,7 @@ export default () => {
         <div className="landingHeader">
             <div className="content">
                 <div className="content-left">
-                   
+                   <h1>studentroom</h1>
                 </div>
                 <div className="links">
                     <Link to="/">Home</Link>

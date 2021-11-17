@@ -1,7 +1,130 @@
 @import "../../styles/variables";
 
-.account {
+.page-login {
+    width: 100%;
     height: 100%;
 
-    background-color: $main-color;
+    @include themify($themes) {
+        background-color: themed('main-color');  
+    }
+
+    &__container {}
+
+    &__right {
+        width: 100%;
+        height: calc(100% - 200px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__account {
+        height: fit-content;
+        max-width: 360px;
+
+        &_buttons {
+            margin-top: 30px;
+        }
+
+        &_errorMessage {
+            text-align: center;
+            color: $color-red;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
+
+        &_orEmail {
+            margin-top: 30px;
+
+            button {
+                margin-top: 10px;
+                height: 40px;
+            }
+        }
+
+        &_lines {
+            width: 100%;
+
+            margin-bottom: 20px;
+
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            p {
+                text-align: center;
+                padding: 0px 15px;
+
+                font-size: 12px;
+
+                white-space: nowrap;
+
+                @include themify($themes) {
+                    color: themed('text-secondary');  
+                }
+            }
+        }
+
+        &_line {
+            width: 100px;
+            height: 1px;
+            
+            @include themify($themes) {
+                background-color: themed("border-color");
+            }
+        }
+
+        &_social {
+            padding: 12px;
+            border-radius: 8px;
+            transition: .2s;
+            font-size: 16px;
+
+            margin-bottom: 12px;
+
+            text-align: center;
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+
+            &:hover {
+                cursor: pointer;
+
+                @include themify($themes) {
+                    border: 1px solid themed('text-primary');  
+                    color: themed('text-primary');  
+                 }
+            }
+            
+            @include themify($themes) {
+                border: 1px solid themed("border-color");
+                color: themed('text-secondary');  
+            }
+
+            i {
+                margin-right: 5px;
+            }
+        }
+
+        &_text {
+            h2 {
+                text-align: center;
+
+                @include themify($themes) {
+                   color: themed('text-primary');  
+                }
+            }
+
+            p {
+                text-align: center;
+                margin-top: 10px;
+
+                @include themify($themes) {
+                    color: themed('text-secondary');  
+                 }
+            }
+        }
+    }
 }

@@ -36,11 +36,13 @@ export default (props) => {
 	const assignmentsRef = createRef();
 	const topicsRef = createRef();
 
+	const [ showError404, setShowError404 ] = useState(false);
+
 	const { user, loading } = useContext(UserContext);
 
 	const [ usersList, setUsersList ] = useState([]);
 
-    const [ classroom, setClassroom ] = useState({});
+    const [ classroom, setClassroom ] = useState(false);
     const [ topics, setTopics ] = useState([]);
 	const [ guides, setGuides ] = useState([]);
 	const [ assignments, setAssignments ] = useState([]);
@@ -170,35 +172,38 @@ export default (props) => {
         if (user) {
             const itemRefs = firestore.collection('classrooms').doc(id);
 			const quizzes = itemRefs.collection("quizzes");
-
 			
-
             const doc = await itemRefs.get();
 
-			if (doc.exists) {
-				const items = doc.data();
-
-				getUsers(items);
-				setClassroom(items);
-	
-				getTopics();
-				getGuides();
-				getAssignments();
-			} else {
-				setClassroom(false);
+			if (!doc.exists) {
+				return setShowError404(true);
 			}
+
+			const items = doc.data();
+
+			getUsers(items);
+			setClassroom(items);
+
+			getTopics();
+			getGuides();
+			getAssignments();
+			
         }
     }, [ loading ]);
-    
-	if (!classroom) return (
-		<div className="itemContent">
-			<div className="itemContent__inner">
-				<div className="classroom">
-					<Error404Page/>
+
+	if (showError404) {
+		return (
+			<div className="itemContent">
+				<div className="itemContent__inner">
+					<div className="classroom">
+						<Error404Page/>
+					</div>
 				</div>
 			</div>
-		</div>
-	)
+		)
+	}
+
+	if (!classroom) return <div className="itemContent"></div>;
 
     if (classroom) {
 		return (
@@ -209,7 +214,7 @@ export default (props) => {
 
 								<div className="classroom__header">
 									<div className="text">
-										<h1>{ classroom ? classroom.title : "Loading..." }</h1>
+										<h1>{ classroom.title || "Loading..." }</h1>
 										<p className="title">There is { topics.length } topic(s) avaliable</p>
 									</div>
 			

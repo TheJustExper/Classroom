@@ -10,6 +10,7 @@ import "firebase/firestore";
 const provider = new firebase.auth.GoogleAuthProvider();
 
 var firebaseConfig = {
+    signInSuccessUrl: '/dashboard',
     apiKey: "AIzaSyDA9u8dP9FRbsoEQk7RmyH5ci38y8npYGE",
     authDomain: "project-management-3cb8f.firebaseapp.com",
     projectId: "project-management-3cb8f",
@@ -55,41 +56,27 @@ export const signInWithGoogle = () => {
 
 export const registerWithEmailAndPassword = (email, password) => {
     auth.createUserWithEmailAndPassword(email, password).then((result) => {
+        const fire = firestore.collection("users").doc(auth.currentUser.uid);
         
+        fire.set({
+            uid: auth.currentUser.uid,
+            email: auth.currentUser.email,
+            displayName: faker.name.findName(),
+            photoURL: faker.image.imageUrl(),
+
+            joined: Date.now(),
+
+            level: 0,
+            xp: 0,
+            plan: 1,
+
+            roles: ["USER"],
+            classrooms: [],
+            notifications: [],
+        });
     });
 }
 
 export const loginWithEmailAndPassword = (email, password) => {
-    auth.signInWithEmailAndPassword(email, password).then((result) => {
-        let doc = firestore.collection("users").doc(auth.currentUser.uid);
-
-        doc.get().then((docData) => {
-            if (!docData.exists) {
-                const fire = firestore.collection("users").doc(auth.currentUser.uid);
-        
-                fire.set({
-                    uid: auth.currentUser.uid,
-                    email: auth.currentUser.email,
-                    displayName: faker.name.findName(),
-                    photoURL: faker.image.imageUrl(),
-    
-                    joined: Date.now(),
-    
-                    level: 0,
-                    xp: 0,
-                    plan: 1,
-    
-                    roles: ["USER"],
-                    classrooms: [],
-                    notifications: [],
-                });
-            }
-        });
-    })
-    .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-
-        alert(error);
-    });
+    return auth.signInWithEmailAndPassword(email, password);
 }

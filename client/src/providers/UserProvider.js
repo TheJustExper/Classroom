@@ -17,7 +17,7 @@ class UserProvider extends Component {
 
   componentDidMount = () => {
     auth.onAuthStateChanged(userAuth => {
-      if (userAuth == null) return this.setState({ user: null });
+      if (userAuth == null) return this.setState({ user: null, loading: false });
       
       const projectStore = firestore.collection("users").doc(userAuth.uid);
 
@@ -32,7 +32,7 @@ class UserProvider extends Component {
   render() {
     return (
       <UserContext.Provider value={{ user: this.state.user, loading: this.state.loading }}>
-        {this.props.children}
+        { this.props.children }
       </UserContext.Provider>
     );
   }
