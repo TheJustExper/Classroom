@@ -1,0 +1,214 @@
+@import "../../styles/variables";
+
+.landing {
+    width: 100%;
+
+    padding-bottom: 200px;
+
+    @include themify($themes) {
+        background-color: themed('main-color');  
+    }
+}
+
+.landing-section {
+    margin-bottom: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .landing-section-businessbar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        p {
+            text-align: center;
+        }
+
+        .businesses {
+            display: flex;
+            flex-direction: row;
+
+            img {
+                width: 120px;
+                margin: 50px;
+
+                filter: invert(0.05);
+            }
+        }
+    }
+
+    &:last-child {
+        margin: 0px;
+    }
+
+    h1 {
+        font-size: 40px;
+        max-width: 1440px;
+
+        @include themify($themes) {
+            color: themed('text-primary');  
+        }
+    }
+
+    p {
+        color: $text-secondary;
+        font-size: 17px;
+
+        max-width: 800px;
+    }
+
+    .landing-features {
+        display: flex;
+        flex-direction: row;
+        margin-top: 40px;
+
+        .landing-feature {
+            width: 300px;
+            height: 300px;
+
+            border-radius: 15px;
+
+            margin: 25px;
+            border: 2px solid $border-color;
+
+            padding: 30px;
+            box-sizing: border-box;
+
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+
+            transition: .2s;
+
+            .landing-feature-features {
+                p {
+                    font-size: 15px;
+                    text-align: left;
+                    line-height: 30px;
+                }
+
+                img {
+                    width: 13px;
+                    padding-right: 10px;
+                    position: relative;
+                    top: 2px;
+
+                    filter: invert(1);
+                }
+            }
+
+            .landing-feature-topbar {
+                display: flex;
+                flex-direction: row;
+
+                border-bottom: 1px solid $border-color;
+                padding-bottom: 25px;
+
+                .icon {
+                    width: 50px;
+                    height: 50px;
+                    background: $primary-brand-color;
+                    border-radius: 10px;
+                }
+
+                .text {
+                    margin-left: 15px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: left;
+                    justify-content: center;
+
+                    b {
+                        font-size: 20px;
+
+                        @include themify($themes) {
+                            color: themed('text-primary');  
+                        }
+                    }
+
+                    p {
+                        font-size: 15px;
+                        margin-top: 2px;
+                    }
+                }
+            }
+
+
+            &:nth-child(2) {
+                transform: scale(1.15);
+                background-color: $item-color;
+                border: none;
+            }
+
+            &:nth-child(3) {
+                .icon {
+                    background: none;
+                    border: 2px solid $border-color; 
+                }
+                
+                button {
+                    background: none;
+                    border: 2px solid $border-color;
+                }
+            }
+        }
+    }
+}
+
+.landing-head {
+    width: 100%;
+
+    height: calc(100vh - 100px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    @include themify($themes) {
+        color: themed('text-primary');  
+    }
+
+    text-align: center;
+
+    animation: fadeInUp 1s;
+
+    border-bottom: 2px solid $border-color;
+
+    margin-bottom: 100px;
+
+    .subtitle {
+        color: $text-subtitle;
+    }
+
+    .landing-buttons {
+        margin-top: 40px;
+
+        display: flex;
+        flex-direction: row;
+
+        button {
+            margin: 10px;
+
+            &:last-child {
+                background: none;
+                border: 2px solid $border-color;
+            }
+        }
+    }
+
+    h1 {
+        font-size: 60px;
+        max-width: 1200px;
+    }
+
+    p {
+        color: $text-secondary;
+        font-size: 19px;
+        font-weight: 500;
+        margin-top: 30px;
+
+        max-width: 800px;
+    }
+}

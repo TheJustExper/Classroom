@@ -1,0 +1,668 @@
+@import "../../../../../../styles/variables";
+
+.student-marking {
+    max-height: 76vh;
+
+    overflow: auto;
+
+    &__buttons {
+        margin-bottom: 20px;
+
+        button {
+            margin-right: 10px;
+        }
+    }
+
+    &__submission {
+        padding: 5px;
+        border-radius: 3px;
+        width: fit-content;
+        font-size: 13px;
+
+        @include themify($themes) {
+            background-color: themed("active-color");
+        }
+    }
+
+    &__grade {}
+
+    &__selectedStudent {
+        $color: $primary-brand-color;
+
+        background-color: transparentize($color, 0.9) !important;
+
+        td {
+            color: $color !important;
+        }
+
+        .user {
+            background-color: transparentize($color, 0.9) !important;
+            color: $color !important;
+        }
+
+        .student-marking__submission {
+            background-color: transparentize($color, 0.9) !important;
+            color: $color;
+        }
+    }
+
+    &__table {
+        width: 100%;
+
+        border-collapse: collapse;
+        overflow: auto;
+
+        tr {
+
+            &:hover {
+                @include themify($themes) {
+                    background-color: themed("subheader-color");
+                }
+            }
+
+            &:active {
+                @include themify($themes) {
+                    background-color: themed("active-color");
+                }
+            }
+        }
+
+        thead {
+
+            tr {
+                &:first-child {
+                    @include themify($themes) {
+                        background-color: themed("header-color");
+                        border-top: 1px solid themed("border-color");
+                        border-bottom: 1px solid themed("border-color");
+                    }
+
+                    th {
+                        padding: 10px;
+
+                        font-size: 13px;
+                        font-weight: 500;
+
+                        @include themify($themes) {
+                            color: themed("text-secondary");
+                        }
+                    }
+                }
+            }
+        }
+
+        tbody {
+            width: 100%;
+            overflow-y: scroll;
+        }
+
+        th {
+            text-align: left;
+            color: white;
+
+            width: fit-content;
+
+            i {
+                font-size: 12px;
+                margin-right: 3px;
+            }
+        }
+
+        td {
+            font-size: 14px;
+
+            font-weight: 400;
+            transition: .2s;
+
+            padding: 10px;
+
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+        }
+
+        .edit-user {
+            text-align: center;
+
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+
+            width: 20px;
+
+            &:hover {
+                background: none !important;
+            }
+
+            i:hover {
+                color: white;
+            }
+        }
+
+        .user {
+            width: fit-content;
+            display: flex;
+            align-items: center;
+            box-sizing: border-box;
+            padding: 2px 10px 2px 0px;
+            border-radius: 3px;
+
+            @include themify($themes) {
+                background-color: themed("active-color");
+                color: themed("text-primary");
+            }
+
+            font-weight: 500;
+
+            img {
+                width: 20px;
+                height: 20px;
+
+                border-radius: 3px;
+                margin-right: 7px;
+            }
+
+            p {
+                font-weight: 300;
+            }
+        }
+
+        .role {
+            font-weight: 600;
+        }
+
+        .online {
+            font-size: 14px;
+
+            color: $color-success;
+        }
+
+        .offline {
+            padding: 5px 8px;
+            border-radius: 3px;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            color: $color-red;
+        }
+    }
+}
+
+.explanation {
+    display: flex;
+    flex-direction: column;
+
+    &__buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            width: fit-content;
+        }
+    }
+
+    .wmde-markdown-color code[class*="language-"] .token.operator, .wmde-markdown-color code[class*="language-"] .token.entity, .wmde-markdown-color code[class*="language-"] .token.url, .wmde-markdown-color code[class*="language-"] .token.variable {
+        background: none;
+    }
+
+    .wmde-markdown > table tr, .wmde-markdown > blockquote table tr {
+        @include themify($themes) {
+            background-color: themed("subheader-color");
+        }
+    }
+
+    .wmde-markdown > table td, .wmde-markdown > blockquote table td, .wmde-markdown > table th, .wmde-markdown > blockquote table th {
+        @include themify($themes) {
+            border: 1px solid themed("border-color");
+        }
+    }
+
+    .wmde-markdown > blockquote, .wmde-markdown > blockquote blockquote {
+        @include themify($themes) {
+            border-left: 0.25em solid themed("border-color");
+        }
+    }
+
+    .wmde-markdown {
+        @include themify($themes) {
+            color: themed("text-primary");
+        }
+
+        hr {
+            @include themify($themes) {
+                border-top: 2px dotted themed("border-color");
+            }
+        }
+
+        code[class*="language-"] .token.operator, .wmde-markdown-color code[class*="language-"] .token.entity, .wmde-markdown-color code[class*="language-"] .token.url, .wmde-markdown-color code[class*="language-"] .token.variable {
+            background: none;
+        }
+
+       code[class*="language-"] {
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
+       }
+
+      h1, h2 {
+        @include themify($themes) {
+            border-bottom: 1px solid themed("border-color");
+        }
+      }
+
+       p {
+        font-size: 14px;
+        
+        @include themify($themes) {
+            color: themed("text-secondary");
+        } 
+       }
+
+        pre { 
+            @include themify($themes) {
+                background-color: themed("active-color");
+            }
+
+            code {
+                @include themify($themes) {
+                    text-shadow: none;
+                }
+            }
+        }
+    }
+
+    .w-md-editor {
+        width: 100%;
+        background: none;
+
+        @include themify($themes) {
+            box-shadow: 0 0 0 1px themed("border-color"), 0 0 0 themed("border-color"), 0 1px 1px themed("border-color");
+        }
+
+        .w-md-editor-text-pre .title, .w-md-editor-text-pre .bold {
+            @include themify($themes) {
+                color: themed("text-primary") !important;
+            }
+        }
+
+        .w-md-editor-preview {
+            @include themify($themes) {
+                box-shadow: inset 1px 0 0 0 themed("border-color");
+            }
+        }
+
+        .w-md-editor-toolbar-divider {
+            @include themify($themes) {
+                background-color: themed("border-color");
+            }
+        }
+
+        .w-md-editor-toolbar {
+            @include themify($themes) {
+                border-bottom: 1px solid themed("border-color");
+                background-color: themed("subheader-color");
+            }
+        }
+
+        .wmde-markdown-color code[class*="language-"] {
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
+        }
+
+        @include themify($themes) {
+            color: themed("text-primary");
+        }
+    }
+}
+
+
+.attachments {
+    display: flex;
+    flex-direction: column;
+
+    &__attachment {
+        margin-bottom: 10px;
+        border-radius: 5px;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        padding: 15px;
+
+        @include themify($themes) {
+            border: 1px solid themed("border-color");
+            background-color: themed("subheader-color");
+        }
+
+        img {
+            width: 30px;
+            height: 30px;
+        }
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
+
+        &:hover {
+            @include themify($themes) {
+                background-color: themed("active-color");
+            }
+        }
+        
+    }
+
+    &__text {
+        display: flex;
+        flex-direction: column;
+
+        margin-left: 10px;
+
+        b {
+            font-size: 13px;
+
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
+        }
+
+        p {
+            font-size: 13px;
+            margin-top: 2px !important;
+
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+        }
+    }
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-10 {
+    margin-bottom: 10px
+}
+
+.mb-20 {
+    margin-bottom: 20px
+}
+
+.assignment-view {
+    width: 100%;
+    margin-top: 0px !important;
+
+    &__activity {
+        min-height: 500px;
+    }
+
+    .bar {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        margin-top: 20px;
+        padding-top: 20px;
+
+        @include themify($themes) {
+            border-top: 1px solid themed("border-color");
+        }
+
+        .set-by {
+            .teacher {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                img {
+                    width: 20px;
+                    height: 20px;
+
+                    border-radius: 50%;
+                }
+
+                p {
+                    font-size: 13px;
+                    margin-left: 7px;
+
+                    @include themify($themes) {
+                        color: themed("text-secondary");
+                    }
+                }
+            }
+        }
+
+        .status-outer {
+
+            display: flex;
+            align-items: center;
+
+            .status {
+                display: flex;
+                align-items: center;
+
+                margin-right: 10px;
+                padding-right: 10px;
+
+                @include themify($themes) {
+                    border-right: 1px solid themed("border-color");
+                }
+
+                p {
+                    font-size: 14px;
+                    font-weight: 600;
+
+                    @include themify($themes) {
+                        color: themed("text-secondary");
+                    }
+
+                    &:hover {
+                        color: $primary-brand-color;
+                    }
+                }
+            }
+        }
+    }
+
+    &__comments {
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    &__comment {
+        width: 100%;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        border-radius: 5px;
+
+        margin-bottom: 20px;
+
+        padding-bottom: 20px;
+
+        @include themify($themes) {
+            border-bottom: 1px solid themed("border-color");
+        }
+
+        img {
+            width: 35px;
+            height: 35px;
+
+            border-radius: 50%;
+        }
+
+        .text {
+            display: flex;
+            flex-direction: column;
+            margin-left: 15px;
+            line-height: 20px;
+
+            b {
+                font-size: 14px;
+
+                @include themify($themes) {
+                    color: themed("text-primary");
+                }
+            }
+
+            p {
+                font-size: 14px;
+
+                @include themify($themes) {
+                    color: themed("text-secondary");
+                }
+            }
+        }
+    }
+
+    &__header-buttons {
+        button {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+
+            i {
+                margin-right: 10px;
+            }
+        }
+    }
+
+    &__header {
+        padding-bottom: 10px;
+
+        .text {
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
+
+            position: relative;
+
+            h1 {
+                font-size: 25px;
+                margin-bottom: 10px;
+            }
+
+            p {
+                font-size: 14px;
+                font-weight: 500;
+
+                @include themify($themes) {
+                    color: themed("text-secondary");
+                }
+            }
+
+            .title {
+
+                max-width: 90%;
+            }
+        }
+    }
+}
+
+
+.alert-hidden {
+    opacity: 0;
+    transition: all 250ms linear 0.1s;
+}
+
+.information {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    overflow: hidden;
+    position: relative;
+
+    max-height: 157px;
+
+    margin-top: 20px;
+
+    @include themify($themes) {
+        background-color: themed("main-color") !important;
+        border: 1px solid themed("border-color");
+    }
+
+    .background {
+        width: 100%;
+        height: 400px;
+
+        position: absolute;
+
+        top: 0px;
+        right: -100px;
+
+        z-index: -1;
+
+        transform: rotate(-50deg);
+
+        @include themify($themes) {
+            border: 1px solid themed("border-color");
+        }
+    }
+
+    &__exit {
+        position: absolute;
+
+        top: 15px;
+        right: 15px;
+
+        font-size: 13px;
+
+        z-index: 1;
+
+        @include themify($themes) {
+            color: themed("text-secondary");
+        }
+
+        &:hover {
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
+        }
+    }
+
+    &__inner {
+        padding: 25px;
+
+        z-index: 1;
+
+        h2 {
+            font-size: 17px;
+            margin-bottom: 5px;
+
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
+        }
+
+        p {
+            font-size: 15px;
+            line-height: 25px;
+
+            margin-bottom: 10px;
+
+            max-width: 90%;
+
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: $primary-brand-color;
+        }
+    }
+}
