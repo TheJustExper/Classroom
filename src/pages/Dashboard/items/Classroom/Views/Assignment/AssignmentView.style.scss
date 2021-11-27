@@ -400,6 +400,11 @@
     width: 100%;
     margin-top: 0px !important;
 
+    @include themify($themes) {
+        background-color: themed("header-color");
+        border: 1px solid themed("border-color");
+    }
+
     &__activity {
         min-height: 500px;
     }

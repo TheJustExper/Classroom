@@ -1,6 +1,6 @@
 import React, { useReducer, useState, useContext, useEffect } from "react";
 import { UserContext } from "../../providers/UserProvider";
-import { firestore, loginWithEmailAndPassword, signInWithGoogle } from "../../firebase";
+import { firestore, loginWithEmailAndPassword, registerWithEmailAndPassword, signInWithGoogle } from "../../firebase";
 import { useHistory, useLocation } from "react-router-dom";
 
 import LandingHeader from "../../components/header/landingHeader";
@@ -31,6 +31,8 @@ export default (props) => {
     }
 
     useEffect(() => {
+        //registerWithEmailAndPassword("admin@exper.com", "123123");
+
         if (user) history.push(state?.from || "/dashboard");
     }, [ user ])
 

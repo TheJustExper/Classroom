@@ -61,7 +61,7 @@ export default (props) => {
         <div className="dashboard">
             <Header setToggledTheme={props.setToggledTheme}/>
 
-            <div className="dashboard-content">
+            <div className="dashboard-content content">
                 <Switch>
                     { user && hasRole(user, ["ADMIN"]) && (
                         <Route exact path="/dashboard/users">

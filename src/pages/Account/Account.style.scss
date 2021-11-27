@@ -1,7 +1,116 @@
 @import "../../styles/variables";
 
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.column {
+    flex-direction: column;
+}
+
 .account {
     height: 100%;
 
     background-color: $main-color;
+
+    &-content {
+        display: flex;
+        flex-direction: row;
+        height: calc(100vh - 64px);
+        
+        &__container {
+            max-width: fit-content;
+            justify-content: center;
+        }
+
+        &__inner {
+            width: 650px;
+            height: 100%;
+
+            border-radius: 5px;
+
+            button {
+                margin-top: 10px;
+            }
+        }
+
+        &__subtitle {
+            font-size: 15px;
+            margin-bottom: 20px;
+
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
+        }
+    }
+}
+
+.itemContent {
+    &__text {
+        margin-bottom: 60px;
+
+        h1 {
+            font-size: 25px;
+
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
+        }
+
+        p {
+            margin-top: 10px;
+
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: row;
+    }
+
+    &__sidebar {
+        width: 200px;
+        height: auto;
+        margin-right: 40px;
+
+        border-radius: 5px;
+
+        &-title {
+            font-size: 25px;
+
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
+        }
+
+        &-items {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &-item {
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 5px;
+
+            margin-bottom: 15px;
+            
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+
+            &:hover {
+                $color: $primary-brand-color;
+                color: $color;
+            }
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+    }
 }

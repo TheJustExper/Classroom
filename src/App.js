@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import UserProvider, { UserContext } from "./providers/UserProvider";
+import AlertProvider, { AlertContext } from "./providers/AlertProvider";
+import ThemeProvider, { ThemeContext } from "./providers/ThemeProvider";
 
 import PrivateRoute from "./PrivateRoute";
 
@@ -10,35 +12,40 @@ import Account from "./pages/Account/Account";
 
 import Fade from "./components/fade/Fade";
 
-
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 
 import "animate.css";
 import './styles/index.scss';
 
-export default function App() {
+function AppInner() {
   const [ popup, setPopup ] = useState(null);
-  const [ toggledTheme, setToggledTheme ] = useState( localStorage.getItem("toggled-theme") === 'true' )
+  const { theme, toggleTheme } = useContext(ThemeContext);
+  
+  return (
+    <div id="app" className={ theme ? "theme-dark" : "theme-light" }>
+      { popup != null ? <>{popup} {<Fade setPopup={setPopup}/>}</> : "" } 
 
-  const toggleTheme = () => setToggledTheme(!toggledTheme);
+      <Switch>
+        <PrivateRoute path="/dashboard" component={Dashboard} setPopup={setPopup}/>
+        <PrivateRoute path="/account" component={Account} />
 
-  useEffect(() => localStorage.setItem("toggled-theme", toggledTheme), [ toggleTheme ]);
+        <Route exact path="/" component={LandingPage} />
+        <Route path="/login" component={Login} />
+      </Switch>
+    </div>
+  )
+}
 
+export default function App() {
   return (
     <UserProvider>
-      <Router>
-          <div id="app" className={ toggledTheme ? "theme-dark" : "theme-light" }>
-            { popup != null ? <>{popup} {<Fade setPopup={setPopup}/>}</> : "" } 
-
-            <Switch>
-              <PrivateRoute path="/dashboard" component={Dashboard} setPopup={setPopup} setToggledTheme={toggleTheme}/>
-
-              <Route exact path="/" component={LandingPage} />
-              <Route path="/account" compponent={Account} />
-              <Route path="/login" component={Login} />
-            </Switch>
-          </div>
-      </Router>
+      <AlertProvider>
+        <ThemeProvider>
+          <Router>
+            <AppInner/>     
+          </Router>
+        </ThemeProvider>
+      </AlertProvider>
     </UserProvider>
   );
 }

@@ -28,10 +28,20 @@ class UserProvider extends Component {
       });
     });
   };
+
+  refresh = () => {
+    const projectStore = firestore.collection("users").doc(this.state.user.uid);
+
+    projectStore.get().then((doc) => {
+        const user = doc.data();
+        
+        this.setState({ user, loading: false });
+    });
+  }
   
   render() {
     return (
-      <UserContext.Provider value={{ user: this.state.user, loading: this.state.loading }}>
+      <UserContext.Provider value={{ user: this.state.user, loading: this.state.loading, refresh: this.refresh }}>
         { this.props.children }
       </UserContext.Provider>
     );

@@ -47,7 +47,7 @@
 
         @include themify($themes) {
             background-color: themed("header-color");
-            border: 2px solid themed("border-color");
+            border: 1px solid themed("border-color");
         }
 
         border-radius: 5px;

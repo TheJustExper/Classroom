@@ -31,11 +31,13 @@ export default (props) => {
                     usersIds: firebase.firestore.FieldValue.arrayUnion(user.uid)
                 });
 
-                await userRef.update({
-                    classrooms: firebase.firestore.FieldValue.arrayUnion(id)
-                });
+                // await userRef.update({
+                //     classrooms: firebase.firestore.FieldValue.arrayUnion(id)
+                // });
 
                 loadClassrooms()
+            } else {
+                console.log("")
             }
         });
     }
@@ -73,7 +75,7 @@ export default (props) => {
 
                         <div className="flex-bar">
                             <button className="button classroom-add" onClick={() => props.setPopup(<Popup setPopup={props.setPopup} refresh={loadClassrooms}/>)}>+ Add new classroom</button>
-                            <button className="button classroom-join clear" onClick={() => joinClassroom("VIRf9Api6exmHQFKY4aH")}>Join a classroom</button>
+                            <button className="button classroom-join clear" onClick={() => joinClassroom("5SBhUYIWuYvJwWrlatpr")}>Join a classroom</button>
                         </div>
                         
                     </div>

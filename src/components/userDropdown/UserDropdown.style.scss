@@ -29,11 +29,28 @@
             }
         }
 
+        p {
+            margin-left: 10px;
+
+            font-size: 15px;
+            font-weight: 500;
+
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+        }
+
         &:hover {
             cursor: pointer;
 
             @include themify($themes) {
                 background-color: themed("active-color");
+            }
+
+            p {
+                @include themify($themes) {
+                    color: themed("text-primary");
+                }
             }
         }
 
@@ -50,7 +67,7 @@
             width: 30px;
             height: 30px;
             
-            border-radius: 50%;
+            border-radius: 5px;
 
             z-index: 2;
         }
@@ -108,7 +125,9 @@
     right: 20px;
     top: 60px;
 
-    padding: 5px;
+    min-width: 270px;
+
+    padding: 15px 10px;
     box-sizing: border-box;
     z-index: 1000;
     box-shadow: 0 3px 12px -2px rgba(51, 51, 51, 0.10);
@@ -121,15 +140,53 @@
 
     border-radius: 5px;
 
-    width: 250px;
+    width: fit-content;
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
 
+    &__user {
+        padding-left: 12px;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 10px;
+
+        img {
+            border-radius: 5px;
+        }
+
+        &-text {
+            display: flex;
+            flex-direction: column;
+
+            margin-left: 10px;
+            margin-right: 12px;
+
+            b {
+                font-size: 13px;
+
+                @include themify($themes) {
+                    color: themed("text-primary");
+                }
+            }
+
+            p {
+                font-size: 13px;
+                margin-top: -4px;
+
+                @include themify($themes) {
+                    color: themed("text-secondary");
+                }
+            }
+        }
+    }
+
     li {
         height: 30px;
         border-radius: 4px;
-        padding: 0px 12px;
+        padding: 0px 10px;
         display: flex;
         align-items: center;
         font-size: 14px;

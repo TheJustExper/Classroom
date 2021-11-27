@@ -67,6 +67,20 @@ export default (props) => {
 
 	const scrollIntoView = (ref) => ref.current.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
 
+	const Quiz = () => {
+		return (
+			<div className="container flex-row align-center quiz__warning">
+				<div className="quiz__text">
+					<p><i className="fa fa-question"></i> Testing your skills</p>
+				</div>
+				<div className="">
+					<button className="button small" onClick={() => history.push(`/dashboard/c/${id}/q/dP9ffkgXLIJ8uuFPkIsO`)}>Start Quiz</button>
+					{ isTeacher && <button className="button small">Edit</button> } 
+				</div>
+			</div>
+		)
+	}
+
 	const getTopics = () => {
 		let itemRefs = firestore.collection('classrooms').doc(id);
         let topicsRefs = itemRefs.collection("topics");
@@ -175,11 +189,11 @@ export default (props) => {
 			
             const doc = await itemRefs.get();
 
-			if (!doc.exists) {
-				return setShowError404(true);
-			}
+			if (!doc.exists) return setShowError404(true);
 
 			const items = doc.data();
+
+			if (!items.usersIds.includes(user.uid)) return setShowError404(true);
 
 			getUsers(items);
 			setClassroom(items);
@@ -226,6 +240,13 @@ export default (props) => {
 										</div>
 									)}
 								</div>
+
+								<div className="classroom__items">
+									<div className="classroom__items-item classroom__items-item--selected">Classroom</div>
+									<div className="classroom__items-item">Marking</div>
+									<div className="classroom__items-item">Analytics</div>
+									<div className="classroom__items-item">Students</div>
+								</div>
 			
 								<div className="classroom-outer">
 			
@@ -233,15 +254,7 @@ export default (props) => {
 			
 										{/* <InputWithIcon placeholder="Start a discussion" photoURL={user && user.photoURL} icon="fas fa-images"/>  */}
 
-										<div className="container flex-row align-center quiz__warning">
-											<div className="quiz__text">
-												<p><i className="fa fa-question"></i> Testing your skills</p>
-											</div>
-											<div className="">
-												<button className="button small" onClick={() => history.push(`/dashboard/c/${id}/q/dP9ffkgXLIJ8uuFPkIsO`)}>Start Quiz</button>
-												{ isTeacher && <button className="button small">Edit</button> } 
-											</div>
-										</div>
+										
 										
 										<div className="container" ref={topicsRef}>
 											<div className="row">

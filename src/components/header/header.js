@@ -10,8 +10,11 @@ import UserDropdown from "../userDropdown/UserDropdown";
 
 import "./header.style.scss";
 
+import { AlertContext } from "../../providers/AlertProvider";
+
 export default (props) => {
     const { user } = useContext(UserContext);
+    const { alert } = useContext(AlertContext);
     const [ selected, setSelected ] = useState(localStorage.getItem('sidebarItem'));
 
     const links = [
@@ -33,9 +36,7 @@ export default (props) => {
         }
     ]
 
-    const textToImage = () => {
-        
-    }
+    const textToImage = () => {}
 
     return (
         <div className="dashboard__header">
@@ -59,7 +60,7 @@ export default (props) => {
 
                         { user && hasRole(user, ["ADMIN"]) && 
                                 <>
-                                    <Link onClick={() => { setSelected(3); localStorage.setItem('sidebarItem', 3); }} to="/dashboard/users" className={ selected == 3 ? "links__item links__item--active" : "links__item" }>
+                                    <Link onClick={() => { setSelected(4); localStorage.setItem('sidebarItem', 4); }} to="/dashboard/users" className={ selected == 4 ? "links__item links__item--active" : "links__item" }>
                                         <div className="item-inner">
                                             <p>Users</p>
                                         </div>
@@ -70,8 +71,18 @@ export default (props) => {
                     </div>
                 </div>
                 <div className="row">
-                    { user && <UserDropdown user={user} setToggledTheme={props.setToggledTheme}/> }
+                    { user && (
+                        <>
+                            <div className="notification-outer">
+                                <i className="fa fa-bell"></i>
+                            </div>
+                            <UserDropdown user={user} setToggledTheme={props.setToggledTheme}/>
+                        </>
+                    ) }
                 </div>
+            </div>
+            <div className="dashboard__section">
+                { props.children }
             </div>
         </div>
     )

@@ -296,7 +296,6 @@ export default (props) => {
                         } */}
                     </div> 
 
-                    <Information/>
                     <TeacherContent/>
 
                 </div>

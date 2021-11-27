@@ -12,7 +12,7 @@ export default (props) => {
 
     const [ inputValues, setInputValues ] = useReducer(
         (state, newState) => ({ ...state, ...newState }),
-        { title: '' }
+        { title: '', description: '' }
     );
 
     const handleOnChange = event => {
@@ -23,12 +23,13 @@ export default (props) => {
     const create = async () => {
         const fire = firestore.collection("classrooms");
         const userRef = firestore.collection("users").doc(user.uid);
-        const { title } = inputValues;
+        const { title, description } = inputValues;
 
         if (title.length == 0) return;
         
         const { id } = await fire.add({
-            title: title,
+            title,
+            description,
             users: [{
                 id: user.uid,
                 role: "teacher"
@@ -37,9 +38,9 @@ export default (props) => {
             date: Date.now(),
         });
 
-        await userRef.update({
-            classrooms: firebase.firestore.FieldValue.arrayUnion(id)
-        });
+        // await userRef.update({
+        //     classrooms: firebase.firestore.FieldValue.arrayUnion(id)
+        // });
         
 
         props.setPopup(null);
@@ -61,7 +62,7 @@ export default (props) => {
 
                 <div className="input-outer">
                     <label for="description<">Description (optional)</label>
-                    <textarea className="description" name="description" rows="5" cols="50" placeholder="Write a description"></textarea>
+                    <textarea className="description" name="description" rows="5" cols="50" placeholder="Write a description" onChange={handleOnChange}></textarea>
                 </div>
             </div>
 
