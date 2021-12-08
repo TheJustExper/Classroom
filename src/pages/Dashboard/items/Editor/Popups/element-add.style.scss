@@ -1,0 +1,67 @@
+@import "../../../../../styles/variables";
+
+.classroom-content {
+    &__widgets {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        grid-gap: 20px;  
+    }
+
+    &__widget {
+        @include themify($themes) {
+            background-color: themed("subheader-color");
+            border: 1px solid themed("border-color");
+        }
+
+        border-radius: 5px;
+        padding: 10px;
+        box-sizing: border-box;
+
+        min-height: 150px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        user-select: none;
+
+        transition: .1s;
+    
+        @include themify($themes) {
+            color: themed("text-secondary");
+        }
+
+        img {
+            height: 40px;
+            margin-bottom: 10px;
+        }
+
+        i {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        &:hover {
+            @include themify($themes) {
+                border: 1px solid $primary-brand-color;
+                background-color: transparentize($primary-brand-color, 0.9) !important;
+            }
+
+            p {
+                @include themify($themes) {
+                    color: $primary-brand-color;
+                }
+            }
+
+            i {
+                color: $primary-brand-color;
+            }
+        }
+    }
+}

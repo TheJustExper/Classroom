@@ -27,7 +27,6 @@
 }
 
 .classroom-homework {
-    margin-top: 20px;
 
     &__inner {
         display: flex;
@@ -97,18 +96,19 @@
     }
 
     &__section {
-        margin-bottom: 30px;
+        margin-bottom: 0px;
 
         border-radius: 8px;
-        padding: 15px;
+        padding: 15px 0px;
 
-        @include themify($themes) {
-            background-color: themed("main-color");
-            border: 1px solid themed("border-color");
-        }
+        // @include themify($themes) {
+        //     background-color: themed("main-color");
+        //     border: 1px solid themed("border-color");
+        // }
 
         &:last-child {
             margin-bottom: 0px;
+            padding-bottom: 0px;
         }
     }
 
@@ -128,7 +128,6 @@
         justify-content: space-between;
 
         padding: 15px 20px 15px 15px;
-
         border-radius: 5px;
 
         @include themify($themes) {
@@ -224,7 +223,7 @@
     }
 
     .type__today {
-        $color: $primary-brand-color;
+        $color: $color-blue;
 
         .circle-progress {
             stroke: $color;

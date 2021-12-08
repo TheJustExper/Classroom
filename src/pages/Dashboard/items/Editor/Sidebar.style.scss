@@ -1,0 +1,99 @@
+@import "../../../../styles/variables";
+
+.editor {
+    &__nodes {
+        width: 350px;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        user-select: none;
+
+        @include themify($themes) {
+            background-color: themed("header-color");
+            border-right: 1px solid themed("border-color");
+        }
+
+        &_row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            margin-bottom: 20px;
+
+            .editor__node {
+                &:first-child {
+                    margin-right: 10px;
+                }
+
+                &:last-child {
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+
+    &__run {
+        margin: 20px;
+
+        i {
+            margin-right: 5px;
+        }
+    }
+
+    &__node {
+        padding: 10px;
+        height: auto;
+
+        font-weight: 500;
+        font-size: 14px;
+
+        border-radius: 3px;
+
+        text-transform: uppercase;
+        text-align: center;
+
+        @include themify($themes) {
+            background-color: themed("subheader-color");
+            border: 1px solid themed("border-color");
+            color: themed("text-primary");
+        }
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
+
+        &-default {
+            @include themify($themes) {
+                border: 1px solid themed("text-primary");
+            }
+        }
+
+        &-input {
+            border: 1px solid $primary-brand-color !important;
+        }
+    
+        &-output {
+            border: 1px solid $color-pink !important;
+        }
+
+        &-popup {
+            &__open {
+                border: 1px solid $color-green !important;
+            }
+
+            &__close {
+                border: 1px solid $color-red !important;
+            }
+        }
+    
+        &.selected {
+            @include themify($themes) {
+                border: 1px solid themed("oppositeTheme") !important;
+                background-color: themed("active-color");
+            }
+        }
+    }
+}

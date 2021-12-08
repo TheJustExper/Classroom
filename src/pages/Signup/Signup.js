@@ -1,16 +1,18 @@
 import React, { useReducer, useState, useContext, useEffect } from "react";
 import { UserContext } from "../../providers/UserProvider";
-import { firestore, loginWithEmailAndPassword, registerWithEmailAndPassword, signInWithGoogle } from "../../firebase";
+import { firestore, registerWithEmailAndPassword, signInWithGoogle } from "../../firebase";
 import { useHistory, useLocation } from "react-router-dom";
 
 import LandingHeader from "../../components/header/landingHeader";
 
-import "./Login.style.scss";
+import "./Signup.style.scss";
 
 export default (props) => {
     const { user, loading } = useContext(UserContext);
     const history = useHistory();
     const { state } = useLocation();
+
+    const [ userCount, setUserCount ] = useState(313);
     const [ errorMessage, setErrorMessage ] = useState("");
 
     const [ inputValues, setInputValues ] = useReducer(
@@ -22,16 +24,18 @@ export default (props) => {
         setInputValues({ [name]: value });
     };
 
-    const login = () => {
+    const register = () => {
         const { email, password } = inputValues;
 
         if (email.length == 0 || password.length == 0) return setErrorMessage("No email or password inputted");
 
-        loginWithEmailAndPassword(email, password).catch(({ message }) => setErrorMessage(message));
+        registerWithEmailAndPassword(email, password).catch(({ message }) => setErrorMessage(message));
     }
 
-    useEffect(() => {
+    useEffect(async () => {
         //registerWithEmailAndPassword("admin3@exper.com", "123123");
+        // const userStore = firestore.collection('users');
+        // const users = await userStore.get();
 
         if (user) history.push(state?.from || "/dashboard");
     }, [ user ])
@@ -42,12 +46,12 @@ export default (props) => {
             <div className="page-login__container page-login__right">
                 <div className="page-login__account">
                     <div className="page-login__account_text">
-                        <h2>Login to your account</h2>
-                        <p>There are several ways to login to your account</p>
+                        <h2>Create your account</h2>
+                        <p>Join { userCount } users who started using Studentroom</p>
                     </div>
 
                     <div className="page-login__account_buttons">
-                        <div className="page-login__account_social" onClick={() => signInWithGoogle()}><i className="fab fa-google"></i> Login with Google</div>
+                        <div className="page-login__account_social" onClick={() => signInWithGoogle()}><i className="fab fa-google"></i> Signup with Google</div>
                         {/* <div className="page-login__account_social" onClick={() => signInWithGoogle()}><i className="fab fa-github"></i> Sign up with GitHub</div> */}
                     </div>
 
@@ -72,7 +76,7 @@ export default (props) => {
                             <p>{ errorMessage.length > 0 && errorMessage }</p>
                         </div>
 
-                        <button className="fit" onClick={() => login()}>Login</button>
+                        <button className="fit" onClick={() => register()}>Login</button>
                     </div>
                 </div>
             </div>

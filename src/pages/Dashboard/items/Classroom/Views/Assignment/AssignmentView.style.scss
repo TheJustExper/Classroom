@@ -202,119 +202,125 @@
             width: fit-content;
         }
     }
+}
 
-    .wmde-markdown-color code[class*="language-"] .token.operator, .wmde-markdown-color code[class*="language-"] .token.entity, .wmde-markdown-color code[class*="language-"] .token.url, .wmde-markdown-color code[class*="language-"] .token.variable {
+.wmde-markdown-color code[class*="language-"] .token.operator, .wmde-markdown-color code[class*="language-"] .token.entity, .wmde-markdown-color code[class*="language-"] .token.url, .wmde-markdown-color code[class*="language-"] .token.variable {
+    background: none;
+}
+
+.wmde-markdown > table tr, .wmde-markdown > blockquote table tr {
+    @include themify($themes) {
+        background-color: themed("subheader-color");
+    }
+}
+
+.wmde-markdown > table td, .wmde-markdown > blockquote table td, .wmde-markdown > table th, .wmde-markdown > blockquote table th {
+    @include themify($themes) {
+        border: 1px solid themed("border-color");
+    }
+}
+
+.wmde-markdown > blockquote, .wmde-markdown > blockquote blockquote {
+    @include themify($themes) {
+        border-left: 0.25em solid themed("border-color");
+    }
+}
+
+.wmde-markdown {
+    @include themify($themes) {
+        color: themed("text-primary");
+    }
+
+    hr {
+        @include themify($themes) {
+            border-top: 2px dotted themed("border-color");
+        }
+    }
+
+    code[class*="language-"] .token.operator, .wmde-markdown-color code[class*="language-"] .token.entity, .wmde-markdown-color code[class*="language-"] .token.url, .wmde-markdown-color code[class*="language-"] .token.variable {
         background: none;
     }
 
-    .wmde-markdown > table tr, .wmde-markdown > blockquote table tr {
+   code[class*="language-"] {
         @include themify($themes) {
+            color: themed("text-primary");
+        }
+   }
+
+  h1, h2 {
+    @include themify($themes) {
+        border-bottom: 1px solid themed("border-color");
+    }
+  }
+
+   p {
+    font-size: 14px;
+    
+    @include themify($themes) {
+        color: themed("text-secondary");
+    } 
+   }
+
+    pre { 
+        @include themify($themes) {
+            background-color: themed("active-color");
+        }
+
+        code {
+            @include themify($themes) {
+                text-shadow: none;
+            }
+        }
+    }
+}
+
+.w-md-editor-toolbar li.active > button {
+    @include themify($themes) {
+        background-color: themed("header-color");
+    }
+}
+
+.w-md-editor {
+    width: 100%;
+    background: none;
+
+    @include themify($themes) {
+        box-shadow: 0 0 0 1px themed("border-color"), 0 0 0 themed("border-color"), 0 1px 1px themed("border-color");
+    }
+
+    .w-md-editor-text-pre .title, .w-md-editor-text-pre .bold {
+        @include themify($themes) {
+            color: themed("text-primary") !important;
+        }
+    }
+
+    .w-md-editor-preview {
+        @include themify($themes) {
+            box-shadow: inset 1px 0 0 0 themed("border-color");
+        }
+    }
+
+    .w-md-editor-toolbar-divider {
+        @include themify($themes) {
+            background-color: themed("border-color");
+        }
+    }
+
+    .w-md-editor-toolbar {
+        @include themify($themes) {
+            border-bottom: 1px solid themed("border-color");
             background-color: themed("subheader-color");
         }
     }
 
-    .wmde-markdown > table td, .wmde-markdown > blockquote table td, .wmde-markdown > table th, .wmde-markdown > blockquote table th {
-        @include themify($themes) {
-            border: 1px solid themed("border-color");
-        }
-    }
-
-    .wmde-markdown > blockquote, .wmde-markdown > blockquote blockquote {
-        @include themify($themes) {
-            border-left: 0.25em solid themed("border-color");
-        }
-    }
-
-    .wmde-markdown {
+    .wmde-markdown-color code[class*="language-"] {
         @include themify($themes) {
             color: themed("text-primary");
         }
-
-        hr {
-            @include themify($themes) {
-                border-top: 2px dotted themed("border-color");
-            }
-        }
-
-        code[class*="language-"] .token.operator, .wmde-markdown-color code[class*="language-"] .token.entity, .wmde-markdown-color code[class*="language-"] .token.url, .wmde-markdown-color code[class*="language-"] .token.variable {
-            background: none;
-        }
-
-       code[class*="language-"] {
-            @include themify($themes) {
-                color: themed("text-primary");
-            }
-       }
-
-      h1, h2 {
-        @include themify($themes) {
-            border-bottom: 1px solid themed("border-color");
-        }
-      }
-
-       p {
-        font-size: 14px;
-        
-        @include themify($themes) {
-            color: themed("text-secondary");
-        } 
-       }
-
-        pre { 
-            @include themify($themes) {
-                background-color: themed("active-color");
-            }
-
-            code {
-                @include themify($themes) {
-                    text-shadow: none;
-                }
-            }
-        }
     }
 
-    .w-md-editor {
-        width: 100%;
-        background: none;
-
-        @include themify($themes) {
-            box-shadow: 0 0 0 1px themed("border-color"), 0 0 0 themed("border-color"), 0 1px 1px themed("border-color");
-        }
-
-        .w-md-editor-text-pre .title, .w-md-editor-text-pre .bold {
-            @include themify($themes) {
-                color: themed("text-primary") !important;
-            }
-        }
-
-        .w-md-editor-preview {
-            @include themify($themes) {
-                box-shadow: inset 1px 0 0 0 themed("border-color");
-            }
-        }
-
-        .w-md-editor-toolbar-divider {
-            @include themify($themes) {
-                background-color: themed("border-color");
-            }
-        }
-
-        .w-md-editor-toolbar {
-            @include themify($themes) {
-                border-bottom: 1px solid themed("border-color");
-                background-color: themed("subheader-color");
-            }
-        }
-
-        .wmde-markdown-color code[class*="language-"] {
-            @include themify($themes) {
-                color: themed("text-primary");
-            }
-        }
-
-        @include themify($themes) {
-            color: themed("text-primary");
-        }
+    @include themify($themes) {
+        color: themed("text-primary");
     }
 }
 

@@ -19,6 +19,8 @@ export default () => {
                 </div>
                 <div className="links">
                     <Link to="/">Home</Link>
+                    <Link to="/">Features</Link>
+                    <Link to="/">Pricing</Link>
                     <Link to="/information">Information</Link>
                     { user ? <Link to="/dashboard">Dashboard</Link> : "" }
                 </div>

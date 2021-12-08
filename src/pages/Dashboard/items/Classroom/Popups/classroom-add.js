@@ -21,30 +21,7 @@ export default (props) => {
     };
 
     const create = async () => {
-        const fire = firestore.collection("classrooms");
-        const userRef = firestore.collection("users").doc(user.uid);
-        const { title, description } = inputValues;
-
-        if (title.length == 0) return;
-        
-        const { id } = await fire.add({
-            title,
-            description,
-            users: [{
-                id: user.uid,
-                role: "teacher"
-            }],
-            usersIds: [user.uid],
-            date: Date.now(),
-        });
-
-        // await userRef.update({
-        //     classrooms: firebase.firestore.FieldValue.arrayUnion(id)
-        // });
-        
-
-        props.setPopup(null);
-        props.refresh();
+       
     }
 
     return (

@@ -20,25 +20,23 @@ export default (props) => {
         classroom.get().then(async (doc) => {
             let data = doc.data();
 
-            if (doc.exists) {
-                if (data.usersIds.includes(user.uid)) return;
+            if (!doc.exists) return;
+            if (data.usersIds.includes(user.uid)) return;
 
-                await classroom.update({
-                    users: firebase.firestore.FieldValue.arrayUnion({
-                        id: user.uid,
-                        role: "user"
-                    }),
-                    usersIds: firebase.firestore.FieldValue.arrayUnion(user.uid)
-                });
+            await classroom.update({
+                users: firebase.firestore.FieldValue.arrayUnion({
+                    id: user.uid,
+                    joined: Date.now(),
+                    role: "user"
+                }),
+                usersIds: firebase.firestore.FieldValue.arrayUnion(user.uid)
+            });
 
-                // await userRef.update({
-                //     classrooms: firebase.firestore.FieldValue.arrayUnion(id)
-                // });
+            // await userRef.update({
+            //     classrooms: firebase.firestore.FieldValue.arrayUnion(id)
+            // });
 
-                loadClassrooms()
-            } else {
-                console.log("")
-            }
+            loadClassrooms()
         });
     }
 

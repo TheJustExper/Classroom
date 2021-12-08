@@ -1,0 +1,68 @@
+@import "../../styles/variables";
+
+.trial {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    border-radius: 5px;
+
+    $color: $primary-brand-color;
+
+    padding: 15px;
+
+    @include themify($themes) {
+        background-color: themed("header-color");
+        border: 1px solid themed("border-color");
+    }
+
+    .button {
+        &__outer {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    &__inner {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    &__text {
+        height: 100%;
+
+        margin-left: 20px;
+        font-size: 15px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        @include themify($themes) {
+            color: themed("text-primary");
+        }
+
+        p {
+            @include themify($themes) {
+                color: themed("text-secondary");
+            }
+        }
+    }
+
+    &__symbol {
+        padding: 10px;
+        border-radius: 5px;
+
+        border: 1px solid transparentize($color, 0.7) !important;
+        background-color: transparentize($color, 0.8);
+
+        color: $primary-brand-color !important;
+
+        @include themify($themes) {
+            color: themed("text-primary");
+        }
+    }
+}

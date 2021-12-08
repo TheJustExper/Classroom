@@ -192,7 +192,6 @@
         font-size: 14px;
         letter-spacing: -0.19px;
         cursor: pointer;
-        transition: all 0.1s ease 0s;
         text-decoration: none;
 
         @include themify($themes) {

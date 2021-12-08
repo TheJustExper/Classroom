@@ -86,7 +86,7 @@ $color-yellow: #FFB901;
 $color-orange: #FF6110;
 $color-yellow-dark: #352F1C;
 
-$color-green-nice: #21938A;
+$color-green: #21938A;
 
 $color-green-light: #BBE668;
 
@@ -94,3 +94,6 @@ $primary-brand-color: $color-blue;
 
 $header-size: 75px;
 
+@mixin shadow {
+  box-shadow: 0 3px 12px -2px rgb(51, 51, 51 / 10%);
+}

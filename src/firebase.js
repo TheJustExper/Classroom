@@ -38,14 +38,8 @@ export const signInWithGoogle = () => {
                 email: auth.currentUser.email,
                 displayName: auth.currentUser.displayName,
                 photoURL: auth.currentUser.photoURL,
-
                 joined: Date.now(),
-
-                level: 0,
-                xp: 0,
-
                 roles: ["ADMIN"],
-                classrooms: [],
                 notifications: [],
             });
         }
@@ -63,15 +57,9 @@ export const registerWithEmailAndPassword = (email, password) => {
             email: auth.currentUser.email,
             displayName: faker.name.findName(),
             photoURL: faker.image.imageUrl(),
-
             joined: Date.now(),
-
-            level: 0,
-            xp: 0,
             plan: 1,
-
             roles: ["USER"],
-            classrooms: [],
             notifications: [],
         });
     });

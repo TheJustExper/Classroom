@@ -3,12 +3,14 @@ import { AlertContext } from "../../providers/AlertProvider";
 import { UserContext, hasRole } from "../../providers/UserProvider";
 import { firestore, auth } from "../../firebase";
 
+import Trial from "../../components/trial/Trial";
+
 import Header from "../../components/header/header";
 
 import "./Account.style.scss";
 
 export default () => {
-    const { alert, setAlert } = useContext(AlertContext);
+    const { alert, type, setAlert } = useContext(AlertContext);
     const { user, refresh, loading } = useContext(UserContext);
     const [ itemSelected, setItemSelected ] = useState()
     const [ inputValues, setInputValues ] = useReducer((state, newState) => ({ ...state, ...newState }), { displayName: '', email: '' });
@@ -24,7 +26,7 @@ export default () => {
 
         await userRef.update({ displayName });
 
-        setAlert("Your account has been updated");
+        setAlert("success", "Your account has been updated");
         refresh();
 
         //setTimeout(() => setAlert(null), 4000);
@@ -41,12 +43,13 @@ export default () => {
     return (
         <div className="account">
             <Header>
-                { alert && <div className="alert-outer">{ alert }</div> }
+                { alert && <div className={"alert-outer alert-outer--" + type}>{ alert }</div> }
             </Header>
 
             <div className="account-content content">
                 <div className="itemContent">
                     <div className="itemContent__inner account-content__container column">
+                        <Trial/>
                         <div className="itemContent__text">
                             <h1 className="itemContent__title">Account Settings</h1>
                             <p className="itemContent__subtitle">Change your profile and account settings</p>

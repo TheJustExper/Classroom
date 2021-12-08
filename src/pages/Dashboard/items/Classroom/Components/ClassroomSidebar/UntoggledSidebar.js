@@ -22,6 +22,10 @@ export default ({ teachers, users, setSidebar }) => {
                                     <img className="user-me-icon" src={photoURL}/>
                                     <div className={"status " + status}></div>
                                 </div>
+                                {/* <div className="user__text">
+                                    <p>{ displayName }</p>
+                                    <p className="user__id">{ uid }</p>
+                                </div> */}
                                 <p>{ displayName }</p>
                             </div>
                         )
@@ -45,6 +49,10 @@ export default ({ teachers, users, setSidebar }) => {
                                     <img src={photoURL}/>
                                     <div className={"status " + status}></div>
                                 </div>
+                                {/* <div className="user__text">
+                                    <p>{ displayName }</p>
+                                    <p className="user__id">{ uid }</p>
+                                </div> */}
                                 <p>{ displayName }</p>
                             </div>
                         )

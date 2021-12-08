@@ -9,6 +9,84 @@
     padding: 25px;
 }
 
+.classroom-activity {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 20px;
+
+    &__input {}
+
+    &__item {
+        display: flex;
+        flex-direction: row;
+
+        margin-bottom: 20px;
+        padding-bottom: 20px;;
+
+        @include themify($themes) {
+            border-bottom: 1px solid themed("border-color");
+        }
+
+        img {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+        }
+
+        &:last-child {
+            margin-bottom: 0px;
+            border-bottom: 0px;
+            padding-bottom: 0px;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        margin-left: 15px;
+
+        &-text {
+            display: flex;
+            flex-direction: row;
+
+            &--teacher {
+                color: $primary-brand-color !important;
+            }
+
+            b {
+                font-size: 14px;
+
+                @include themify($themes) {
+                    color: themed("text-primary");
+                }
+            }
+
+            p {
+                font-size: 14px;
+                margin-left: 5px;
+
+                @include themify($themes) {
+                    color: themed("text-secondary");
+                }
+            }
+        }
+
+        &-inner {
+            display: flex;
+            margin-top: 5px;
+
+            p {
+                font-size: 14px;
+
+                @include themify($themes) {
+                    color: transparentize(themed("text-primary"), 0.8);
+                }
+            }
+        }
+    }
+}
+
 .container {
     margin-bottom: 30px;
     border-radius: 5px;
@@ -34,6 +112,10 @@
         }
 
         font-size: 14px;
+
+        .input-outer {
+            margin-left: 15px;
+        }
 
         p {
             white-space: nowrap;
@@ -105,7 +187,7 @@
 
         &-item {
             padding: 10px 25px;
-            font-size: 15px;
+            font-size: 14px;
 
             flex-grow: 1;
             text-align: center;
@@ -389,9 +471,30 @@
                 flex-direction: row;
                 align-items: center;
 
-                padding: 7px 0px;
+                padding: 8px 0px;
 
                 user-select: none;
+
+                p {
+                    font-size: 14px;
+                    font-weight: 600;
+                    margin-left: 15px;
+
+                    @include themify($themes) {
+                        color: themed("text-secondary");
+                    }
+                }
+
+                &__id {
+                    margin-top: 2px;
+
+                    font-size: 10px !important;
+                    font-weight: 300 !important;
+
+                    @include themify($themes) {
+                        color: themed("text-secondary") !important;
+                    }
+                }
 
                 &:last-child {
                     margin-bottom: 0px;
@@ -458,16 +561,6 @@
                     .away {
                         background-color: $color-amber;
                     }
-                }
-
-                p {
-                    @include themify($themes) {
-                        color: themed("text-secondary");
-                    }
-
-                    font-size: 14px;
-                    font-weight: 600;
-                    margin-left: 15px;
                 }
             }
         }

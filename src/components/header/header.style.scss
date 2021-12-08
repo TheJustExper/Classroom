@@ -124,12 +124,15 @@
         .alert-outer {
             width: 100%;
             padding: 12px;
-            background-color: $color-success;
             text-align: center;
 
             font-size: 14px;
 
             color: white; 
+
+            &--success {
+                background-color: $color-success;
+            }
         }
 
         .logo {

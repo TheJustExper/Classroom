@@ -1,0 +1,144 @@
+@import "../../../../styles/variables";
+
+.editor {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    &__outer {
+        width: 100%;
+        height: 100%;
+
+        @include themify($themes) {
+            background-color: themed("header-color");
+        }
+    }
+}
+
+.react-flow__controls {
+    height: fit-content;
+
+    left: unset !important;
+
+    top: 15px;
+    right: 15px;
+
+    position: absolute;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+
+    box-shadow: unset !important;
+
+    &-button {
+        margin-bottom: 10px;
+        transition: 0s;
+        
+        @include themify($themes) {
+            background-color: themed("subheader-color");
+            border: 1px solid themed("border-color");
+            fill: themed("text-primary");
+
+            box-shadow: 0 -2px 10px transparentize(#000, 0.8);
+        }
+
+        &:hover {
+            @include themify($themes) {
+                background-color: themed("active-color") !important;
+            }
+        }
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+.react-flow__background {
+    circle {
+        @include themify($themes) {
+            fill: themed("border-color");
+         }
+    }
+
+    path {
+        @include themify($themes) {
+            stroke: themed("border-color");
+         }
+    }
+}
+
+.react-flow__edge-path {
+    @include themify($themes) {
+        stroke: themed("text-primary");
+    }
+}
+
+.react-flow__node {
+
+    box-shadow: unset !important;
+
+    border-radius: 3px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 12px;
+    padding: 10px;
+    text-align: center;
+    width: 150px;
+
+    @include themify($themes) {
+        color: themed("text-primary");
+        background-color: themed("subheader-color");
+    }
+
+    input {
+        width: 100%;
+
+        background-color: transparent;
+        border: none;
+        outline: none;
+
+        cursor: pointer;
+
+        text-align: center;
+
+        font-family: 'JetBrains Mono', monospace !important;
+        text-transform: uppercase;
+
+        @include themify($themes) {
+            color: themed("text-primary");
+        }
+    }
+
+    &-default {
+        @include themify($themes) {
+            border: 1px solid themed("text-primary");
+        }
+    }
+
+    &-input {
+        border: 1px solid $primary-brand-color !important;
+    }
+
+    &-output {
+        border: 1px solid $color-pink !important;
+    }
+
+    &-popup {
+        &-open {
+            border: 1px solid $color-green !important;
+        }
+
+        &-close {
+            border: 1px solid $color-red !important;
+        }
+    }
+
+    &.selected {
+        @include themify($themes) {
+            border: 1px solid themed("oppositeTheme") !important;
+            background-color: themed("active-color");
+        }
+    }
+}

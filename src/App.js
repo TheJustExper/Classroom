@@ -2,11 +2,13 @@ import React, { useState, useContext, useEffect } from "react";
 import UserProvider, { UserContext } from "./providers/UserProvider";
 import AlertProvider, { AlertContext } from "./providers/AlertProvider";
 import ThemeProvider, { ThemeContext } from "./providers/ThemeProvider";
+import ClassroomProvider from "./providers/ClassroomProvider";
 
 import PrivateRoute from "./PrivateRoute";
 
 import Dashboard from "./pages/Dashboard/Dashboard";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Account from "./pages/Account/Account";
 
@@ -30,6 +32,7 @@ function AppInner() {
         <PrivateRoute path="/account" component={Account} />
 
         <Route exact path="/" component={LandingPage} />
+        <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
       </Switch>
     </div>
@@ -41,9 +44,11 @@ export default function App() {
     <UserProvider>
       <AlertProvider>
         <ThemeProvider>
-          <Router>
-            <AppInner/>     
-          </Router>
+          <ClassroomProvider>
+            <Router>
+              <AppInner/>     
+            </Router>
+          </ClassroomProvider>
         </ThemeProvider>
       </AlertProvider>
     </UserProvider>

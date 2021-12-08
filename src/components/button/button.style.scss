@@ -1,5 +1,13 @@
 @import "../../styles/variables";
 
+.style {
+    &__game {
+        box-shadow: rgb(156, 163, 175) 0px -6px 0px inset, rgb(243, 244, 246) 0px -7px 0px 0px inset, rgb(243, 244, 246) 0px 1px 0px 1px inset;
+        border-color: rgba(75, 85, 99, 1);
+        background-color: rgba(229, 231, 235, 1)
+    }
+}
+
 .small {
     padding: 7px 12px;
     font-size: .7rem;
