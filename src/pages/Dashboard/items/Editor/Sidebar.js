@@ -7,9 +7,9 @@ export default ({ onDragStart }) => {
         <div className="editor__nodes">
             <div className="editor__nodes-outer">
                 <SidebarGroup title="Nodes">
-                    <div className="editor__node editor__node-input" onDragStart={(event) => onDragStart(event, 'input')} draggable>Input</div>
-                    <div className="editor__node editor__node-output" onDragStart={(event) => onDragStart(event, 'output')} draggable>Output</div>    
-                    <div className="editor__node editor__node-default" onDragStart={(event) => onDragStart(event, 'default')} draggable>Default</div>
+                    <div className="editor__node" onDragStart={(event) => onDragStart(event, 'input')} draggable>Input</div>
+                    <div className="editor__node" onDragStart={(event) => onDragStart(event, 'output')} draggable>Output</div>    
+                    <div className="editor__node" onDragStart={(event) => onDragStart(event, 'default')} draggable>Default</div>
                 </SidebarGroup>
                 <SidebarGroup title="Event Listeners">
                     <div className="editor__node" onDragStart={(event) => onDragStart(event, 'classroom-enter')} draggable>Classroom Enter</div>
@@ -17,8 +17,8 @@ export default ({ onDragStart }) => {
                     <div className="editor__node" onDragStart={(event) => onDragStart(event, 'button')} draggable>Homework Submit</div>
                 </SidebarGroup>
                 <SidebarGroup title="Functions">
-                    <div className="editor__node editor__node-popup__open" onDragStart={(event) => onDragStart(event, 'popup-open')} draggable>Popup Open</div>
-                    <div className="editor__node editor__node-popup__close" onDragStart={(event) => onDragStart(event, 'popup-close')} draggable>Popup Close</div>
+                    <div className="editor__node" onDragStart={(event) => onDragStart(event, 'popup-open')} draggable>Popup Open</div>
+                    <div className="editor__node" onDragStart={(event) => onDragStart(event, 'popup-close')} draggable>Popup Close</div>
                 </SidebarGroup>
             </div>
             <button className="editor__run"><i className="fa fa-running"/> Run Workflow</button>
