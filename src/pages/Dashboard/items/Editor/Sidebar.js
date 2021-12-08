@@ -21,7 +21,7 @@ export default ({ onDragStart }) => {
                     <div className="editor__node" onDragStart={(event) => onDragStart(event, 'popup-close')} draggable>Popup Close</div>
                 </SidebarGroup>
             </div>
-            <button className="editor__run"><i className="fa fa-running"/> Run Workflow</button>
+            <button className="editor__run"><i className="fa fa-running"/>Test Workflow</button>
         </div>
     )
 }
