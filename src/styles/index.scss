@@ -248,6 +248,11 @@
     font-family: "Inter";
 }
 
+#tsparticles {
+  position: absolute;
+  z-index: 0;
+}
+
 #app {
     height: 100vh;
     overflow: hidden;

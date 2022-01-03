@@ -38,6 +38,7 @@
         
         display: flex;
         flex-direction: column;
+        z-index: 1;
 
         @include themify($themes) {
             background-color: themed('header-color');  
@@ -94,7 +95,6 @@
 
             h1 {
                 font-size: 20px;
-                margin-left: 7px;
     
                 @include themify($themes) {
                     color: themed('text-primary');  
@@ -162,6 +162,7 @@
                 font-size: 13px;
                 letter-spacing: -.11px;
                 padding: 0 20px;
+                z-index: 1;
 
                 &:last-child {
                     margin-right: 0px;

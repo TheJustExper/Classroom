@@ -29,6 +29,17 @@ export default () => {
         setAlert("success", "Your account has been updated");
         refresh();
 
+        function randomNumbers(num) {
+            const numbs = []
+            
+            while (numbs.reduce((a, b) => a + b, 0) < num) {
+                if (numbs.reduce((a, b) => a + b, 0) == num) return;
+                
+                const numb = Math.floor(Math.random() * (numbs[numbs.length - 1] == undefined ? 0 : numbs[numbs.length - 1]));
+                numbs.push(numb);
+            }
+        }
+
         //setTimeout(() => setAlert(null), 4000);
     }
 

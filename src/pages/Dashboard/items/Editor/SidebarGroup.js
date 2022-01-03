@@ -8,7 +8,7 @@ export default ({ title = "Default", children }) => {
     return (
         <div className="group__outer">
             <div className={"group__header " + (selected && "group__header--active")} onClick={() => setSelected(!selected)}>
-                <i className={"fa fa-chevron-" + (selected ? "up" : "down")}/>
+                <i className={"fa fa-chevron-" + (selected ? "down" : "right")}/>
                 <p>{ title }</p>
             </div>
             { selected && children && <div className="group__inner">{ children }</div> }

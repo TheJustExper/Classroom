@@ -1,4 +1,4 @@
-import React, { Component, createContext } from "react";
+import React, { Component, createContext, useEffect } from "react";
 import { firestore, auth } from "../firebase";
 
 export const AlertContext = createContext({ 

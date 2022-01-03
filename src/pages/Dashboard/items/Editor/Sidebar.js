@@ -10,13 +10,14 @@ export default ({ onDragStart }) => {
                     <div className="editor__node" onDragStart={(event) => onDragStart(event, 'input')} draggable>Input</div>
                     <div className="editor__node" onDragStart={(event) => onDragStart(event, 'output')} draggable>Output</div>    
                     <div className="editor__node" onDragStart={(event) => onDragStart(event, 'default')} draggable>Default</div>
+                    <div className="editor__node" onDragStart={(event) => onDragStart(event, 'special')} draggable>Special</div>
                 </SidebarGroup>
                 <SidebarGroup title="Event Listeners">
                     <div className="editor__node" onDragStart={(event) => onDragStart(event, 'classroom-enter')} draggable>Classroom Enter</div>
                     <div className="editor__node" onDragStart={(event) => onDragStart(event, 'classroom-leave')} draggable>Classroom Leave</div>    
                     <div className="editor__node" onDragStart={(event) => onDragStart(event, 'button')} draggable>Homework Submit</div>
                 </SidebarGroup>
-                <SidebarGroup title="Functions">
+                <SidebarGroup title="Actions">
                     <div className="editor__node" onDragStart={(event) => onDragStart(event, 'popup-open')} draggable>Popup Open</div>
                     <div className="editor__node" onDragStart={(event) => onDragStart(event, 'popup-close')} draggable>Popup Close</div>
                 </SidebarGroup>

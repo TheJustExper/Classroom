@@ -245,7 +245,7 @@ export default (props) => {
 						<div className="itemContent__inner itemContent__inner--1000">
 							<div className="classroom">
 
-								<div className="classroom__header">
+								<div className="container container__background padding classroom__header">
 									<div className="text">
 										<h1>{ classroom.title || "Loading..." }</h1>
 										<p className="title">There is { topics.length } topic(s) avaliable</p>

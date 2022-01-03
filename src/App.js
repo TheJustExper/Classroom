@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import UserProvider, { UserContext } from "./providers/UserProvider";
 import AlertProvider, { AlertContext } from "./providers/AlertProvider";
 import ThemeProvider, { ThemeContext } from "./providers/ThemeProvider";
+import EditorProvider from "./providers/EditorProvider";
 import ClassroomProvider from "./providers/ClassroomProvider";
 
 import PrivateRoute from "./PrivateRoute";
@@ -18,6 +19,8 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 
 import "animate.css";
 import './styles/index.scss';
+
+import Particles from 'react-particles-js';
 
 function AppInner() {
   const [ popup, setPopup ] = useState(null);
@@ -45,9 +48,11 @@ export default function App() {
       <AlertProvider>
         <ThemeProvider>
           <ClassroomProvider>
-            <Router>
-              <AppInner/>     
-            </Router>
+            <EditorProvider>
+              <Router>
+                <AppInner/>     
+              </Router>
+            </EditorProvider>
           </ClassroomProvider>
         </ThemeProvider>
       </AlertProvider>
