@@ -1,0 +1,38 @@
+@import "../../styles/variables";
+
+.blogs {
+    height: 100%;
+
+    background-color: $main-color;
+
+    &-content {
+        display: flex;
+        flex-direction: row;
+        height: calc(100vh);
+        
+        &__container {
+            max-width: fit-content;
+            justify-content: center;
+        }
+
+        &__inner {
+            width: 650px;
+            height: 100%;
+
+            border-radius: 5px;
+
+            button {
+                margin-top: 10px;
+            }
+        }
+
+        &__subtitle {
+            font-size: 15px;
+            margin-bottom: 20px;
+
+            @include themify($themes) {
+                color: themed("text-primary");
+            }
+        }
+    }
+}

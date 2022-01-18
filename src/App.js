@@ -12,6 +12,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import Account from "./pages/Account/Account";
+import Blogs from "./pages/Blogs/Blogs";
 
 import Fade from "./components/fade/Fade";
 
@@ -35,6 +36,7 @@ function AppInner() {
         <PrivateRoute path="/account" component={Account} />
 
         <Route exact path="/" component={LandingPage} />
+        <Route exact path="/blogs" component={Blogs}/>
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
       </Switch>
