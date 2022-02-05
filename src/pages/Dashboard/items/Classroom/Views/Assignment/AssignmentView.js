@@ -315,6 +315,7 @@ export default (props) => {
 
                                 <Attachment name="Homework" size="5" icon={Pdf} />
                                 <Attachment name="Homework" size="5" icon={Xls} />
+                                <Attachment name="Homework" size="5" icon={Xls} />
                                 
                             </div>
                         </div>

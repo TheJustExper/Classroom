@@ -52,27 +52,11 @@ export default (props) => {
         })
     }
 
-    const firestoreAutoId = () => {
-        const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-      
-        let autoId = ''
-      
-        for (let i = 0; i < 28; i++) {
-          autoId += CHARS.charAt(
-            Math.floor(Math.random() * CHARS.length)
-          )
-        }
-
-        return autoId
-      }
-
     useEffect(() => {
         const store = firestore.collection('users');
 
         store.get().then((querySnapshot) => {
-            const doc = querySnapshot.docs.map((doc) => {
-                return { id: doc.id, ...doc.data() }
-            })
+            const doc = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
             
             setUsers(doc);
         });

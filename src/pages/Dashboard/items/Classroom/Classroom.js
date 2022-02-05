@@ -184,70 +184,81 @@ export default (props) => {
     if (classroom) {
 		return (
 			<>
-					<div className="itemContent">
-						<div className="itemContent__inner itemContent__inner--1000">
-							<div className="classroom">
-
-								<div className="container container__background padding classroom__header">
-									<div className="text">
-										<h1>{ classroom.title || "Loading..." }</h1>
-										<p className="title">There is { topics.length } topic(s) avaliable</p>
-									</div>
-			
-									{ isTeacher && (
-										<div className="buttons">
-											<span className="buttons__icon" onClick={() => openContentPopup()}><i class="fas fa-plus"></i></span>
-											<span className="buttons__icon"><i class="fas fa-file"></i></span>
-											<span className="buttons__icon"><i class="fas fa-cog"></i></span>
-										</div>
-									)}
-								</div>
-
-								<div className="classroom__items">
-									{ tabs.map((tab, index) => { 
-										return <div onClick={() => setSelectedTab(index)} className={"classroom__items-item " + ( selectedTab == index && "classroom__items-item--selected" )}>{ tab }</div> })
-									}
-									{ isTeacher && (
-										<>
-											<div className="classroom__items-item">Marking</div>
-											<div className="classroom__items-item">Analytics</div>
-											<div className="classroom__items-item">Students</div>
-										</>
-									)}
-								</div>
-			
-								<div className="classroom-outer">
-			
-									<div className="classroom-left">
-										{/* <div className="container" ref={topicsRef}>
-											<div className="row">
-												<p>Topic List <b>({ topics.length })</b></p>
-												<div className="line"></div>
-											</div>
-			
-											{ topics.length > 0 &&
-												<div className="classroom-topics">
-			
-												{ topics.map(topic => <Topic data={topic} teacher={isTeacher} id={id} refresh={getTopics} setPopup={props.setPopup}/>) }  
-			
-												</div>
-											}
-										</div> */}
-
-										{ selectedTab == 0 && <Activity teachers={teachers}/> }
-										{ selectedTab == 1 && <Assignments id={id} isTeacher={isTeacher} setPopup={props.setPopup}/> }
-			
-									</div>
-			
-								</div>
-							</div>
-
-							{/* <div className="itemContent__side">
-								<div className="sideItem"></div>
-							</div> */}
-
+				<div className="classbar">
+					<div className="classbar__section">
+						<p>CHANNELS</p>
+						<div className="classbar__inner">
+							<div className="classbar__item"><a>announcements</a></div>
+							<div className="classbar__item"><a>resources</a></div>
+							<div className="classbar__item"><a>general</a></div>
 						</div>
 					</div>
+				</div>
+				
+				<div className="itemContent">
+					<div className="itemContent__inner itemContent__inner--1000">
+						<div className="classroom">
+
+							<div className="container container__background padding classroom__header">
+								<div className="text">
+									<h1>{ classroom.title || "Loading..." }</h1>
+									<p className="title">There is { topics.length } topic(s) avaliable</p>
+								</div>
+		
+								{ isTeacher && (
+									<div className="buttons">
+										<span className="buttons__icon" onClick={() => openContentPopup()}><i class="fas fa-plus"></i></span>
+										<span className="buttons__icon"><i class="fas fa-file"></i></span>
+										<span className="buttons__icon"><i class="fas fa-cog"></i></span>
+									</div>
+								)}
+							</div>
+
+							<div className="classroom__items">
+								{ tabs.map((tab, index) => { 
+									return <div onClick={() => setSelectedTab(index)} className={"classroom__items-item " + ( selectedTab == index && "classroom__items-item--selected" )}>{ tab }</div> })
+								}
+								{ isTeacher && (
+									<>
+										<div className="classroom__items-item">Marking</div>
+										<div className="classroom__items-item">Analytics</div>
+										<div className="classroom__items-item">Students</div>
+									</>
+								)}
+							</div>
+		
+							<div className="classroom-outer">
+		
+								
+									{/* <div className="container" ref={topicsRef}>
+										<div className="row">
+											<p>Topic List <b>({ topics.length })</b></p>
+											<div className="line"></div>
+										</div>
+		
+										{ topics.length > 0 &&
+											<div className="classroom-topics">
+		
+											{ topics.map(topic => <Topic data={topic} teacher={isTeacher} id={id} refresh={getTopics} setPopup={props.setPopup}/>) }  
+		
+											</div>
+										}
+									</div> */}
+
+									{ selectedTab == 0 && <Activity teachers={teachers}/> }
+									{ selectedTab == 1 && <Assignments id={id} isTeacher={isTeacher} setPopup={props.setPopup}/> }
+		
+								
+		
+							</div>
+						</div>
+
+						{/* <div className="itemContent__side">
+							<div className="sideItem"></div>
+						</div> */}
+
+					</div>
+				</div>
 
 				{ sidebarActive ?  <ToggledSidebar setSidebar={setSidebar} teachers={teachers} users={users} /> : <UntoggledSidebar setSidebar={setSidebar} teachers={teachers} users={users} /> }
 			</>

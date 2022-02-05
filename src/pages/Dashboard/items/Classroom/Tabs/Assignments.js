@@ -31,13 +31,10 @@ export default ({ id, isTeacher, setPopup }) => {
 
     const getAssignments = () => {
 		let itemRefs = firestore.collection('classrooms').doc(id);
-
 		let guidesRefs = itemRefs.collection("assignments");
 
 		guidesRefs.get().then((doc) => {
-			const items = doc.docs.map((doc) => {
-				return { id: doc.id, ...doc.data() }
-			});
+			const items = doc.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 			
 			setAssignments(items);  
 		});
@@ -61,7 +58,7 @@ export default ({ id, isTeacher, setPopup }) => {
 	}
 
     return (
-        <div className="container container__background padding">
+        <div className="container">
             <div className="row">
                 <p>Assignment(s) <b>({ assignments.length })</b></p>
                 <div className="line"></div>

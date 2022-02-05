@@ -24,6 +24,8 @@ import ProjectOverview from "./items/Project/ProjectOverview";
 import Tasks from "./items/Project/Tasks/Tasks";
 import Files from "./items/Project/Files/Files";
 
+import ClassroomSideBar from "./Sidebar";
+
 import Items from "./items/items";
 
 import Notification from "../../popups/Notification/Notification";
@@ -62,7 +64,7 @@ export default (props) => {
     return (
         <div className="dashboard">
             <Header setToggledTheme={props.setToggledTheme}/>
-
+            
             <div className="dashboard-content content">
                 <Switch>
                     { user && hasRole(user, ["ADMIN"]) && (
