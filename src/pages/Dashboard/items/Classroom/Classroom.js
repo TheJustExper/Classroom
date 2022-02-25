@@ -25,6 +25,7 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
 import Activity from "./Tabs/Activity";
 import Assignments from "./Tabs/Assignments";
+import Students from "./Tabs/Students";
 
 import 'react-circular-progressbar/dist/styles.css';
 import "./Classroom.style.scss";
@@ -49,8 +50,6 @@ export default (props) => {
 
     const [ classroom, setClassroom ] = useState(false);
     const [ topics, setTopics ] = useState([]);
-	const [ guides, setGuides ] = useState([]);
-	const [ assignments, setAssignments ] = useState([]);
 
     const [ teachers, setTeachers ] = useState([]);
 	const [ users, setUsers ] = useState([]);
@@ -58,7 +57,7 @@ export default (props) => {
 	const [ isTeacher, setIsTeacher ] = useState(false);
 
 	const [ selectedTab, setSelectedTab ] = useState(0);
-	const tabs = ["Classroom", "Assignments"]
+	const tabs = ["Classroom", "Assignments", "Topics", "Students"]
 
 	const [ sidebarActive, setSidebarActive ] = useState(localStorage.getItem("sidebar-active") === 'true');
 
@@ -101,20 +100,6 @@ export default (props) => {
 		});
 	}
 
-	const getGuides = () => {
-		let itemRefs = firestore.collection('classrooms').doc(id);
-
-		let guidesRefs = itemRefs.collection("guides");
-
-		guidesRefs.get().then((doc) => {
-			const items = doc.docs.map((doc) => {
-				return { id: doc.id, ...doc.data() }
-			});
-			
-			setGuides(items);                 
-		});
-	}
-
 	const getUsers = async (items) => {
 		const usersRefs = firestore.collection("users").where("uid", "in", items.usersIds);
 
@@ -137,7 +122,6 @@ export default (props) => {
 
 	const refresh = {
 		getTopics,
-		getGuides,
 		getAssignments: () => {}
 	}
 
@@ -162,7 +146,6 @@ export default (props) => {
 			setClassroom(items);
 
 			getTopics();
-			getGuides();
 			
         }
     }, [ loading ]);
@@ -184,7 +167,7 @@ export default (props) => {
     if (classroom) {
 		return (
 			<>
-				<div className="classbar">
+				{/* <div className="classbar">
 					<div className="classbar__section">
 						<p>CHANNELS</p>
 						<div className="classbar__inner">
@@ -193,9 +176,13 @@ export default (props) => {
 							<div className="classbar__item"><a>general</a></div>
 						</div>
 					</div>
-				</div>
+				</div> */}
 				
 				<div className="itemContent">
+					<div className="classroom__backgroundHeader">
+						
+					</div>
+					
 					<div className="itemContent__inner itemContent__inner--1000">
 						<div className="classroom">
 
@@ -216,21 +203,18 @@ export default (props) => {
 
 							<div className="classroom__items">
 								{ tabs.map((tab, index) => { 
-									return <div onClick={() => setSelectedTab(index)} className={"classroom__items-item " + ( selectedTab == index && "classroom__items-item--selected" )}>{ tab }</div> })
+									return <div onClick={() => setSelectedTab(index)} 
+												className={"classroom__items-item " + ( selectedTab == index && "classroom__items-item--selected" )}>{ tab }</div> })
 								}
-								{ isTeacher && (
-									<>
-										<div className="classroom__items-item">Marking</div>
-										<div className="classroom__items-item">Analytics</div>
-										<div className="classroom__items-item">Students</div>
-									</>
-								)}
 							</div>
 		
 							<div className="classroom-outer">
-		
-								
-									{/* <div className="container" ref={topicsRef}>
+		 
+
+									{ selectedTab == 0 && <Activity teachers={teachers}/> }
+									{ selectedTab == 1 && <Assignments id={id} isTeacher={isTeacher} setPopup={props.setPopup}/> }
+									
+									{ selectedTab == 2 && <div className="container" ref={topicsRef}>
 										<div className="row">
 											<p>Topic List <b>({ topics.length })</b></p>
 											<div className="line"></div>
@@ -239,15 +223,13 @@ export default (props) => {
 										{ topics.length > 0 &&
 											<div className="classroom-topics">
 		
-											{ topics.map(topic => <Topic data={topic} teacher={isTeacher} id={id} refresh={getTopics} setPopup={props.setPopup}/>) }  
+												{ topics.map(topic => <Topic data={topic} teacher={isTeacher} id={id} refresh={getTopics} setPopup={props.setPopup}/>) }  
 		
 											</div>
 										}
-									</div> */}
-
-									{ selectedTab == 0 && <Activity teachers={teachers}/> }
-									{ selectedTab == 1 && <Assignments id={id} isTeacher={isTeacher} setPopup={props.setPopup}/> }
+									</div> }
 		
+									{ selectedTab == 3 && <Students students={users}/> }
 								
 		
 							</div>

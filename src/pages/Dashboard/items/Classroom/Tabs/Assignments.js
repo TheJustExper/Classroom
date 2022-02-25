@@ -54,7 +54,7 @@ export default ({ id, isTeacher, setPopup }) => {
 	const getDateTag = (od, td) => {
         // This needs updating
         
-		return <span className="classroom-homework__today">...</span>;  
+		return <span className="classroom-homework__today">Needs Adding</span>;  
 	}
 
     return (
@@ -80,10 +80,7 @@ export default ({ id, isTeacher, setPopup }) => {
                                 { getDateTag(od, td) }
                             </div>
 
-                            { data.data.map((data) => {
-                                return <Assignment isTeacher={isTeacher} getAssignments={getAssignments} setPopup={setPopup} data={data} id={id} amountAssigned={2}/>
-                            })
-                        }
+                            { data.data.map((data) => <Assignment isTeacher={isTeacher} getAssignments={getAssignments} setPopup={setPopup} data={data} id={id} amountAssigned={2}/>) }
                         </div>
                     )
                 })}

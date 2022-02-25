@@ -86,17 +86,17 @@
 .dashboard {
     width: 100%;
     height: 100%;
-}
 
-.dashboard-content {
-    display: flex;
-    flex-direction: row;
-
-    width: 100%;
-    height: 100vh;
+    &__content {
+        display: flex;
+        flex-direction: row;
     
-    @include themify($themes) {
-        background-color: themed('main-color');  
+        width: 100%;
+        height: 100vh;
+        
+        @include themify($themes) {
+            background-color: themed('main-color');  
+        }
     }
 }
 
@@ -104,8 +104,6 @@
     width: 100%;
 
     height: 100%;
-
-    padding: 55px;
     box-sizing: border-box;
 
     overflow: auto;
@@ -177,7 +175,7 @@
         }
 
         &--1000 {
-            max-width: 900px;
+            max-width: 1000px;
         }
     }
 
